@@ -85,89 +85,91 @@ bool CameraWrapImpl::GetCameraIsGrab()
 
 USHORT16 CameraWrapImpl::GetMaxFram()
 {
-    return m_camera->GetMaxFrame();
+    return m_camera ? m_camera->GetMaxFrame() : 0;
 }
 
 BYTE8 CameraWrapImpl::GetCaptureMode()
 {
-    return m_camera->GetCaptureMode();
+    return m_camera ? m_camera->GetCaptureMode() : 0;
 }
 
 BYTE8 CameraWrapImpl::GetUserOperatorMode()
 {
-    return m_camera->GetUserOperatorMode();
+    return m_camera ? m_camera->GetUserOperatorMode() : 0;
 }
 
 BYTE8 CameraWrapImpl::GetDataType()
 {
-    return m_camera->GetDataType();
+    return m_camera ? m_camera->GetDataType() : 0;
 }
 
 BYTE8 CameraWrapImpl::GetTransMode()
 {
-    return m_camera->GetTransMode();
+    return m_camera ? m_camera->GetTransMode() : 0;
 }
 
 UINT32 CameraWrapImpl::GetBatchGrabNumber()
 {
-    return m_camera->GetBatchGrabNumber();
+    return m_camera ? m_camera->GetBatchGrabNumber() : 0;
 }
 
 USHORT16 CameraWrapImpl::GetFrame()
 {
-    return m_camera->GetFrame();
+    return m_camera ? m_camera->GetFrame() : 0;
 }
 
 UINT32 CameraWrapImpl::GetExpo()
 {
-    return m_camera->GetExpo();
+    return m_camera ? m_camera->GetExpo() : 0;
 }
 
 int CameraWrapImpl::GetPointCloudCallBackNum()
 {
-    int iNum;
-    SgGetPointCloudCallBackNum(m_iCameraHandle,iNum);
+    int iNum = 0;
+    if (SgGetPointCloudCallBackNum(m_iCameraHandle, iNum) != SGERR_OK)
+        return 0;
+
     return iNum;
 }
 
 const char * CameraWrapImpl::GetEmbedVer()
 {
-	return m_camera->GetEmbedVer();
+	return m_camera ? m_camera->GetEmbedVer() : "";
 }
 
 bool CameraWrapImpl::SetCaptureMode(BYTE8 ucCaptureMode)
 {
-    return m_camera->SetCaptureMode(ucCaptureMode) == SGERR_OK;
+    return m_camera && m_camera->SetCaptureMode(ucCaptureMode) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetUserOperatorMode(BYTE8 ucUserOperatorMode)
 {
-    return m_camera->SetUserOperatorMode(ucUserOperatorMode) == SGERR_OK;
+    return m_camera && m_camera->SetUserOperatorMode(ucUserOperatorMode) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetDataType(BYTE8 ucDataType)
 {
-    return m_camera->SetDataType(ucDataType) == SGERR_OK;
+    return m_camera && m_camera->SetDataType(ucDataType) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetTransMode(BYTE8 ucTransMode)
 {
-    return m_camera->SetTransMode(ucTransMode) == SGERR_OK;
+    return m_camera && m_camera->SetTransMode(ucTransMode) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetBatchGrabNumber(UINT32 uiBatchGrabNumber)
 {
-    return m_camera->SetBatchGrabNumber(uiBatchGrabNumber) == SGERR_OK;
+    return m_camera && m_camera->SetBatchGrabNumber(uiBatchGrabNumber) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetFrame(USHORT16 usFrame)
 {
-    return m_camera->SetFrame(usFrame) == SGERR_OK;
+    return m_camera && m_camera->SetFrame(usFrame) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetExpo(UINT32 uiExpo)
 {
-    return m_camera->SetExpo(uiExpo) == SGERR_OK;
+    return m_camera && m_camera->SetExpo(uiExpo) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetPointCloudCallBackNum(int iNum)
@@ -177,22 +179,22 @@ bool CameraWrapImpl::SetPointCloudCallBackNum(int iNum)
 
 bool CameraWrapImpl::SetYScaling(float fYScaling)
 {
-    return m_camera->SetYScaling(fYScaling) == SGERR_OK;
+    return m_camera && m_camera->SetYScaling(fYScaling) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetEncFilter(BYTE8 ucEncFilter)
 {
-    return m_camera->SetEncFilter(ucEncFilter) == SGERR_OK;
+    return m_camera && m_camera->SetEncFilter(ucEncFilter) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetEncPulseNumber(UINT32 uiEncPulseNumber)
 {
-    return m_camera->SetEncPulseNumber(uiEncPulseNumber) == SGERR_OK;
+    return m_camera && m_camera->SetEncPulseNumber(uiEncPulseNumber) == SGERR_OK;
 }
 
 bool CameraWrapImpl::SetIsLowPrecisionEncoder(BYTE8 isLowPrecisionEncoder)
 {
-    return m_camera->SetIsLowPrecisionEncoder(isLowPrecisionEncoder) == SGERR_OK;
+    return m_camera && m_camera->SetIsLowPrecisionEncoder(isLowPrecisionEncoder) == SGERR_OK;
 }
 
 bool CameraWrapImpl::GetEncoderCount(UINT32 &uiEncoderCount)
@@ -202,17 +204,17 @@ bool CameraWrapImpl::GetEncoderCount(UINT32 &uiEncoderCount)
 
 bool CameraWrapImpl::EncoderParamsbySpeed(double dSpeed, int iFrame, double dSinglePulseLength, double dScanLength, int iSubNums, unsigned char &ucEncFilter, unsigned int &uiPulseInterval, unsigned char &ucIsLowPrecisionEncoder, double &dYScale, unsigned int &uiGrabNumber)
 {
-    return GetEncoderParamsbySpeed(dSpeed,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,uiPulseInterval,ucIsLowPrecisionEncoder,dYScale,uiGrabNumber) == SGERR_OK;
+    return ::GetEncoderParamsbySpeed(dSpeed,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,uiPulseInterval,ucIsLowPrecisionEncoder,dYScale,uiGrabNumber) == SGERR_OK;
 }
 
 bool CameraWrapImpl::EncoderParamsbyPulseInterval(unsigned int uiPulseInterval, int iFrame, double dSinglePulseLength, double dScanLength, int iSubNums, unsigned char &ucEncFilter, double &dSpeed, unsigned char &ucIsLowPrecisionEncoder, double &dYScale, unsigned int &uiGrabNumber)
 {
-    return GetEncoderParamsbyPulseInterval(uiPulseInterval,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,dSpeed,ucIsLowPrecisionEncoder,dYScale, uiGrabNumber) == SGERR_OK;
+    return ::GetEncoderParamsbyPulseInterval(uiPulseInterval,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,dSpeed,ucIsLowPrecisionEncoder,dYScale, uiGrabNumber) == SGERR_OK;
 }
 
 bool CameraWrapImpl::EncoderParamsbyYScale(double dYScale, int iFrame, double dSinglePulseLength, double dScanLength, int iSubNums, unsigned char &ucEncFilter, double &dSpeed, unsigned char &ucIsLowPrecisionEncoder, unsigned int &uiPulseInterval, unsigned int &uiGrabNumber)
 {
-    return GetEncoderParamsbyYScale(dYScale,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,dSpeed,ucIsLowPrecisionEncoder,uiPulseInterval,uiGrabNumber) == SGERR_OK;
+    return ::GetEncoderParamsbyYScale(dYScale,iFrame,dSinglePulseLength,dScanLength,iSubNums,ucEncFilter,dSpeed,ucIsLowPrecisionEncoder,uiPulseInterval,uiGrabNumber) == SGERR_OK;
 }
 
 bool CameraWrapImpl::StartCapture()
@@ -266,4 +268,3 @@ bool CameraWrapImpl::ReleaseImageBuffer(void *pBuf)
 {
     return SgReleaseImageBuffer(m_iCameraHandle,pBuf) == SGERR_OK;
 }
-
