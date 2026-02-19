@@ -1,0 +1,1846 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_2G|ARM">
+      <Configuration>Debug_2G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_2G|Win32">
+      <Configuration>Debug_2G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_2G|x64">
+      <Configuration>Debug_2G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_3G|ARM">
+      <Configuration>Debug_3G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_3G|Win32">
+      <Configuration>Debug_3G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_3G|x64">
+      <Configuration>Debug_3G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_4G|ARM">
+      <Configuration>Debug_4G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_4G|Win32">
+      <Configuration>Debug_4G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_4G|x64">
+      <Configuration>Debug_4G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_5G|ARM">
+      <Configuration>Debug_5G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_5G|Win32">
+      <Configuration>Debug_5G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_5G|x64">
+      <Configuration>Debug_5G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_6G|ARM">
+      <Configuration>Debug_6G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_6G|Win32">
+      <Configuration>Debug_6G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_6G|x64">
+      <Configuration>Debug_6G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_EI|ARM">
+      <Configuration>Debug_EI</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_EI|Win32">
+      <Configuration>Debug_EI</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_EI|x64">
+      <Configuration>Debug_EI</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_SG|ARM">
+      <Configuration>Debug_SG</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_SG|Win32">
+      <Configuration>Debug_SG</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_SG|x64">
+      <Configuration>Debug_SG</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_2G|ARM">
+      <Configuration>Release_2G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_2G|Win32">
+      <Configuration>Release_2G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_2G|x64">
+      <Configuration>Release_2G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_3G|ARM">
+      <Configuration>Release_3G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_3G|Win32">
+      <Configuration>Release_3G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_3G|x64">
+      <Configuration>Release_3G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_4G|ARM">
+      <Configuration>Release_4G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_4G|Win32">
+      <Configuration>Release_4G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_4G|x64">
+      <Configuration>Release_4G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_5G|ARM">
+      <Configuration>Release_5G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_5G|Win32">
+      <Configuration>Release_5G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_5G|x64">
+      <Configuration>Release_5G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_6G|ARM">
+      <Configuration>Release_6G</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_6G|Win32">
+      <Configuration>Release_6G</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_6G|x64">
+      <Configuration>Release_6G</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_EI|ARM">
+      <Configuration>Release_EI</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_EI|Win32">
+      <Configuration>Release_EI</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_EI|x64">
+      <Configuration>Release_EI</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_SG|ARM">
+      <Configuration>Release_SG</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_SG|Win32">
+      <Configuration>Release_SG</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_SG|x64">
+      <Configuration>Release_SG</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0C1FB3BC-51D2-4CA1-93DF-F37FE8C709BD}</ProjectGuid>
+    <RootNamespace>APK</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|ARM'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin\x86\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PTC201</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PTC201S</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PWF207</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PMF205</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PMB204</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PDK203</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_PBH202</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d_EI</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PTC201</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PTC201S</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PWF207</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PMF205</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PMB204</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PDK203</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_PBH202</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|x64'">
+    <OutDir>$(SolutionDir)\Bin\x64\</OutDir>
+    <IntDir>$(SolutionDir)\_Obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_EI</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc141/x64/;../thirdparty/CrashRpt/lib/x64/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc141/x64/;../thirdparty/CrashRpt/lib/x64/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/eVision66/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/lib/Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/eVision66/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/lib/Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/eVision66/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/lib/Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/eVision66/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/lib/Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt/include;../thirdparty/eVision66/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/eVision66/Lib;../thirdparty/OMRON_SENTECH/lib/Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;EMxcMs60d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/PCIS_DASK/Include;../thirdparty/libxl/include_cpp;../thirdparty/CrashRpt/include;../thirdparty/Multicam/Include;../thirdparty/Mil_32/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x86/;../thirdparty/PCIS_DASK/Lib/;../thirdparty/libxl/lib/;../thirdparty/CrashRpt/lib/x86/;../thirdparty/Multicam/lib/;../thirdparty/Mil_32/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MIL.lib;libxl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy ..\thirdparty\CrashRpt\bin\x86\*.* ..\Bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_1G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_SG</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_6G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_5G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_4G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_3G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_2G</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_EI|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/AjinIOCard/Include;../thirdparty/CrashRpt/Include;../thirdparty/eVision/Include;../thirdparty/Mil/Include;../thirdparty/Multicam/Include;../thirdparty/MXComp/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x64;../thirdparty/AjinIOCard/Lib;../thirdparty/CrashRpt/Lib;../thirdparty/Mil/Lib;../thirdparty/Multicam/Lib/amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;XImage.lib;MIL.lib;AXL.lib;MultiCam.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\Libraries\Bin\vc11\x64\*u.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\*ud.dll ..\Bin\x64\
+copy ..\Libraries\Bin\vc11\x64\opencv*.dll ..\Bin\x64\
+copy ..\thirdparty\Ajin\Bin\*.* ..\Bin\x64\
+copy ..\thirdparty\CrashRpt\Bin\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\eVision\Bin64\*.* ..\Bin\x64\
+copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\
+copy ..\thirdparty\OpenMP\x64\*.* ..\Bin\x64\
+copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_1G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_SG</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_6G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_5G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_4G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_3G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;RELEASE_2G</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/crashrpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_EI|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/AjinIOCard/Include;../thirdparty/CrashRpt/Include;../thirdparty/eVision/Include;../thirdparty/Mil/Include;../thirdparty/Multicam/Include;../thirdparty\MXComp\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc11/x64;../thirdparty/AjinIOCard/Lib;../thirdparty/CrashRpt/Lib/x64;../thirdparty/Mil/Lib;../thirdparty/Multicam/Lib/amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;XImage.lib;CrashRpt1402.lib;Mil.lib;AXL.lib;MultiCam.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AccessRightsDlg.h" />
+    <ClInclude Include="AddNewRecipeDlg.h" />
+    <ClInclude Include="BottomStatusBar.h" />
+    <ClInclude Include="ChangePasswordDlg.h" />
+    <ClInclude Include="Common\xSingletoneObject.h" />
+    <ClInclude Include="ConfirmExitDlg.h" />
+    <ClInclude Include="CustomTooltip.h" />
+    <ClInclude Include="DecoderCortex.h" />
+    <ClInclude Include="DevTabCameraLight.h" />
+    <ClInclude Include="DevTabSystem.h" />
+    <ClInclude Include="Dev\xFrameGrabber.h" />
+    <ClInclude Include="Dev\xFrameGrabberMechEye.h" />
+    <ClInclude Include="Dev\xFrameGrabberPanSight.h" />
+    <ClInclude Include="Dev\xFrameGrabberSentech.h" />
+    <ClInclude Include="Dev\xLightControllerLFine.h" />
+    <ClInclude Include="IDefectInfo.h" />
+    <ClInclude Include="APK.h" />
+    <ClInclude Include="APKDoc.h" />
+    <ClInclude Include="APKTypes.h" />
+    <ClInclude Include="APKView.h" />
+    <ClInclude Include="EditJobNumberDlg.h" />
+    <ClInclude Include="FormDevice.h" />
+    <ClInclude Include="FormInspection.h" />
+    <ClInclude Include="FormTeaching.h" />
+    <ClInclude Include="InspectionVision.h" />
+    <ClInclude Include="InspectProcess.h" />
+    <ClInclude Include="InspectSaveMergeProcess.h" />
+    <ClInclude Include="InspectSaveProcess.h" />
+    <ClInclude Include="InspTabLog.h" />
+    <ClInclude Include="InspTabObj.h" />
+    <ClInclude Include="JobHandler.h" />
+    <ClInclude Include="JobNumberData.h" />
+    <ClInclude Include="JobNumberListCtrl.h" />
+    <ClInclude Include="LanguageInfo.h" />
+    <ClInclude Include="LightInfo.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MenuBar.h" />
+    <ClInclude Include="ModelInfo.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ShowErrorDlg.h" />
+    <ClInclude Include="SideBar.h" />
+    <ClInclude Include="SplashWnd.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StringMacro.h" />
+    <ClInclude Include="SystemConfig.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TeachAddFont.h" />
+    <ClInclude Include="TeachOCRFont.h" />
+    <ClInclude Include="TeachOCRFontChip.h" />
+    <ClInclude Include="TeachOCRFontTray.h" />
+    <ClInclude Include="TeachOCRReRegistration.h" />
+    <ClInclude Include="TeachTab1G3DChipCnt.h" />
+    <ClInclude Include="TeachTab1GChipOcr.h" />
+    <ClInclude Include="TeachTab1GLift.h" />
+    <ClInclude Include="TeachTab1GMixing.h" />
+    <ClInclude Include="TeachTab5GSealingQuality.h" />
+    <ClInclude Include="TeachTabSGStackerOCR.h" />
+    <ClInclude Include="TeachTab1GTrayOcr.h" />
+    <ClInclude Include="TeachTab2GBanding.h" />
+    <ClInclude Include="TeachTab2GHIC.h" />
+    <ClInclude Include="TeachTab3GDesiccantCutting.h" />
+    <ClInclude Include="TeachTab3GDesiccantMaterial.h" />
+    <ClInclude Include="TeachTab4GMBB.h" />
+    <ClInclude Include="TeachTab5GBoxQuality.h" />
+    <ClInclude Include="TeachTab6GBoxTape.h" />
+    <ClInclude Include="TeachTab1GChip.h" />
+    <ClInclude Include="TeachTabLabel.h" />
+    <ClInclude Include="TeachThresholdPreview.h" />
+    <ClInclude Include="TitleBar.h" />
+    <ClInclude Include="TrayRecipeInfoDlg.h" />
+    <ClInclude Include="UIExt\DisplayTimeCtrl.h" />
+    <ClInclude Include="UIExt\FilteredEdit.h" />
+    <ClInclude Include="UIExt\FlatButton.h" />
+    <ClInclude Include="UIExt\FlatLabel.h" />
+    <ClInclude Include="UIExt\FlatTabWnd.h" />
+    <ClInclude Include="UIExt\GdiplusExt.h" />
+    <ClInclude Include="UIExt\GdipWndExt.h" />
+    <ClInclude Include="UIExt\ObjectInfoCtrlEx.h" />
+    <ClInclude Include="UIExt\OutputListBox.h" />
+    <ClInclude Include="UIExt\ResourceManager.h" />
+    <ClInclude Include="UIExt\SystemStatusCtrl.h" />
+    <ClInclude Include="UIExt\YieldChartCtrl.h" />
+    <ClInclude Include="Util\xLogMsgCache.h" />
+    <ClInclude Include="VersionInfo.h" />
+    <ClInclude Include="VisionDevices.h" />
+    <ClInclude Include="VisionInterfaces.h" />
+    <ClInclude Include="VisionStatusPacket.h" />
+    <ClInclude Include="VisionStatusProvider.h" />
+    <ClInclude Include="VisionStatusServer.h" />
+    <ClInclude Include="VisionSystem.h" />
+    <ClInclude Include="WaitMessageDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AccessRightsDlg.cpp" />
+    <ClCompile Include="AddNewRecipeDlg.cpp" />
+    <ClCompile Include="BottomStatusBar.cpp" />
+    <ClCompile Include="ChangePasswordDlg.cpp" />
+    <ClCompile Include="ConfirmExitDlg.cpp" />
+    <ClCompile Include="CustomTooltip.cpp" />
+    <ClCompile Include="DecoderCortex.cpp" />
+    <ClCompile Include="DevTabCameraLight.cpp" />
+    <ClCompile Include="DevTabSystem.cpp" />
+    <ClCompile Include="Dev\CameraNewSDK.cpp" />
+    <ClCompile Include="Dev\CameraOldSDK.cpp" />
+    <ClCompile Include="Dev\CameraWrapImpl.cpp" />
+    <ClCompile Include="Dev\CommonMethods.cpp" />
+    <ClCompile Include="Dev\xFrameGrabber.cpp" />
+    <ClCompile Include="Dev\xFrameGrabberMechEye.cpp" />
+    <ClCompile Include="Dev\xFrameGrabberPanSight.cpp" />
+    <ClCompile Include="Dev\xFrameGrabberSentech.cpp" />
+    <ClCompile Include="APK.cpp" />
+    <ClCompile Include="APKDoc.cpp" />
+    <ClCompile Include="APKView.cpp" />
+    <ClCompile Include="Dev\xLightControllerLFine.cpp" />
+    <ClCompile Include="EditJobNumberDlg.cpp" />
+    <ClCompile Include="FormDevice.cpp" />
+    <ClCompile Include="FormInspection.cpp" />
+    <ClCompile Include="FormTeaching.cpp" />
+    <ClCompile Include="InspectionVision.cpp" />
+    <ClCompile Include="InspectProcess.cpp" />
+    <ClCompile Include="InspectSaveMergeProcess.cpp" />
+    <ClCompile Include="InspectSaveProcess.cpp" />
+    <ClCompile Include="InspTabLog.cpp" />
+    <ClCompile Include="InspTabObj.cpp" />
+    <ClCompile Include="JobHandler.cpp" />
+    <ClCompile Include="JobNumberData.cpp" />
+    <ClCompile Include="JobNumberListCtrl.cpp" />
+    <ClCompile Include="LanguageInfo.cpp" />
+    <ClCompile Include="LightInfo.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MenuBar.cpp" />
+    <ClCompile Include="ModelInfo.cpp" />
+    <ClCompile Include="ShowErrorDlg.cpp" />
+    <ClCompile Include="SideBar.cpp" />
+    <ClCompile Include="SplashWnd.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_6G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_5G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_4G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_3G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_2G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_EI|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_SG|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_6G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_5G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_4G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_3G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_2G|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_EI|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_6G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_5G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_4G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_3G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_2G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_EI|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_EI|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_EI|x64'">stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="SystemConfig.cpp" />
+    <ClCompile Include="TeachAddFont.cpp" />
+    <ClCompile Include="TeachOCRFont.cpp" />
+    <ClCompile Include="TeachOCRFontChip.cpp" />
+    <ClCompile Include="TeachOCRFontTray.cpp" />
+    <ClCompile Include="TeachOCRReRegistration.cpp" />
+    <ClCompile Include="TeachTab1G3DChipCnt.cpp" />
+    <ClCompile Include="TeachTab1GChipOcr.cpp" />
+    <ClCompile Include="TeachTab1GLift.cpp" />
+    <ClCompile Include="TeachTab1GMixing.cpp" />
+    <ClCompile Include="TeachTab5GSealingQuality.cpp" />
+    <ClCompile Include="TeachTabSGStackerOCR.cpp" />
+    <ClCompile Include="TeachTab1GTrayOcr.cpp" />
+    <ClCompile Include="TeachTab2GBanding.cpp" />
+    <ClCompile Include="TeachTab2GHIC.cpp" />
+    <ClCompile Include="TeachTab3GDesiccantCutting.cpp" />
+    <ClCompile Include="TeachTab3GDesiccantMaterial.cpp" />
+    <ClCompile Include="TeachTab4GMBB.cpp" />
+    <ClCompile Include="TeachTab5GBoxQuality.cpp" />
+    <ClCompile Include="TeachTab6GBoxTape.cpp" />
+    <ClCompile Include="TeachTab1GChip.cpp" />
+    <ClCompile Include="TeachTabLabel.cpp" />
+    <ClCompile Include="TeachThresholdPreview.cpp" />
+    <ClCompile Include="TitleBar.cpp" />
+    <ClCompile Include="TrayRecipeInfoDlg.cpp" />
+    <ClCompile Include="UIExt\DisplayTimeCtrl.cpp" />
+    <ClCompile Include="UIExt\FilteredEdit.cpp" />
+    <ClCompile Include="UIExt\FlatButton.cpp" />
+    <ClCompile Include="UIExt\FlatLabel.cpp" />
+    <ClCompile Include="UIExt\FlatTabWnd.cpp" />
+    <ClCompile Include="UIExt\GdiplusExt.cpp" />
+    <ClCompile Include="UIExt\GdipWndExt.cpp" />
+    <ClCompile Include="UIExt\ObjectInfoCtrlEx.cpp" />
+    <ClCompile Include="UIExt\OutputListBox.cpp" />
+    <ClCompile Include="UIExt\ResourceManager.cpp" />
+    <ClCompile Include="UIExt\SystemStatusCtrl.cpp" />
+    <ClCompile Include="UIExt\YieldChartCtrl.cpp" />
+    <ClCompile Include="Util\xLogMsgCache.cpp" />
+    <ClCompile Include="VisionInterfaces.cpp" />
+    <ClCompile Include="VisionStatusProvider.cpp" />
+    <ClCompile Include="VisionStatusServer.cpp" />
+    <ClCompile Include="VisionSystem.cpp" />
+    <ClCompile Include="WaitMessageDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="APK.reg" />
+    <None Include="res\APK.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="APK.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\IDB_BTN_DEFECT_LIST.bmp" />
+    <Image Include="res\APK.ico" />
+    <Image Include="res\APKDoc.ico" />
+    <Image Include="res\PNG_HITS_LOGO.png" />
+    <Image Include="res\PNG_ICON_ACCESS_RIGHT.png" />
+    <Image Include="res\PNG_ICON_ERROR.png" />
+    <Image Include="res\PNG_ICON_EXIT.png" />
+    <Image Include="res\PNG_ICON_IO_STATUS.png" />
+    <Image Include="res\PNG_ICON_TIME.png" />
+    <Image Include="res\PNG_INSP_LOGO.png" />
+    <Image Include="res\PNG_MENU_ICONS.png" />
+    <Image Include="res\PNG_SPLASH.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="APK.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

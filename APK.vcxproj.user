@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RemoteDebuggerConnection>RemoteWithoutAuthentication</RemoteDebuggerConnection>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <RemoteDebuggerServerName>192.168.1.60</RemoteDebuggerServerName>
+    <RemoteDebuggerWorkingDirectory>C:\APK</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerCommand>C:\APK\$(ProjectName)d</RemoteDebuggerCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'">
+    <RemoteDebuggerConnection>RemoteWithoutAuthentication</RemoteDebuggerConnection>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <RemoteDebuggerServerName>192.168.1.60</RemoteDebuggerServerName>
+    <RemoteDebuggerWorkingDirectory>C:\APK</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerCommand>C:\APK\$(ProjectName)d</RemoteDebuggerCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RemoteDebuggerWorkingDirectory>\\192.168.0.13\APK\</RemoteDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommand>\\192.168.0.13\APK\APKd.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerServerName>192.168.0.13</RemoteDebuggerServerName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|Win32'">
+    <RemoteDebuggerWorkingDirectory>\\192.168.0.13\APK\</RemoteDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommand>\\192.168.0.13\APK\APKd.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerServerName>192.168.0.13</RemoteDebuggerServerName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RESOURCE_FILE>APK.rc</RESOURCE_FILE>
+  </PropertyGroup>
+</Project>

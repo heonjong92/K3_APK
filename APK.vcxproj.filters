@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UIExt">
+      <UniqueIdentifier>{7535e0c2-b266-4f4b-a022-9ac6bc6812b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{70de2384-485b-42d4-b3bc-c90d5aaafc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dev">
+      <UniqueIdentifier>{3e007db4-854e-4cd2-a96c-60e4da681098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{812f1e08-75c0-4089-a480-e8fcbae6364a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="APK.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="APKDoc.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="APKView.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\GdipWndExt.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\GdiplusExt.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\ResourceManager.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\xSingletoneObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BottomStatusBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\DisplayTimeCtrl.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="SideBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FormInspection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FormDevice.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FormTeaching.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\FlatTabWnd.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfirmExitDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\FlatButton.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\SystemStatusCtrl.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\FlatLabel.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfig.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AccessRightsDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangePasswordDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="APKTypes.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\FilteredEdit.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="AddNewRecipeDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\xLogMsgCache.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="EditJobNumberDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="JobNumberListCtrl.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="JobHandler.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="JobNumberData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionDevices.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionInterfaces.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DevTabSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev\xFrameGrabber.h">
+      <Filter>Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="IDefectInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\OutputListBox.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev\xFrameGrabberSentech.h">
+      <Filter>Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashWnd.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LightInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectSaveProcess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectProcess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DevTabCameraLight.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitMessageDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowErrorDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\YieldChartCtrl.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="InspTabLog.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InspTabObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIExt\ObjectInfoCtrlEx.h">
+      <Filter>UIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectionVision.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab4GMBB.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab5GBoxQuality.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTabLabel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab6GBoxTape.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachOCRFont.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachAddFont.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1GLift.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab2GBanding.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab2GHIC.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab3GDesiccantCutting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab3GDesiccantMaterial.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1GChip.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1G3DChipCnt.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev\xFrameGrabberMechEye.h">
+      <Filter>Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1GTrayOcr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev\xFrameGrabberPanSight.h">
+      <Filter>Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="LanguageInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev\xLightControllerLFine.h">
+      <Filter>Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionStatusPacket.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionStatusProvider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionStatusServer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachOCRFontTray.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1GChipOcr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachOCRFontChip.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachOCRReRegistration.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab1GMixing.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTabSGStackerOCR.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DecoderCortex.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StringMacro.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VersionInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachTab5GSealingQuality.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomTooltip.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayRecipeInfoDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectSaveMergeProcess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachThresholdPreview.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="APK.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="APKDoc.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="APKView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\GdipWndExt.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\GdiplusExt.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\ResourceManager.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomStatusBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\DisplayTimeCtrl.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="SideBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FormInspection.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FormDevice.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FormTeaching.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\FlatTabWnd.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfirmExitDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\FlatButton.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\SystemStatusCtrl.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\FlatLabel.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemConfig.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AccessRightsDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangePasswordDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\FilteredEdit.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="AddNewRecipeDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\xLogMsgCache.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="EditJobNumberDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="JobNumberListCtrl.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="JobHandler.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="JobNumberData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionInterfaces.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DevTabSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\xFrameGrabber.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\OutputListBox.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashWnd.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LightInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectSaveProcess.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectProcess.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DevTabCameraLight.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitMessageDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowErrorDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\YieldChartCtrl.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="InspTabLog.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InspTabObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIExt\ObjectInfoCtrlEx.cpp">
+      <Filter>UIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectionVision.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab4GMBB.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab5GBoxQuality.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTabLabel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab6GBoxTape.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachOCRFont.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachAddFont.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1GLift.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab2GBanding.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab2GHIC.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab3GDesiccantCutting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab3GDesiccantMaterial.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1GChip.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1G3DChipCnt.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1GTrayOcr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\xFrameGrabberMechEye.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\xFrameGrabberSentech.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\CameraWrapImpl.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\CommonMethods.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\xFrameGrabberPanSight.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\CameraNewSDK.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\CameraOldSDK.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="LanguageInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev\xLightControllerLFine.cpp">
+      <Filter>Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionStatusProvider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionStatusServer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachOCRFontTray.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1GChipOcr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachOCRFontChip.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachOCRReRegistration.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab1GMixing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTabSGStackerOCR.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DecoderCortex.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachTab5GSealingQuality.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomTooltip.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TrayRecipeInfoDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectSaveMergeProcess.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachThresholdPreview.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="APK.reg" />
+    <None Include="res\APK.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="APK.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\APKDoc.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\APK.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_MENU_ICONS.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_ICON_IO_STATUS.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_HITS_LOGO.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_ICON_TIME.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_ICON_EXIT.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_ICON_ACCESS_RIGHT.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_ICON_ERROR.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_INSP_LOGO.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\IDB_BTN_DEFECT_LIST.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PNG_SPLASH.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
