@@ -1,4 +1,5 @@
-// StripInfoCtrl.cpp : ±¸Çö ÆÄÀÏÀÔ´Ï´Ù.
+#include <strsafe.h>
+// StripInfoCtrl.cpp : êµ¬í˜„ íŒŒì¼ì…ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -57,11 +58,11 @@ CStripInfoCtrl::CStripInfoCtrl()
 
 	m_bIsButtonDown = FALSE;
 
-	// ½ºÆ®¸³ »ö»ó Á¤ÀÇ
+	// ìŠ¤íŠ¸ë¦½ ìƒ‰ìƒ ì •ì˜
 	m_pBrushOK = ::new SolidBrush( Color(0, 220, 0) );
 	m_pBrushNG = ::new SolidBrush( Color(255, 0, 0) );
 
-	m_pBrushGrab1 = ::new SolidBrush( Color(38,38,38) );		// (38, 89, 160, 255) Á¤µµÀÇ °ªÀ» »ç¿ë
+	m_pBrushGrab1 = ::new SolidBrush( Color(38,38,38) );		// (38, 89, 160, 255) ì •ë„ì˜ ê°’ì„ ì‚¬ìš©
 	m_pBrushGrab2 = ::new SolidBrush( Color(255,255,255) );		
 
 	m_pBrushScanning = ::new SolidBrush(Color(130,255,130));
@@ -173,7 +174,7 @@ void CStripInfoCtrl::OnDraw(Gdiplus::Graphics& g, Rect rect)
 
 	DrawStripId( g, rectStripIdF );
 
-	// ¹ü·Ê ±×¸®±â
+	// ë²”ë¡€ ê·¸ë¦¬ê¸°
 	DrawLegend( g, rectLegendBody );
 
 	rect.Y += nLegendHeight;
@@ -264,13 +265,13 @@ void CStripInfoCtrl::DrawStrip( Graphics& g, Rect& rectStripBody )
 
 				if ((i==0) && (j!=nColCount-1))
 				{
-					wsprintfW(wszTitle, L"%d", indexUnit.first+1);
+					StringCchPrintfW(wszTitle, _countof(wszTitle), L"%d", indexUnit.first+1);
 					g.DrawString(wszTitle, -1, &fontTitle, RectF((float)rectUnit.X, (float)rectUnit.Y+1.f, (float)rectUnit.Width, (float)rectUnit.Height), &stringFormat, &brushTitle);
 				}
 				if ((j==nColCount-1) && (i!=0))
 				{
 					m_ArrayRowTip[indexUnit.second] = rectUnit;
-					wsprintfW(wszTitle, L"%C", L'A'+indexUnit.second);
+					StringCchPrintfW(wszTitle, _countof(wszTitle), L"%C", L'A'+indexUnit.second);
 					if (m_nActiveRowIndex == indexUnit.second)
 					{
 						g.DrawString(wszTitle, -1, &fontTitle, RectF((float)rectUnit.X, (float)rectUnit.Y+1.f, (float)rectUnit.Width, (float)rectUnit.Height), &stringFormat, &brushActiveRowText);

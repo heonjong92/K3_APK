@@ -110,10 +110,14 @@ void CInspectProcess::WorkerQueue::Clear()
 
 void CInspectProcess::WorkerThread::WaitForShutdownToComplete()
 {
-	if(!Wait(1000))
+	if(!Wait(5000))
 	{
-		TRACE("CInspectProcess::WorkerThread - Force Terminate\n");
-		Terminate();
+		TRACE("CInspectProcess::WorkerThread - Wait timeout (5s), retrying...\n");
+		if(!Wait(30000))
+		{
+			TRACE("CInspectProcess::WorkerThread - Force Terminate (last resort)\n");
+			Terminate();
+		}
 	}
 
    if(m_hThread != 0)
@@ -126,9 +130,9 @@ void CInspectProcess::WorkerThread::WaitForShutdownToComplete()
 void CInspectProcess::WorkerThread::DoWork(InspectItem& item)
 {
 	TRACE(_T("DO WORK - [%d]\n"), m_nThreadId);
+	m_bWorking = 1;
 
 	CVisionSystem* pSystem = CVisionSystem::Instance();
-
 	pSystem->StartInspection( item.inspecttype, item.nViewIndex, item.nGrabCnt, FALSE );
 
 	m_bWorking = 0;
@@ -253,7 +257,7 @@ long CInspectProcess::GetWorkingThreadCount()
 	long count = 0;
 	for(int i=0; i<m_nNumThreads; i++)
 	{
-		if(m_WorkerThreads[i]->m_bWorking)
+		if(m_WorkerThreads[i] && m_WorkerThreads[i]->m_bWorking)
 			count++;
 	}
 
