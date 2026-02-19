@@ -4,6 +4,9 @@
 #include "CameraOldSDK.h"
 CameraWrapImpl::CameraWrapImpl()
 {
+    m_camera = nullptr;
+    m_bConnect = false;
+    m_bStartGrab = false;
     m_iCameraHandle = SgCreateCamera();
 }
 
@@ -57,6 +60,12 @@ bool CameraWrapImpl::Connect2Camera(const char *pLocalIp, const char *pRemoteIp)
         }
         m_bConnect = true;
     }
+    else
+    {
+        m_bConnect = false;
+        m_bStartGrab = false;
+    }
+
     return ret == SGERR_OK;
 }
 
@@ -64,7 +73,17 @@ bool CameraWrapImpl::CloseCamera()
 {
     SGERROR_CODE ret =  SgCloseCamera(m_iCameraHandle);
     if(ret == SGERR_OK )
+    {
         m_bConnect = false;
+        m_bStartGrab = false;
+
+        if (m_camera != nullptr)
+        {
+            delete m_camera;
+            m_camera = nullptr;
+        }
+    }
+
     return ret == SGERR_OK;
 }
 
