@@ -126,9 +126,9 @@ void CInspectProcess::WorkerThread::WaitForShutdownToComplete()
 void CInspectProcess::WorkerThread::DoWork(InspectItem& item)
 {
 	TRACE(_T("DO WORK - [%d]\n"), m_nThreadId);
+	m_bWorking = 1;
 
 	CVisionSystem* pSystem = CVisionSystem::Instance();
-
 	pSystem->StartInspection( item.inspecttype, item.nViewIndex, item.nGrabCnt, FALSE );
 
 	m_bWorking = 0;
@@ -253,7 +253,7 @@ long CInspectProcess::GetWorkingThreadCount()
 	long count = 0;
 	for(int i=0; i<m_nNumThreads; i++)
 	{
-		if(m_WorkerThreads[i]->m_bWorking)
+		if(m_WorkerThreads[i] && m_WorkerThreads[i]->m_bWorking)
 			count++;
 	}
 
