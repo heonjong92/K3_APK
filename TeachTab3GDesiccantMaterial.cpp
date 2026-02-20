@@ -35,7 +35,6 @@ CTeachTab3GDesiccantMaterial::CTeachTab3GDesiccantMaterial(CWnd* pParent /*=NULL
 	, m_nSelectTrayRecipeIndex(-1)
 	, m_nRadioTeachingSubMaterialTray(0)
 	, m_nScrollPos(0)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_DesiccantMaterialInfo.Clear();
@@ -461,8 +460,6 @@ void CTeachTab3GDesiccantMaterial::CheckData()
 
 void CTeachTab3GDesiccantMaterial::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	CString strMaterialModelName = CModelInfo::Instance()->GetModelNameDesiccantMaterial();
 
@@ -507,26 +504,8 @@ void CTeachTab3GDesiccantMaterial::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachSubMaterial = FALSE;
 	m_bIsTeachTrayROI = FALSE;
-}
-
-void CTeachTab3GDesiccantMaterial::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab3GDesiccantMaterial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -661,14 +640,6 @@ void CTeachTab3GDesiccantMaterial::OnConfirmTracker( CRect& rcTrackRegion, UINT 
 			//m_DesiccantMaterialInfo.ptOffset_DesiccantExistShift = CPoint(rcTrackRegion.left, rcTrackRegion.top);
 			break;
 		}
-	}
-
-	if (bRet)
-	{
-		m_bPendingSaveAfterTeaching = TRUE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
 	}
 
 	if (m_bIsTeachTrayROI)
@@ -1065,8 +1036,6 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, SUBMATERIAL_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -1094,17 +1063,9 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave :: End"));
 }

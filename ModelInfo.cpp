@@ -194,7 +194,7 @@ void CModelInfo::LoadTrayOcr(LPCTSTR lpszModelInfoFile)
 	::GetPrivateProfileString(TRAYOCR_APPNAME, _T("CHAR_HEIGHT_MAX"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_TrayOcr.nCharHeightMax = (int)_tcstod(szTemp, NULL);
 
-	::GetPrivateProfileString(TRAYOCR_APPNAME, _T("PAGE_COUNT"), _T("10"), szTemp, MAX_PATH, strModelInfoFile);
+	::GetPrivateProfileString(TRAYOCR_APPNAME, _T("PAGE_COUNT"), _T("2048"), szTemp, MAX_PATH, strModelInfoFile);
 	m_TrayOcr.lPageCount = (long)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString(TRAYOCR_APPNAME, _T("INSP_AREA_LEFT"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
@@ -488,7 +488,7 @@ void CModelInfo::LoadMixing(LPCTSTR lpszModelInfoFile)
 	::GetPrivateProfileString(MIXING_APPNAME, _T("DESCRIPTION"), _T(""), szTemp, MAX_PATH, strModelInfoFile);
 	m_Mixing.strDescription = szTemp;
 
-	::GetPrivateProfileString(MIXING_APPNAME, _T("PAGE_COUNT"), _T("10"), szTemp, MAX_PATH, strModelInfoFile);
+	::GetPrivateProfileString(MIXING_APPNAME, _T("PAGE_COUNT"), _T("3000"), szTemp, MAX_PATH, strModelInfoFile);
 	m_Mixing.lPageCount = (long)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString(MIXING_APPNAME, _T("MATCHING_SCORE"), _T(""), szTemp, MAX_PATH, strModelInfoFile);
@@ -550,7 +550,7 @@ void CModelInfo::LoadStackerOcr(LPCTSTR lpszModelInfoFile)
 	::GetPrivateProfileString(STACKEROCR_APPNAME, _T("CHAR_HEIGHT_MAX"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_StackerOcr.nCharHeightMax = (int)_tcstod(szTemp, NULL);
 
-	::GetPrivateProfileString(STACKEROCR_APPNAME, _T("PAGE_COUNT"), _T("10"), szTemp, MAX_PATH, strModelInfoFile);
+	::GetPrivateProfileString(STACKEROCR_APPNAME, _T("PAGE_COUNT"), _T("5000"), szTemp, MAX_PATH, strModelInfoFile);
 	m_StackerOcr.lPageCount = (long)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString(STACKEROCR_APPNAME, _T("ROTATE_IMAGE"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
@@ -608,7 +608,7 @@ void CModelInfo::LoadLiftInfo(LPCTSTR lpszModelInfoFile)
 	::GetPrivateProfileString(LIFT_APPNAME, _T("DESCRIPTION"), _T(""), szTemp, MAX_PATH, strModelInfoFile);
 	m_LiftInfo.strDescription = szTemp;
 
-	::GetPrivateProfileString(LIFT_APPNAME, _T("PAGE_COUNT"), _T("10"), szTemp, MAX_PATH, strModelInfoFile);
+	::GetPrivateProfileString(LIFT_APPNAME, _T("PAGE_COUNT"), _T("4400"), szTemp, MAX_PATH, strModelInfoFile);
 	m_LiftInfo.lPageCount = (long)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString(LIFT_APPNAME, _T("TRAY_PIXEL_THRESHOLD"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);

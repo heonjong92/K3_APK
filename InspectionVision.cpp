@@ -1831,8 +1831,8 @@ BOOL CInspectionVision::_Insp_Banding(CxGraphicObject* pGO, CxImageObject* pSrcI
 	}
 	else
 	{
-		if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("¹êµå Æø : OK [%.lf]"), dDst);
-		else												clrText.SetText(_T("Banding Dst : OK [%.lf]"), dDst);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("¹êµå Æø : OK [%.lf] px"), dDst);
+		else												clrText.SetText(_T("Banding Dst : OK [%.lf] px"), dDst);
 		clrText.CreateObject(PDC_GREEN, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI + (25 * 4), DEF_FONT_BASIC_SIZE);
 		pGO->AddDrawText(clrText);
 	}
@@ -5096,18 +5096,22 @@ BOOL CInspectionVision::BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, C
 	if (CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE)
 		return FALSE;
 
-	COLORBOX clrBox;
-
-	clrBox.CreateObject(PDC_LIGHTGREEN, rcTray, PS_DASH, 2);
-	pGO->AddDrawBox(clrBox);
-
-	EImageBW8 eImageX;
+	EImageBW8 eImageX, eImageXMedian, eImageXMorphoGradientBox;
 	eImageX.SetImagePtr(pImgObj->GetWidth(), pImgObj->GetHeight(), pImgObj->GetImageBuffer(), pImgObj->GetWidthBytes() * 8);
 
-	int nOffsetX = rcTray.left;
+	eImageXMedian.				SetSize(eImageX.GetWidth(), eImageX.GetHeight());
+	EasyImage::Median(&eImageX, &eImageXMedian);
+
+	eImageXMorphoGradientBox.	SetSize(eImageX.GetWidth(), eImageX.GetHeight());
+	EasyImage::MorphoGradientBox(&eImageXMedian, &eImageXMorphoGradientBox, 1);
+
+	int nOffsetX = rcTray.left - nMargin;
 	int nOffsetY = rcTray.top - nMargin;
+
 	int nInspZoneWidth, nInspZoneHeight;
+
 	nInspZoneHeight = rcTray.Height() + nMargin * 2;
+	int nTotalWidth = rcTray.Width() + nMargin * 2;
 
 	std::vector<EROIBW8> vecEROI;
 	vecEROI.clear();
@@ -5120,16 +5124,20 @@ BOOL CInspectionVision::BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, C
 
 	for (int i = 0; i < nInspZoneCol; ++i)
 	{
-		nInspZoneWidth = GetRoundShort(rcTray.Width() * (static_cast<double>(vecRatio[i]) / 100));
+		nInspZoneWidth = GetRoundShort(nTotalWidth * (static_cast<double>(vecRatio[i]) / 100));
+
 		EROIBW8 eImageROI;
-		eImageROI.Attach(&eImageX);
+		eImageROI.Attach(&eImageXMorphoGradientBox);
 		eImageROI.SetPlacement(nOffsetX, nOffsetY, nInspZoneWidth, nInspZoneHeight);
+
+//		USES_CONVERSION;
+//		CString strImgName;
+//		strImgName.Format(_T("D:\\eTabROI_%d.bmp"), i);
+//		eImageROI.Save(T2A((LPTSTR)(LPCTSTR)strImgName));
 
 		vecEROI.push_back(eImageROI);
 		nOffsetX += nInspZoneWidth;
 	}
-	nOffsetY += nInspZoneHeight;
-	nOffsetX = rcTray.left;
 	
 	BOOL bResult = FindSubMaterialObj(pGO, vecEROI, nSubMaterialPixelVal, nTrayOutTolerance);
 
@@ -11303,8 +11311,9 @@ BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<ERO
 	EObjectSelection CodedImageObjectSelection;
 	EImageEncoder CodedImageEncoder;
 
-	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetMode(EGrayscaleSingleThreshold_Absolute);
-	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetAbsoluteThreshold(nSubMaterialPixelVal);
+//	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetMode(EGrayscaleSingleThreshold_Absolute);
+//	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetAbsoluteThreshold(nSubMaterialPixelVal);
+	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetMode(EGrayscaleSingleThreshold_MinResidue);
 	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetWhiteLayerEncoded(true);
 	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetBlackLayerEncoded(false);
 	CodedImageEncoder.SetEncodingConnexity(EEncodingConnexity_Eight);
@@ -11314,7 +11323,8 @@ BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<ERO
 		BOOL bCurrent = TRUE;
 		CodedImageEncoder.Encode(vecEROI[i], CodedImage);
 		CodedImageObjectSelection.Clear();
-		CodedImageObjectSelection.AddObjectsUsingFloatFeature(CodedImage, EFeature_BoundingBoxWidth, 50.f, ESingleThresholdMode_GreaterEqual);
+//		CodedImageObjectSelection.AddObjectsUsingFloatFeature(CodedImage, EFeature_BoundingBoxWidth, 50.f, ESingleThresholdMode_GreaterEqual);
+		CodedImageObjectSelection.AddObjectsUsingUnsignedIntegerFeature(CodedImage, EFeature_Area, 400, ESingleThresholdMode_Greater);
 		
 		CRect rcROI;
 		rcROI.left = vecEROI[i].GetOrgX();

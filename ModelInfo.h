@@ -45,7 +45,7 @@ public:
 			nUseBypass_TrayOcr = BYPASS_OFF;
 			strDescription = _T("None");
 			strTrayOcrInfo = _T("None");
-			lPageCount = 10;
+			lPageCount = 2048;
 
 			nCharWidthMin = 15;
 			nCharWidthMax = 100;
@@ -285,7 +285,7 @@ public:
 			strDescription = _T("None");
 			bIsPlainPattern = FALSE;
 
-			lPageCount = 10;
+			lPageCount = 3000;
 			fMatchingScore = 30.f;
 			nTrayPixelValue = 50;
 
@@ -339,7 +339,7 @@ public:
 			strDescription = _T("None");
 
 			nSelectUnit = 0;
-			lPageCount = 10;
+			lPageCount = 4400;
 			nTrayPixelThreshold = 200;
 			dbLiftHeight_MM = 1.0;
 			dbBreakWidth_MM = 10.0;
@@ -402,7 +402,7 @@ public:
 		{
 			strDescription = _T("None");
 			strOcrInfo = _T("None");
-			lPageCount = 4000;
+			lPageCount = 5000;
 
 			nOcrAreaDistX;
 			nOcrAreaDistY;
