@@ -1691,7 +1691,7 @@ BOOL CInspectionVision::_Insp_Banding(CxGraphicObject* pGO, CxImageObject* pSrcI
 	//	if( stBandingInfo.nUseBypass_Banding != BYPASS_OFF )
 	//		return FALSE;
 
-		//////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
 	COLORTEXT clrText;
 	COLORLINE clrLine;
 	COLORARROW clrArrow;
@@ -4114,6 +4114,18 @@ BOOL CInspectionVision::EVisionOCR_TrayOCR(CxGraphicObject* pGO, CxImageObject* 
 		rcOcrArea.right = rcOcrArea.left + rcInspArea.Width();
 		rcOcrArea.bottom = rcOcrArea.top + rcInspArea.Height();
 
+		if (rcOcrArea.left < 0 ||
+			rcOcrArea.top < 0 ||
+			rcOcrArea.right > pImgObj2.GetWidth() ||
+			rcOcrArea.bottom > pImgObj2.GetHeight())
+		{
+			WRITE_LOG(WL_ERROR, _T("ROI Out of Range"));
+			clrText.SetText(_T("ROI Out of Range"));
+			clrText.CreateObject(PDC_RED, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI * 4, 70, TRUE);
+			pGO->AddDrawText(clrText);
+			return FALSE;
+		}
+
 		rcLastInspArea = rcOcrArea;
 
 		EImageBW8 ImageX, Image_Thres;
@@ -4217,6 +4229,15 @@ BOOL CInspectionVision::EVisionOCR_TrayOCR(CxGraphicObject* pGO, CxImageObject* 
 
 		return FALSE;
 	}
+	catch (...)
+	{
+		WRITE_LOG(WL_ERROR, _T("Unknown Exception"));
+		clrText.SetText(_T("Unknown Exception"));
+		clrText.CreateObject(PDC_RED, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI * 4, 70, TRUE);
+		pGO->AddDrawText(clrText);
+		return FALSE;
+	}
+
 }
 
 BOOL CInspectionVision::EVisionOCR_ChipOCR(CxGraphicObject* pGO, CxImageObject* pImgObj, VisionProcess::ChipOCRData& stChipData,
