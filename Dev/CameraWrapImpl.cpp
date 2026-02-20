@@ -12,6 +12,11 @@ CameraWrapImpl::CameraWrapImpl()
 
 CameraWrapImpl::~CameraWrapImpl()
 {
+	if (m_bConnect)
+	{
+		CloseCamera();
+	}
+
 	if (m_camera != nullptr)
 	{
 		delete m_camera;

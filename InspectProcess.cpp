@@ -110,10 +110,14 @@ void CInspectProcess::WorkerQueue::Clear()
 
 void CInspectProcess::WorkerThread::WaitForShutdownToComplete()
 {
-	if(!Wait(1000))
+	if(!Wait(5000))
 	{
-		TRACE("CInspectProcess::WorkerThread - Force Terminate\n");
-		Terminate();
+		TRACE("CInspectProcess::WorkerThread - Wait timeout (5s), retrying...\n");
+		if(!Wait(30000))
+		{
+			TRACE("CInspectProcess::WorkerThread - Force Terminate (last resort)\n");
+			Terminate();
+		}
 	}
 
    if(m_hThread != 0)
