@@ -13,17 +13,17 @@
 
 #include "ModelInfo.h"
 
-// CTeachTab1GTrayOcr ´ëÈ­ »óÀÚÀÔ´Ï´Ù.
+// CTeachTab1GTrayOcr ëŒ€í™” ìƒìì…ë‹ˆë‹¤.
 class CAPKView;
 class CTeachTab1GTrayOcr : public CDialog
 {
 	DECLARE_DYNAMIC(CTeachTab1GTrayOcr)
 
 public:
-	CTeachTab1GTrayOcr(CWnd* pParent = NULL);   // Ç¥ÁØ »ı¼ºÀÚÀÔ´Ï´Ù.
+	CTeachTab1GTrayOcr(CWnd* pParent = NULL);   // í‘œì¤€ ìƒì„±ìì…ë‹ˆë‹¤.
 	virtual ~CTeachTab1GTrayOcr();
 
-// ´ëÈ­ »óÀÚ µ¥ÀÌÅÍÀÔ´Ï´Ù.
+// ëŒ€í™” ìƒì ë°ì´í„°ì…ë‹ˆë‹¤.
 	enum { IDD = IDD_TEACH_TAB_1G_TRAYOCR };
 
 protected:
@@ -78,6 +78,7 @@ protected:
 	BOOL m_bIsTeachTabBegin;
 	BOOL m_bIsTeachOcrROI;
 	BOOL m_bIsTrayNonInsp;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CToolTipCtrl m_toolTip;
 
@@ -119,6 +120,7 @@ public:
 	void UpdateToolTip();
 
 	void EnableAdaptiveWindows();
+	void LockButtonsUntilSave();
 
 	//void UpdateCount_Tab(BOOL bComboReset = FALSE);
 	void UpdateTeachingImage_Tab();
@@ -130,7 +132,7 @@ public:
 protected:
 	void UpdateRecipeList();
 
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Áö¿øÀÔ´Ï´Ù.
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV ì§€ì›ì…ë‹ˆë‹¤.
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
