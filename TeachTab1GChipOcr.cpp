@@ -30,6 +30,7 @@ CTeachTab1GChipOcr::CTeachTab1GChipOcr(CWnd* pParent /*=NULL*/)
 	, m_bIsTeachChipROI(FALSE)
 	, m_bIsTeachChipOcr2(FALSE)
 	, m_bIsOcrROI(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_ChipOcr.Clear();
@@ -343,6 +344,8 @@ void CTeachTab1GChipOcr::CheckData()
 
 void CTeachTab1GChipOcr::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameChipOcr(), CHIPOCR_KIND);
@@ -381,9 +384,27 @@ void CTeachTab1GChipOcr::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsOcrROI = FALSE;
 	m_bIsTeachChipROI = FALSE;
 	m_bIsTeachChipOcr2 = FALSE;
+}
+
+void CTeachTab1GChipOcr::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1GChipOcr::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -607,6 +628,8 @@ void CTeachTab1GChipOcr::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, CHIPOCR_KIND);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -615,9 +638,17 @@ void CTeachTab1GChipOcr::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab1GChipOcr::OnBnClickedBtnSave :: End"));
 }
@@ -898,6 +929,7 @@ void CTeachTab1GChipOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}

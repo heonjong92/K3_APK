@@ -28,6 +28,7 @@ CTeachTab4GMBB::CTeachTab4GMBB(CWnd* pParent /*=NULL*/)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachMBBSize(FALSE)
 	, m_bIsTeachMBBRotate(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_MBB.Clear();
@@ -300,6 +301,8 @@ void CTeachTab4GMBB::CheckData()
 
 void CTeachTab4GMBB::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameMBB(), MBB_KIND);
@@ -377,8 +380,26 @@ void CTeachTab4GMBB::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachMBBSize = FALSE;
 	m_bIsTeachMBBRotate = FALSE;
+}
+
+void CTeachTab4GMBB::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab4GMBB::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -597,6 +618,8 @@ void CTeachTab4GMBB::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, MBB_KIND);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -605,9 +628,17 @@ void CTeachTab4GMBB::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab4GMBB::OnBnClickedBtnSave :: End"));
 }
@@ -736,6 +767,7 @@ void CTeachTab4GMBB::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}

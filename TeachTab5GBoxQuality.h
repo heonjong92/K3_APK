@@ -57,6 +57,8 @@ protected:
 	CStatic m_ctrlPicPreviewTeachBoxQuality;
 	CRect m_rcPicCtrSizeTeachBoxQuality;
 
+	BOOL m_bPendingSaveAfterTeaching;
+
 public:
 	void SetMainView( CAPKView* pView ) { m_pMainView = pView; }
 	void Cleanup();
@@ -74,6 +76,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

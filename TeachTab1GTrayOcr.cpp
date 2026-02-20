@@ -1,4 +1,4 @@
-// TeachTab1GTrayOcr.cpp : êµ¬í˜„ íŒŒì¼ì…ë‹ˆë‹¤.
+// TeachTab1GTrayOcr.cpp : ±¸Çö ÆÄÀÏÀÔ´Ï´Ù.
 //
 
 #include "stdafx.h"
@@ -23,8 +23,7 @@
 #include <XUtil/xUtils.h>
 #include <XGraphic\xGraphicObject.h>
 
-	, m_bPendingSaveAfterTeaching(FALSE)
-// CTeachTab1GTrayOcr ëŒ€í™” ìƒìì…ë‹ˆë‹¤.
+// CTeachTab1GTrayOcr ´ëÈ­ »óÀÚÀÔ´Ï´Ù.
 
 IMPLEMENT_DYNAMIC(CTeachTab1GTrayOcr, CDialog)
 
@@ -36,6 +35,7 @@ CTeachTab1GTrayOcr::CTeachTab1GTrayOcr(CWnd* pParent /*=NULL*/)
 	, m_bIsTeachOcrROI(FALSE)
 	, m_bOCRPreview(FALSE)
 	, m_bIsTrayNonInsp(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_TrayOcr.Clear();
@@ -134,7 +134,7 @@ BEGIN_MESSAGE_MAP(CTeachTab1GTrayOcr, CDialog)
 ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
-// CTeachTab1GTrayOcr ë©”ì‹œì§€ ì²˜ë¦¬ê¸°ì…ë‹ˆë‹¤.
+// CTeachTab1GTrayOcr ¸Ş½ÃÁö Ã³¸®±âÀÔ´Ï´Ù.
 BOOL CTeachTab1GTrayOcr::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -238,39 +238,39 @@ void CTeachTab1GTrayOcr::UpdateLanguage()
 void CTeachTab1GTrayOcr::UpdateToolTip()
 {
 	m_toolTip.Create(this, TTS_BALLOON);
-	m_toolTip.SetMaxTipWidth(300);  //ë©€í‹°ë¼ì¸ í™œì„±í™”
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_INFO), _T("OCRë¡œ ì¸ì‹ëœ í…ìŠ¤íŠ¸ì™€ ë¹„êµí•  ë¬¸ìì—´ ì…ë‹ˆë‹¤.ë‘ ê°œê°€ ê°™ìœ¼ë©´ OK, ë‹¤ë¥´ë©´ NGë¡œ íŒì •í•©ë‹ˆë‹¤."));
+	m_toolTip.SetMaxTipWidth(300);  //¸ÖÆ¼¶óÀÎ È°¼ºÈ­
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_INFO), _T("OCR·Î ÀÎ½ÄµÈ ÅØ½ºÆ®¿Í ºñ±³ÇÒ ¹®ÀÚ¿­ ÀÔ´Ï´Ù.µÎ °³°¡ °°À¸¸é OK, ´Ù¸£¸é NG·Î ÆÇÁ¤ÇÕ´Ï´Ù."));
 
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_PAGECOUNT), _T("Line Scan Cameraë¡œ ì½ëŠ” ë²”ìœ„ì´ë©°, ì´ë¯¸ì§€ì˜ í­(Width)ì´ ë©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_WIDTH_MIN), _T("OCRë¡œ ì½ì„ ê¸€ì ë„ˆë¹„ì˜ ìµœì†Œê°’ì„ ì…ë ¥í•©ë‹ˆë‹¤.í•´ë‹¹ ê°’ ë²”ìœ„ ì´ë‚´ì˜ ê¸€ìë§Œ ì¸ì‹í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_WIDTH_MAX), _T("OCRë¡œ ì½ì„ ê¸€ì ë„ˆë¹„ì˜ ìµœëŒ€ê°’ì„ ì…ë ¥í•©ë‹ˆë‹¤.í•´ë‹¹ ê°’ ë²”ìœ„ ì´ë‚´ì˜ ê¸€ìë§Œ ì¸ì‹í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HEIGHT_MIN), _T("OCRë¡œ ì½ì„ ê¸€ì ë†’ì´ì˜ ìµœì†Œê°’ì„ ì…ë ¥í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HEIGHT_MAX), _T("OCRë¡œ ì½ì„ ê¸€ì ë†’ì´ì˜ ìµœëŒ€ê°’ì„ ì…ë ¥í•©ë‹ˆë‹¤."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_PAGECOUNT), _T("Line Scan Camera·Î ÀĞ´Â ¹üÀ§ÀÌ¸ç, ÀÌ¹ÌÁöÀÇ Æø(Width)ÀÌ µË´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_WIDTH_MIN), _T("OCR·Î ÀĞÀ» ±ÛÀÚ ³ÊºñÀÇ ÃÖ¼Ò°ªÀ» ÀÔ·ÂÇÕ´Ï´Ù.ÇØ´ç °ª ¹üÀ§ ÀÌ³»ÀÇ ±ÛÀÚ¸¸ ÀÎ½ÄÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_WIDTH_MAX), _T("OCR·Î ÀĞÀ» ±ÛÀÚ ³ÊºñÀÇ ÃÖ´ë°ªÀ» ÀÔ·ÂÇÕ´Ï´Ù.ÇØ´ç °ª ¹üÀ§ ÀÌ³»ÀÇ ±ÛÀÚ¸¸ ÀÎ½ÄÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HEIGHT_MIN), _T("OCR·Î ÀĞÀ» ±ÛÀÚ ³ôÀÌÀÇ ÃÖ¼Ò°ªÀ» ÀÔ·ÂÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HEIGHT_MAX), _T("OCR·Î ÀĞÀ» ±ÛÀÚ ³ôÀÌÀÇ ÃÖ´ë°ªÀ» ÀÔ·ÂÇÕ´Ï´Ù."));
 
-	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_REMOVE_BORDER), _T("OCR ì˜ì—­ì˜ ê°€ì¥ìë¦¬ì— ë§ë‹¿ëŠ” ê¸€ìë¥¼ ì¸ì‹í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_REMOVE_NARROW_OR_FLAT), _T("|ì´ë‚˜ -(í•˜ì´í”ˆ)ê³¼ ê°™ì€ ê¸€ìë¥¼ ì¸ì‹í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_CUT_LARGE_CHARACTERS), _T("ì‚¬ì´ì¦ˆê°€ í° ê¸€ìë¥¼ ì ì ˆí•œ í¬ê¸°ë¡œ ì˜ë¼ì„œ ì¸ì‹í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_USE_ADAPTIVE_THRESHOLD), _T("ê¸€ì ì‚¬ì´ì˜ ê°„ê²©ì´ ì¢ì•„ ê¸€ìë¥¼ ì œëŒ€ë¡œ ì¸ì‹í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš° ì‚¬ìš©í•©ë‹ˆë‹¤."));
+	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_REMOVE_BORDER), _T("OCR ¿µ¿ªÀÇ °¡ÀåÀÚ¸®¿¡ ¸Â´ê´Â ±ÛÀÚ¸¦ ÀÎ½ÄÇÏÁö ¾Ê½À´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_REMOVE_NARROW_OR_FLAT), _T("|ÀÌ³ª -(ÇÏÀÌÇÂ)°ú °°Àº ±ÛÀÚ¸¦ ÀÎ½ÄÇÏÁö ¾Ê½À´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_CUT_LARGE_CHARACTERS), _T("»çÀÌÁî°¡ Å« ±ÛÀÚ¸¦ ÀûÀıÇÑ Å©±â·Î Àß¶ó¼­ ÀÎ½ÄÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_USE_ADAPTIVE_THRESHOLD), _T("±ÛÀÚ »çÀÌÀÇ °£°İÀÌ Á¼¾Æ ±ÛÀÚ¸¦ Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ´Â °æ¿ì »ç¿ëÇÕ´Ï´Ù."));
 
 	CString strMethod;
-	strMethod = _T("Mean : ì£¼ë³€ í”½ì…€ë“¤ì˜ â€œí‰ê· ê°’(Mean)â€ì„ ì„ê³„ê°’ìœ¼ë¡œ ì‚¬ìš©\r\n");
-	strMethod += _T(" - ê°€ì¥ ì¼ë°˜ì ì¸ ë°©ì‹, ë°ê¸° ë³€í™”ê°€ ì™„ë§Œí•œ ì´ë¯¸ì§€ëŠ” ì˜ë¨, ë…¸ì´ì¦ˆê°€ ë§ìœ¼ë©´ í‰ê· ì´ í”ë“¤ë¦´ ìˆ˜ ìˆìŒ\r\n");
-	strMethod += _T("Median : ì£¼ë³€ í”½ì…€ë“¤ì˜ â€œì¤‘ì•™ê°’(Median)â€ì„ ì„ê³„ê°’ìœ¼ë¡œ ì‚¬ìš©\r\n");
-	strMethod += _T(" - ë…¸ì´ì¦ˆì— ê°•í•¨ (íŠ¹íˆ Salt & Pepper noise), í‰ê· ë³´ë‹¤ ì•ˆì •ì , ê°’ì´ ê·¹ë‹¨ì ìœ¼ë¡œ íŠ€ëŠ” í”½ì…€ì´ ìˆì–´ë„ ì˜í–¥ ì ìŒ\r\n");
-	strMethod += _T("Middle : ì£¼ë³€ í”½ì…€ ê°’ì˜ â€œìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ì˜ ì¤‘ê°„ê°’â€ì„ ì‚¬ìš©\r\n");
-	strMethod += _T(" - ë°ê¸° ëŒ€ë¹„ê°€ í° ê²½ìš° ìœ ë¦¬, í‰ê·  / ì¤‘ì•™ê°’ê³¼ ë‹¤ë¥´ê²Œ ë²”ìœ„(contrast)ë§Œ ë³´ê³  íŒë‹¨, ëª…ì•”ì´ ê°•í•œ ì´ë¯¸ì§€ì—ì„œ ê°ì²´ / ë°°ê²½ì´ ì˜ ë‚˜ë‰  ìˆ˜ ìˆìŒ, í•˜ì§€ë§Œ ë…¸ì´ì¦ˆê°€ min ë˜ëŠ” max ë¥¼ ì¡ì•„ë²„ë¦¬ë©´ ë¶ˆì•ˆì •í•¨");
+	strMethod = _T("Mean : ÁÖº¯ ÇÈ¼¿µéÀÇ ¡°Æò±Õ°ª(Mean)¡±À» ÀÓ°è°ªÀ¸·Î »ç¿ë\r\n");
+	strMethod += _T(" - °¡Àå ÀÏ¹İÀûÀÎ ¹æ½Ä, ¹à±â º¯È­°¡ ¿Ï¸¸ÇÑ ÀÌ¹ÌÁö´Â ÀßµÊ, ³ëÀÌÁî°¡ ¸¹À¸¸é Æò±ÕÀÌ Èçµé¸± ¼ö ÀÖÀ½\r\n");
+	strMethod += _T("Median : ÁÖº¯ ÇÈ¼¿µéÀÇ ¡°Áß¾Ó°ª(Median)¡±À» ÀÓ°è°ªÀ¸·Î »ç¿ë\r\n");
+	strMethod += _T(" - ³ëÀÌÁî¿¡ °­ÇÔ (Æ¯È÷ Salt & Pepper noise), Æò±Õº¸´Ù ¾ÈÁ¤Àû, °ªÀÌ ±Ø´ÜÀûÀ¸·Î Æ¢´Â ÇÈ¼¿ÀÌ ÀÖ¾îµµ ¿µÇâ ÀûÀ½\r\n");
+	strMethod += _T("Middle : ÁÖº¯ ÇÈ¼¿ °ªÀÇ ¡°ÃÖ¼Ò°ª°ú ÃÖ´ë°ªÀÇ Áß°£°ª¡±À» »ç¿ë\r\n");
+	strMethod += _T(" - ¹à±â ´ëºñ°¡ Å« °æ¿ì À¯¸®, Æò±Õ / Áß¾Ó°ª°ú ´Ù¸£°Ô ¹üÀ§(contrast)¸¸ º¸°í ÆÇ´Ü, ¸í¾ÏÀÌ °­ÇÑ ÀÌ¹ÌÁö¿¡¼­ °´Ã¼ / ¹è°æÀÌ Àß ³ª´· ¼ö ÀÖÀ½, ÇÏÁö¸¸ ³ëÀÌÁî°¡ min ¶Ç´Â max ¸¦ Àâ¾Æ¹ö¸®¸é ºÒ¾ÈÁ¤ÇÔ");
 
 	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_TRAYOCR_METHOD), strMethod);
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HALF_KERNEL_SIZE), _T("Convolutionì—°ì‚°ì„ ìˆ˜í–‰í•  Kernelì˜ í¬ê¸°ë¥¼ ì§€ì •í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_THRESHOLD_OFFSET), _T("ì„¤ì •í•œ â€˜Methodâ€™ì— Offsetìœ¼ë¡œ ì£¼ëŠ” ê°’ì…ë‹ˆë‹¤.â€˜ì´ë¯¸ì§€ ë¯¸ë¦¬ë³´ê¸°â€™ ê¸°ëŠ¥ì„ í†µí•´ ë³€í™˜ëœ ì´ë¯¸ì§€ë¥¼ í™•ì¸í•´ê°€ë©° ìµœì ì˜ ê°’ì„ ì…ë ¥í•´ì•¼í•©ë‹ˆë‹¤."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_HALF_KERNEL_SIZE), _T("Convolution¿¬»êÀ» ¼öÇàÇÒ KernelÀÇ Å©±â¸¦ ÁöÁ¤ÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_TRAYOCR_THRESHOLD_OFFSET), _T("¼³Á¤ÇÑ ¡®Method¡¯¿¡ OffsetÀ¸·Î ÁÖ´Â °ªÀÔ´Ï´Ù.¡®ÀÌ¹ÌÁö ¹Ì¸®º¸±â¡¯ ±â´ÉÀ» ÅëÇØ º¯È¯µÈ ÀÌ¹ÌÁö¸¦ È®ÀÎÇØ°¡¸ç ÃÖÀûÀÇ °ªÀ» ÀÔ·ÂÇØ¾ßÇÕ´Ï´Ù."));
 
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_OCR_PREVIEW), _T("ì„¤ì •ëœ adaptive threshold íŒŒë¼ë¯¸í„°ë¡œ OCRì„ í•  ë•Œì˜ ì´ë¯¸ì§€ë¥¼ í™•ì¸í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤."));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_OCR_PREVIEW), _T("¼³Á¤µÈ adaptive threshold ÆÄ¶ó¹ÌÅÍ·Î OCRÀ» ÇÒ ¶§ÀÇ ÀÌ¹ÌÁö¸¦ È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù."));
 
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_ROI_TRAYOCR), _T("ëˆ„ë¥´ë©´ OCR ê²€ì‚¬ë¥¼ ìˆ˜í–‰í•  ì˜ì—­ì„ Viewerì—ì„œ ì„¤ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TEST_TRAYOCR_FONT_REGISTER), _T("OCRì— ì‚¬ìš© ë˜ëŠ” í°íŠ¸ë¥¼ ë“±ë¡í•˜ëŠ” ì°½ì´ ì—´ë¦½ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_ROTATE_IMAGE), _T("Tabë¶€ë¶„ ê¸€ìê°€ íšŒì „ ë˜ì–´ ìˆëŠ” Trayì˜ ê²½ìš°, ë°•ìŠ¤ë¥¼ ì²´í¬í•œ ë’¤ ì €ì¥í•˜ë©´ Line Scan Cameraë¡œ ì´ë¯¸ì§€ë¥¼ Grabí•  ë•Œ Viewerì— ì´ë¯¸ì§€ê°€ íšŒì „ë˜ì–´ ë‚˜íƒ€ë‚©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TAB_ALIGN_TEACH_MODEL), _T("ì´ë¯¸ì§€ì—ì„œ Tabì„ ì°¾ì„ ë•Œ ë¹„êµí•  ëª¨ë¸ì„ ë“±ë¡í•©ë‹ˆë‹¤."));
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TAB_NONINSP_TEACHING), _T("ë¹„ê²€ì‚¬ ì˜ì—­ì„ ì„¤ì •í•©ë‹ˆë‹¤. ex) @ ë§ˆí¬"));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_ROI_TRAYOCR), _T("´©¸£¸é OCR °Ë»ç¸¦ ¼öÇàÇÒ ¿µ¿ªÀ» Viewer¿¡¼­ ¼³Á¤ÇÒ ¼ö ÀÖ½À´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TEST_TRAYOCR_FONT_REGISTER), _T("OCR¿¡ »ç¿ë µÇ´Â ÆùÆ®¸¦ µî·ÏÇÏ´Â Ã¢ÀÌ ¿­¸³´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_TRAYOCR_ROTATE_IMAGE), _T("TabºÎºĞ ±ÛÀÚ°¡ È¸Àü µÇ¾î ÀÖ´Â TrayÀÇ °æ¿ì, ¹Ú½º¸¦ Ã¼Å©ÇÑ µÚ ÀúÀåÇÏ¸é Line Scan Camera·Î ÀÌ¹ÌÁö¸¦ GrabÇÒ ¶§ Viewer¿¡ ÀÌ¹ÌÁö°¡ È¸ÀüµÇ¾î ³ªÅ¸³³´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TAB_ALIGN_TEACH_MODEL), _T("ÀÌ¹ÌÁö¿¡¼­ TabÀ» Ã£À» ¶§ ºñ±³ÇÒ ¸ğµ¨À» µî·ÏÇÕ´Ï´Ù."));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_TAB_NONINSP_TEACHING), _T("ºñ°Ë»ç ¿µ¿ªÀ» ¼³Á¤ÇÕ´Ï´Ù. ex) @ ¸¶Å©"));
 	m_toolTip.Activate(TRUE);
 }
 
@@ -291,7 +291,7 @@ BOOL CTeachTab1GTrayOcr::Save()
 	// Validation Check
 	if (m_TrayOcr.nCharWidthMin > m_TrayOcr.nCharWidthMax)
 	{
-		AfxMessageBox(_T("ê¸€ì ë„ˆë¹„ ìµœì†Œê°’ì€ ìµœëŒ€ê°’ ì´í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤."), MB_ICONERROR);
+		AfxMessageBox(_T("±ÛÀÚ ³Êºñ ÃÖ¼Ò°ªÀº ÃÖ´ë°ª ÀÌÇÏ¿©¾ß ÇÕ´Ï´Ù."), MB_ICONERROR);
 		m_TrayOcr = stTrayOcr;
 		UpdateData(FALSE);
 
@@ -299,7 +299,7 @@ BOOL CTeachTab1GTrayOcr::Save()
 	}
 	if (m_TrayOcr.nCharHeightMin > m_TrayOcr.nCharHeightMax)
 	{
-		AfxMessageBox(_T("ê¸€ì ë†’ì´ ìµœì†Œê°’ì€ ìµœëŒ€ê°’ ì´í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤."), MB_ICONERROR);
+		AfxMessageBox(_T("±ÛÀÚ ³ôÀÌ ÃÖ¼Ò°ªÀº ÃÖ´ë°ª ÀÌÇÏ¿©¾ß ÇÕ´Ï´Ù."), MB_ICONERROR);
 		m_TrayOcr = stTrayOcr;
 		UpdateData(FALSE);
 
@@ -330,84 +330,66 @@ void CTeachTab1GTrayOcr::CheckData()
 	CModelInfo::stTrayOcr& stTrayOcr = CModelInfo::Instance()->GetTrayOcr();
 
 	// ----- TrayOcr Teaching -----
-	strLog.Format( _T("[Bypass][%sâ†’%s]"), strBypassName[stTrayOcr.nUseBypass_TrayOcr], strBypassName[m_TrayOcr.nUseBypass_TrayOcr] );
+	strLog.Format( _T("[Bypass][%s¡æ%s]"), strBypassName[stTrayOcr.nUseBypass_TrayOcr], strBypassName[m_TrayOcr.nUseBypass_TrayOcr] );
 	if( stTrayOcr.nUseBypass_TrayOcr != m_TrayOcr.nUseBypass_TrayOcr) CVisionSystem::Instance()->WriteLogforTeaching( InspectTypeTrayOcr, strLog );
 	
-	strLog.Format(_T("[Description][%sâ†’%s]"), stTrayOcr.strDescription, m_TrayOcr.strDescription);
+	strLog.Format(_T("[Description][%s¡æ%s]"), stTrayOcr.strDescription, m_TrayOcr.strDescription);
 	if (stTrayOcr.strDescription != m_TrayOcr.strDescription) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[TrayOcrInfo][%sâ†’%s]"), stTrayOcr.strTrayOcrInfo, m_TrayOcr.strTrayOcrInfo);
+	strLog.Format(_T("[TrayOcrInfo][%s¡æ%s]"), stTrayOcr.strTrayOcrInfo, m_TrayOcr.strTrayOcrInfo);
 	if (stTrayOcr.strTrayOcrInfo != m_TrayOcr.strTrayOcrInfo) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[CharacterWidthMin][%dâ†’%d]"), stTrayOcr.nCharWidthMin, m_TrayOcr.nCharWidthMin);
+	strLog.Format(_T("[CharacterWidthMin][%d¡æ%d]"), stTrayOcr.nCharWidthMin, m_TrayOcr.nCharWidthMin);
 	if (stTrayOcr.nCharWidthMin != m_TrayOcr.nCharWidthMin) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[CharacterWidthMax][%dâ†’%d]"), stTrayOcr.nCharWidthMax, m_TrayOcr.nCharWidthMax);
+	strLog.Format(_T("[CharacterWidthMax][%d¡æ%d]"), stTrayOcr.nCharWidthMax, m_TrayOcr.nCharWidthMax);
 	if (stTrayOcr.nCharWidthMax != m_TrayOcr.nCharWidthMax) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[CharacterHeightMin][%dâ†’%d]"), stTrayOcr.nCharHeightMin, m_TrayOcr.nCharHeightMin);
+	strLog.Format(_T("[CharacterHeightMin][%d¡æ%d]"), stTrayOcr.nCharHeightMin, m_TrayOcr.nCharHeightMin);
 	if (stTrayOcr.nCharHeightMin != m_TrayOcr.nCharHeightMin) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[CharacterHeightMax][%dâ†’%d]"), stTrayOcr.nCharHeightMax, m_TrayOcr.nCharHeightMax);
+	strLog.Format(_T("[CharacterHeightMax][%d¡æ%d]"), stTrayOcr.nCharHeightMax, m_TrayOcr.nCharHeightMax);
 	if (stTrayOcr.nCharHeightMax != m_TrayOcr.nCharHeightMax) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[OcrAreaDistanceX][%dâ†’%d]"), stTrayOcr.nOcrAreaDistX, m_TrayOcr.nOcrAreaDistX);
+	strLog.Format(_T("[OcrAreaDistanceX][%d¡æ%d]"), stTrayOcr.nOcrAreaDistX, m_TrayOcr.nOcrAreaDistX);
 	if (stTrayOcr.nOcrAreaDistX != m_TrayOcr.nOcrAreaDistX) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[OcrAreaDistanceY][%dâ†’%d]"), stTrayOcr.nOcrAreaDistY, m_TrayOcr.nOcrAreaDistY);
+	strLog.Format(_T("[OcrAreaDistanceY][%d¡æ%d]"), stTrayOcr.nOcrAreaDistY, m_TrayOcr.nOcrAreaDistY);
 	if (stTrayOcr.nOcrAreaDistY != m_TrayOcr.nOcrAreaDistY) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[PageCount][%ldâ†’%ld]"), stTrayOcr.lPageCount, m_TrayOcr.lPageCount);
+	strLog.Format(_T("[PageCount][%ld¡æ%ld]"), stTrayOcr.lPageCount, m_TrayOcr.lPageCount);
 	if (stTrayOcr.lPageCount != m_TrayOcr.lPageCount) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Remove Border][%dâ†’%d]"), stTrayOcr.bRemoveBorder, m_TrayOcr.bRemoveBorder);
+	strLog.Format(_T("[Remove Border][%d¡æ%d]"), stTrayOcr.bRemoveBorder, m_TrayOcr.bRemoveBorder);
 	if (stTrayOcr.bRemoveBorder != m_TrayOcr.bRemoveBorder) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	m_bPendingSaveAfterTeaching = FALSE;
-
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
-void CTeachTab1GTrayOcr::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
-}
-
-	strLog.Format(_T("[Remove Narrow or Flat][%dâ†’%d]"), stTrayOcr.bRemoveNarrowFlat, m_TrayOcr.bRemoveNarrowFlat);
+	strLog.Format(_T("[Remove Narrow or Flat][%d¡æ%d]"), stTrayOcr.bRemoveNarrowFlat, m_TrayOcr.bRemoveNarrowFlat);
 	if (stTrayOcr.bRemoveNarrowFlat != m_TrayOcr.bRemoveNarrowFlat) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Cut Large Char][%dâ†’%d]"), stTrayOcr.bCutLargeChar, m_TrayOcr.bCutLargeChar);
+	strLog.Format(_T("[Cut Large Char][%d¡æ%d]"), stTrayOcr.bCutLargeChar, m_TrayOcr.bCutLargeChar);
 	if (stTrayOcr.bCutLargeChar != m_TrayOcr.bCutLargeChar) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Use Adaptive Threshold][%dâ†’%d]"), stTrayOcr.bUseAdaptiveThreshold, m_TrayOcr.bUseAdaptiveThreshold);
+	strLog.Format(_T("[Use Adaptive Threshold][%d¡æ%d]"), stTrayOcr.bUseAdaptiveThreshold, m_TrayOcr.bUseAdaptiveThreshold);
 	if (stTrayOcr.bUseAdaptiveThreshold != m_TrayOcr.bUseAdaptiveThreshold) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 	
-	strLog.Format(_T("[Rotate Image][%dâ†’%d]"), stTrayOcr.bRotateImage, m_TrayOcr.bRotateImage);
+	strLog.Format(_T("[Rotate Image][%d¡æ%d]"), stTrayOcr.bRotateImage, m_TrayOcr.bRotateImage);
 	if (stTrayOcr.bRotateImage != m_TrayOcr.bRotateImage) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Method][%dâ†’%d]"), stTrayOcr.nMethod, m_TrayOcr.nMethod);
+	strLog.Format(_T("[Method][%d¡æ%d]"), stTrayOcr.nMethod, m_TrayOcr.nMethod);
 	if (stTrayOcr.nMethod != m_TrayOcr.nMethod) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Half Kernel Size][%dâ†’%d]"), stTrayOcr.nHalfKernelSize, m_TrayOcr.nHalfKernelSize);
+	strLog.Format(_T("[Half Kernel Size][%d¡æ%d]"), stTrayOcr.nHalfKernelSize, m_TrayOcr.nHalfKernelSize);
 	if (stTrayOcr.nHalfKernelSize != m_TrayOcr.nHalfKernelSize) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 
-	strLog.Format(_T("[Threshold Offset][%dâ†’%d]"), stTrayOcr.nThresholdOffset, m_TrayOcr.nThresholdOffset);
+	strLog.Format(_T("[Threshold Offset][%d¡æ%d]"), stTrayOcr.nThresholdOffset, m_TrayOcr.nThresholdOffset);
 	if (stTrayOcr.nThresholdOffset != m_TrayOcr.nThresholdOffset) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeTrayOcr, strLog);
 #endif
 }
 
 void CTeachTab1GTrayOcr::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelNameTrayOcr();
 
@@ -448,9 +430,27 @@ void CTeachTab1GTrayOcr::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachTabBegin = FALSE;
 	m_bIsTeachOcrROI = FALSE;
 	m_bIsTrayNonInsp = FALSE;
+}
+
+void CTeachTab1GTrayOcr::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1GTrayOcr::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -672,6 +672,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnSave()
 		}
 
 		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -867,7 +868,7 @@ void CTeachTab1GTrayOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	BOOL bRet = FALSE;
 
-	// ê¸°ì¤€ ëª¨ë¸
+	// ±âÁØ ¸ğµ¨
 	if (m_bIsTeachTabBegin)
 	{
 		m_TrayOcr.rcTabBegin = rcTrackRegion;
@@ -899,8 +900,7 @@ void CTeachTab1GTrayOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 		bRet = TRUE;
 	}
 
-		m_bPendingSaveAfterTeaching = TRUE;
-	// ë¹„ê²€ì‚¬
+	// ºñ°Ë»ç
 	if (m_bIsTrayNonInsp)
 	{
 		m_TrayOcr.rcMaskingArea[m_nCombo_Tray_Masking_Select] = rcTrackRegion;
@@ -916,6 +916,7 @@ void CTeachTab1GTrayOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
@@ -933,7 +934,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnRoiTrayocr()
 
 	if (m_TrayOcr.rcTabBegin.IsRectEmpty())
 	{
-		AfxMessageBox(_T("Tab Align ëª¨ë¸ í‹°ì¹­ì„ ë¨¼ì € ì§„í–‰í•´ì£¼ì„¸ìš”."), MB_ICONERROR);
+		AfxMessageBox(_T("Tab Align ¸ğµ¨ Æ¼ÄªÀ» ¸ÕÀú ÁøÇàÇØÁÖ¼¼¿ä."), MB_ICONERROR);
 		m_bIsTeachOcrROI = FALSE;
 		m_btnROI.SetCheck(BST_UNCHECKED);
 		return;
@@ -988,7 +989,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabAlignTeachModel()
 
 		m_btnTabAlignTeachModel.EnableWindow(TRUE);
 
-		AfxMessageBox(_T("Tray ê¸°ì¤€ì ì„ ì°¾ê¸° ìœ„í•œ ì˜ì—­ì„ ì§€ì •í•˜ì„¸ìš”."));
+		AfxMessageBox(_T("Tray ±âÁØÁ¡À» Ã£±â À§ÇÑ ¿µ¿ªÀ» ÁöÁ¤ÇÏ¼¼¿ä."));
 
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this, m_TrayOcr.rcTabBegin);
 	}
@@ -1055,7 +1056,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabNoninspTeaching()
 
 	if (m_TrayOcr.rcTabBegin.IsRectEmpty())
 	{
-		AfxMessageBox(_T("Ocr ì˜ì—­ ì„¤ì •ì„ ë¨¼ì € ì§„í–‰í•´ì£¼ì„¸ìš”."), MB_ICONERROR);
+		AfxMessageBox(_T("Ocr ¿µ¿ª ¼³Á¤À» ¸ÕÀú ÁøÇàÇØÁÖ¼¼¿ä."), MB_ICONERROR);
 		m_bIsTrayNonInsp = FALSE;
 		m_btnTrayNonInspTeachModel.SetCheck(BST_UNCHECKED);
 		return;
@@ -1171,8 +1172,8 @@ void CTeachTab1GTrayOcr::OnLButtonDblClk(UINT nFlags, CPoint point)
 		pCtrl->GetWindowRect(&rc);
 		ScreenToClient(&rc);
 
-		int nLeftAreaEndX = rc.left + rc.Height(); // ì¢Œì¸¡ ì •ì‚¬ê°í˜•
-		int nRightAreaEndX = rc.right - (rc.Height() * 3); // ìš°ì¸¡ ì •ì‚¬ê°í˜• * 3
+		int nLeftAreaEndX = rc.left + rc.Height(); // ÁÂÃø Á¤»ç°¢Çü
+		int nRightAreaEndX = rc.right - (rc.Height() * 3); // ¿ìÃø Á¤»ç°¢Çü * 3
 
 		if (rc.PtInRect(point))
 		{
@@ -1181,19 +1182,19 @@ void CTeachTab1GTrayOcr::OnLButtonDblClk(UINT nFlags, CPoint point)
 				CString strPdfPath;
 				strPdfPath.Format(_T("%s\\Manual\\HA-1154 Manual_260205.pdf"), GetExecuteDirectory());
 
-				// 1. ì—­ìŠ¬ë˜ì‹œ(\)ë¥¼ ìŠ¬ë˜ì‹œ(/)ë¡œ ë³€í™˜ (ë¸Œë¼ìš°ì € ì¸ì‹ìš©)
+				// 1. ¿ª½½·¡½Ã(\)¸¦ ½½·¡½Ã(/)·Î º¯È¯ (ºê¶ó¿ìÀú ÀÎ½Ä¿ë)
 				strPdfPath.Replace(_T('\\'), _T('/'));
 
-				// 2. file:/// í”„ë¡œí† ì½œì„ ì‚¬ìš©í•˜ê³  ì „ì²´ë¥¼ í°ë”°ì˜´í‘œë¡œ ê°ì‹¸ê¸°
-				// # ë¬¸ìê°€ ì¸ì½”ë”©ë˜ì§€ ì•Šë„ë¡ ì§ì ‘ êµ¬ì„±
+				// 2. file:/// ÇÁ·ÎÅäÄİÀ» »ç¿ëÇÏ°í ÀüÃ¼¸¦ Å«µû¿ÈÇ¥·Î °¨½Î±â
+				// # ¹®ÀÚ°¡ ÀÎÄÚµùµÇÁö ¾Êµµ·Ï Á÷Á¢ ±¸¼º
 				CString strParams;
 				strParams.Format(_T("\"file:///%s#page=26\""), (LPCTSTR)strPdfPath);
 
-				// 3. ShellExecute ì‹¤í–‰
+				// 3. ShellExecute ½ÇÇà
 				HINSTANCE hInst = ShellExecute(NULL, _T("open"), _T("msedge.exe"), strParams, NULL, SW_SHOWNORMAL);
 
 				if ((INT_PTR)hInst <= 32)
-					AfxMessageBox(_T("Manual Pdf íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
+					AfxMessageBox(_T("Manual Pdf ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù."));
 			}
 			else if (point.x < nRightAreaEndX)	// Right
 			{

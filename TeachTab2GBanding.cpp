@@ -26,6 +26,7 @@ IMPLEMENT_DYNAMIC(CTeachTab2GBanding, CDialog)
 CTeachTab2GBanding::CTeachTab2GBanding(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab2GBanding::IDD, pParent)
 	, m_bIsTeachBanding(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_Banding.Clear();
@@ -212,6 +213,8 @@ void CTeachTab2GBanding::CheckData()
 
 void CTeachTab2GBanding::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	CModelInfo::stBandingInfo& BandingInfo = CModelInfo::Instance()->GetBandingInfo();
 	m_Banding = BandingInfo;
@@ -252,7 +255,25 @@ void CTeachTab2GBanding::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachBanding = FALSE;
+}
+
+void CTeachTab2GBanding::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab2GBanding::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -460,6 +481,8 @@ void CTeachTab2GBanding::OnBnClickedBtnSave()
 		m_btnSave.SetWindowText(_T("Save"));
 		CModelInfo::Instance()->Load(strSelectModelName, BANDING_KIND);
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -468,9 +491,17 @@ void CTeachTab2GBanding::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab2GBanding::OnBnClickedBtnSave :: End"));
 }
@@ -595,6 +626,7 @@ void CTeachTab2GBanding::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}

@@ -13,17 +13,17 @@
 
 #include "ModelInfo.h"
 
-// CTeachTab1GTrayOcr ëŒ€í™” ìƒìì…ë‹ˆë‹¤.
+// CTeachTab1GTrayOcr ´ëÈ­ »óÀÚÀÔ´Ï´Ù.
 class CAPKView;
 class CTeachTab1GTrayOcr : public CDialog
 {
 	DECLARE_DYNAMIC(CTeachTab1GTrayOcr)
 
 public:
-	CTeachTab1GTrayOcr(CWnd* pParent = NULL);   // í‘œì¤€ ìƒì„±ìì…ë‹ˆë‹¤.
+	CTeachTab1GTrayOcr(CWnd* pParent = NULL);   // Ç¥ÁØ »ı¼ºÀÚÀÔ´Ï´Ù.
 	virtual ~CTeachTab1GTrayOcr();
 
-// ëŒ€í™” ìƒì ë°ì´í„°ì…ë‹ˆë‹¤.
+// ´ëÈ­ »óÀÚ µ¥ÀÌÅÍÀÔ´Ï´Ù.
 	enum { IDD = IDD_TEACH_TAB_1G_TRAYOCR };
 
 protected:
@@ -132,7 +132,7 @@ public:
 protected:
 	void UpdateRecipeList();
 
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV ì§€ì›ì…ë‹ˆë‹¤.
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Áö¿øÀÔ´Ï´Ù.
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);

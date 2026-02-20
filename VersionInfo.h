@@ -9,7 +9,7 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 8
-#define VERSION_PATCH 5
+#define VERSION_PATCH 6
 #define VERSION_BUILD 0
 
 #define STRINGIFY(x) #x
@@ -18,6 +18,9 @@
 #define FULL_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH) "." TOSTR(VERSION_BUILD)
 #define FILE_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH)
 
+//=========================================================
+// v 2.8.6
+// Teaching 이후 Save 버튼 누르게끔 프로그램에서 유도
 //=========================================================
 // v 2.8.5
 // Banding Insp 수정

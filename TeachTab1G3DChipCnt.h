@@ -41,6 +41,7 @@ protected:
 	
 	BOOL m_bIsTeachFirst;
 	BOOL m_bCheckEqualize;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CToolTipCtrl m_toolTip;
 
@@ -71,6 +72,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

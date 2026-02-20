@@ -26,6 +26,7 @@ CTeachTab5GBoxQuality::CTeachTab5GBoxQuality(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab5GBoxQuality::IDD, pParent)
 	, m_bIsTeachBoxQuality(FALSE)
 	, m_nModelNum(0)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_BoxInfo.Clear();
@@ -256,6 +257,8 @@ void CTeachTab5GBoxQuality::CheckData()
 
 void CTeachTab5GBoxQuality::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameBoxQuality(), BOXQUALITY_KIND);
@@ -351,7 +354,25 @@ void CTeachTab5GBoxQuality::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachBoxQuality = FALSE;
+}
+
+void CTeachTab5GBoxQuality::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab5GBoxQuality::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -470,6 +491,8 @@ void CTeachTab5GBoxQuality::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInd
 	if (bRet)
 	{
 		m_BoxInfo.ptMatchCenter[m_nModelNum] = rcTrackRegion.CenterPoint();
+
+		m_bPendingSaveAfterTeaching = TRUE;
 		
 		Cleanup();
 		UpdateUI();
@@ -611,6 +634,8 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, BOXQUALITY_KIND);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -619,9 +644,17 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab5GBoxQuality::OnBnClickedBtnSave :: End"));
 }

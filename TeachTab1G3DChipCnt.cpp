@@ -31,6 +31,7 @@ CTeachTab1G3DChipCnt::CTeachTab1G3DChipCnt(CWnd* pParent /*=NULL*/)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachFirst(FALSE)
 	, m_bCheckEqualize(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_3DChipCnt.Clear();
@@ -280,6 +281,8 @@ void CTeachTab1G3DChipCnt::CheckData()
 
 void CTeachTab1G3DChipCnt::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelName3DChipCnt();
 	CModelInfo::st3DChipCnt& st3DChipCnt = CModelInfo::Instance()->Get3DChipCnt();
@@ -354,7 +357,25 @@ void CTeachTab1G3DChipCnt::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachFirst = FALSE;
+}
+
+void CTeachTab1G3DChipCnt::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1G3DChipCnt::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -588,6 +609,8 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, TOPCHIPCNT_KIND);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		DisableWnd(TRUE);
 		Refresh();
 
@@ -596,10 +619,18 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 	Refresh();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab1G3DChipCnt::OnBnClickedBtnSave :: End"));
 }
@@ -692,6 +723,7 @@ void CTeachTab1G3DChipCnt::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInde
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}

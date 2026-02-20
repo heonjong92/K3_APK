@@ -28,6 +28,8 @@ CTeachTabLabel::CTeachTabLabel(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTabLabel::IDD, pParent)
 	, m_nInspCount(0)
 	, m_nInspIndex(0)
+	, m_bPendingSaveAfterTeaching(FALSE)
+
 {
 	m_pMainView = NULL;
 	m_Label.Clear();
@@ -430,6 +432,8 @@ BOOL CTeachTabLabel::Save()
 
 void CTeachTabLabel::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load_Label( CModelInfo::Instance()->GetModelNameLabel() );
@@ -466,10 +470,28 @@ void CTeachTabLabel::Cleanup()
 		}
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
-	
+
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachLabel = FALSE;
 	m_bIsTeachLabel_Align = FALSE;
 //	m_toolTipImg.HideTip();
+}
+
+void CTeachTabLabel::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTabLabel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -1012,6 +1034,8 @@ void CTeachTabLabel::OnBnClickedBtnSaveLabel()
 			pInspectionVision->Load_Label(strSelectModelName);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -1020,9 +1044,17 @@ void CTeachTabLabel::OnBnClickedBtnSaveLabel()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab4GMBB::OnBnClickedBtnSave :: End"));
 }

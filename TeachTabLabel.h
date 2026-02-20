@@ -49,6 +49,7 @@ protected:
 
 	BOOL m_bIsTeachLabel;
 	BOOL m_bIsTeachLabel_Align;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CToolTipCtrl m_toolTip;
 //	CImageToolTip m_toolTipImg;
@@ -87,6 +88,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 	void ViewInspAreas();
 	void AlignInspectionAreas();

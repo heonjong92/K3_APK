@@ -49,6 +49,7 @@ protected:
 	BOOL m_bIsTeachSealingQuality;
 
 	BOOL m_bIsPreview;
+	BOOL m_bPendingSaveAfterTeaching;
 
 public:
 	static BOOL m_bPreview;
@@ -67,6 +68,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

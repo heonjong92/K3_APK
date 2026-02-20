@@ -46,6 +46,7 @@ protected:
 	int	m_nSelectRecipeIndex;
 
 	BOOL m_bIsTeachHIC;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CStatic m_ctrlPicPreviewTeachHIC;		// pic
 	CRect m_rcPicCtrlSizeTeachHIC;			// pic size
@@ -67,6 +68,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

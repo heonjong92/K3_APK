@@ -46,6 +46,7 @@ protected:
 
 	//BOOL m_bIsTeachROI;
 	BOOL m_bIsTeachTrayROI;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CToolTipCtrl m_toolTip;
 
@@ -86,6 +87,7 @@ public:
 	void EnableContionalCtrl(const CModelInfo::stDesiccantMaterialInfo& stDesiccant, BOOL bEnable);
 
 	void UpdateLanguage();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

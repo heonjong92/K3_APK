@@ -1,11 +1,10 @@
-#include <strsafe.h>
-// StripInfoCtrl.cpp : 구현 파일입니다.
+// StripInfoCtrl.cpp : ���� �����Դϴ�.
 //
-
 #include "stdafx.h"
 #include "ObjectInfoCtrlEx.h"
 #include "ResourceManager.h"
 
+#include <strsafe.h>
 #include <algorithm>
 
 #ifdef _DEBUG
@@ -373,7 +372,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 			rectUnit.X = (int)(fPosX+0.5f) + 1;
 			rectUnit.Y = (int)(fPosY+0.5f) + 1;
 
-			// X축
+			// X�?
 			if (j == nColCount - 1)
 			{
 				rectUnit.Width = (int)(fPosX + fFirstStepX + 0.5f) + 1	- rectUnit.X - 1;
@@ -388,7 +387,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 					rectUnit.Width = (int)(fPosX + fStepX + 0.5f) + 1 - rectUnit.X - 1;
 			}
 
-			// Y축
+			// Y�?
 			if (i==0)
 				rectUnit.Height = (int)(fPosY+fFirstStepY+0.5f) + 1 - rectUnit.Y - 1;
 			else
@@ -1091,7 +1090,7 @@ void CObjectInfoCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 BOOL UIExt::CObjectInfoCtrlEx::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	// TODO: ?�기???�수?�된 코드�?추�? �??�는 기본 ?�래?��? ?�출?�니??
 	m_pToolTip->RelayEvent(pMsg);
 
 

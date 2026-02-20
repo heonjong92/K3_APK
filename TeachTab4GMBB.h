@@ -48,6 +48,7 @@ protected:
 
 	BOOL m_bIsTeachMBBSize;
 	BOOL m_bIsTeachMBBRotate;
+	BOOL m_bPendingSaveAfterTeaching;
 
 	CStatic m_ctrlPicPreviewTeachMBB;		// pic
 	CRect m_rcPicCtrlSizeTeachMBB;			// pic size
@@ -69,6 +70,7 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

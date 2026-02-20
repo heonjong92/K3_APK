@@ -25,7 +25,7 @@ public:
 	virtual ~CTeachTab1GMixing();
 
 // 대화 상자 데이터입니다.
-	enum { IDD = IDD_TEACH_TAB_1G_MIXING	};
+	enum { IDD = IDD_TEACH_TAB_1G_MIXING };
 
 protected:
 	CAPKView*	m_pMainView;
@@ -51,12 +51,10 @@ protected:
 	int m_nCombo_Mixing_Select;
 
 	BOOL m_bIsTeachMixing;
-	//BOOL m_bIsPlainPattern; 	// Tray 옆면에 패턴 없는 경우
+	BOOL m_bPendingSaveAfterTeaching;
 
-	CStatic m_ctrlPicPreviewTeachMixing;		// pic
-	CRect m_rcPicCtrlSizeTeachMixing;			// pic size
-
-	//CComboBox m_ComboMethod;
+	CStatic m_ctrlPicPreviewTeachMixing;
+	CRect m_rcPicCtrlSizeTeachMixing;
 
 public:
 	void SetMainView( CAPKView* pView ) { m_pMainView = pView; }
@@ -76,7 +74,8 @@ public:
 
 	void UpdateCount_Mixing(BOOL bComboReset = FALSE);
 	void UpdateTeachingImage_Mixing();
-	//void UpdateMethod();
+
+	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

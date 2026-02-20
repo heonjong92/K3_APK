@@ -28,6 +28,8 @@ CTeachTab5GSealingQuality::CTeachTab5GSealingQuality(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab5GSealingQuality::IDD, pParent)
 	, m_bIsTeachSealingQuality(FALSE)
 	, m_bIsPreview(FALSE)
+	, m_bPendingSaveAfterTeaching(FALSE)
+
 {
 	m_pMainView = NULL;
 	m_Sealing.Clear();
@@ -221,6 +223,8 @@ void CTeachTab5GSealingQuality::CheckData()
 
 void CTeachTab5GSealingQuality::Refresh()
 {
+	m_bPendingSaveAfterTeaching = FALSE;
+
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameSealingQuality(), SEALINGQUALITY_KIND);
@@ -280,8 +284,26 @@ void CTeachTab5GSealingQuality::Cleanup()
 	}
 #endif
 
+	if (m_bPendingSaveAfterTeaching)
+		LockButtonsUntilSave();
+
 	m_bIsTeachSealingQuality = FALSE;
 	m_bIsPreview = FALSE;
+}
+
+void CTeachTab5GSealingQuality::LockButtonsUntilSave()
+{
+	CWnd* pChild = GetWindow(GW_CHILD);
+	while (pChild)
+	{
+		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
+		{
+			pChild->EnableWindow(FALSE);
+		}
+		pChild = pChild->GetWindow(GW_HWNDNEXT);
+	}
+
+	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab5GSealingQuality::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -405,6 +427,8 @@ void CTeachTab5GSealingQuality::OnConfirmTracker(CRect& rcTrackRegion, UINT nVie
 
 	if (bRet)
 	{
+		m_bPendingSaveAfterTeaching = TRUE;
+
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
@@ -544,6 +568,8 @@ void CTeachTab5GSealingQuality::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, SEALINGQUALITY_KIND);
 		}
 
+		m_bPendingSaveAfterTeaching = FALSE;
+
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -552,9 +578,17 @@ void CTeachTab5GSealingQuality::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	Save();
+	BOOL bSaveResult = Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
+
+	if (bSaveResult && m_bPendingSaveAfterTeaching)
+	{
+		m_bPendingSaveAfterTeaching = FALSE;
+		Cleanup();
+		UpdateUI();
+		UpdateData(FALSE);
+	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab5GSealingQuality::OnBnClickedBtnSave :: End"));
 }
