@@ -110,10 +110,14 @@ void CInspectSaveMergeProcess::WorkerQueue::Clear()
 
 void CInspectSaveMergeProcess::WorkerThread::WaitForShutdownToComplete()
 {
-	if(!Wait(1000))
+	if(!Wait(5000))
 	{
-		TRACE("CInspectSaveMergeProcess::WorkerThread - Force Terminate\n");
-		Terminate();
+		TRACE("CInspectSaveMergeProcess::WorkerThread - Wait timeout (5s), retrying...\n");
+		if(!Wait(30000))
+		{
+			TRACE("CInspectSaveMergeProcess::WorkerThread - Force Terminate (last resort)\n");
+			Terminate();
+		}
 	}
 
    if(m_hThread != 0)
@@ -126,9 +130,9 @@ void CInspectSaveMergeProcess::WorkerThread::WaitForShutdownToComplete()
 void CInspectSaveMergeProcess::WorkerThread::DoWork(MergeItem& item)
 {
 	TRACE(_T("DO WORK - [%d]\n"), m_nThreadId);
+	m_bWorking = 1;
 
 	CVisionSystem* pSystem = CVisionSystem::Instance();
-
 	pSystem->StartSaveImageMerge(item.bXMerge);
 
 	m_bWorking = 0;
@@ -257,7 +261,7 @@ long CInspectSaveMergeProcess::GetWorkingThreadCount()
 	long count = 0;
 	for(int i=0; i<m_nNumThreads; i++)
 	{
-		if(m_WorkerThreads[i]->m_bWorking)
+		if(m_WorkerThreads[i] && m_WorkerThreads[i]->m_bWorking)
 			count++;
 	}
 

@@ -1,4 +1,5 @@
-// StripInfoCtrl.cpp : ±¸Çö ÆÄÀÏÀÔ´Ï´Ù.
+#include <strsafe.h>
+// StripInfoCtrl.cpp : êµ¬í˜„ íŒŒì¼ì…ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -285,7 +286,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 	int nRowCount = m_nRowCount+1;			//Y
 	int nColCount = m_nColumnCount+1;		//X
 
-	float fStepX = (float)rectStripBody.Width / nColCount;		//1°³ÀÇ width
+	float fStepX = (float)rectStripBody.Width / nColCount;		//1ê°œì˜ width
 	float fFirstStepX = fStepX * 1.0f;// * 0.5f
 	fStepX = (rectStripBody.Width - fFirstStepX) / (nColCount-1);
 
@@ -372,7 +373,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 			rectUnit.X = (int)(fPosX+0.5f) + 1;
 			rectUnit.Y = (int)(fPosY+0.5f) + 1;
 
-			// XÃà
+			// Xì¶•
 			if (j == nColCount - 1)
 			{
 				rectUnit.Width = (int)(fPosX + fFirstStepX + 0.5f) + 1	- rectUnit.X - 1;
@@ -387,7 +388,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 					rectUnit.Width = (int)(fPosX + fStepX + 0.5f) + 1 - rectUnit.X - 1;
 			}
 
-			// YÃà
+			// Yì¶•
 			if (i==0)
 				rectUnit.Height = (int)(fPosY+fFirstStepY+0.5f) + 1 - rectUnit.Y - 1;
 			else
@@ -424,14 +425,14 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 
 				if ((i==0) && (j!=nColCount-1))
 				{
-					wsprintfW(wszTitle, L"%d", indexUnit.first+1);
+					StringCchPrintfW(wszTitle, _countof(wszTitle), L"%d", indexUnit.first+1);
 					g.DrawString(wszTitle, -1, &fontTitle, RectF((float)rectUnit.X, (float)rectUnit.Y+1.f, (float)rectUnit.Width, (float)rectUnit.Height), &stringFormat, &brushTitle);
 				}
 				if ((j==nColCount-1) && (i!=0))
 				{
 					m_ArrayRowTip[indexUnit.second] = rectUnit;
-					//wsprintfW(wszTitle, L"%C", L'A'+indexUnit.second);
-					wsprintfW(wszTitle, L"%d", indexUnit.second+1);
+					//StringCchPrintfW(wszTitle, _countof(wszTitle), L"%C", L'A'+indexUnit.second);
+					StringCchPrintfW(wszTitle, _countof(wszTitle), L"%d", indexUnit.second+1);
 					if (m_nActiveRowIndex == indexUnit.second)
 					{
 						g.DrawString(wszTitle, -1, &fontTitle, RectF((float)rectUnit.X, (float)rectUnit.Y+1.f, (float)rectUnit.Width, (float)rectUnit.Height), &stringFormat, &brushActiveRowText);
@@ -1090,7 +1091,7 @@ void CObjectInfoCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 BOOL UIExt::CObjectInfoCtrlEx::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO: ¿©±â¿¡ Æ¯¼öÈ­µÈ ÄÚµå¸¦ Ãß°¡ ¹×/¶Ç´Â ±âº» Å¬·¡½º¸¦ È£ÃâÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— íŠ¹ìˆ˜í™”ëœ ì½”ë“œë¥¼ ì¶”ê°€ ë°/ë˜ëŠ” ê¸°ë³¸ í´ë˜ìŠ¤ë¥¼ í˜¸ì¶œí•©ë‹ˆë‹¤.
 	m_pToolTip->RelayEvent(pMsg);
 
 
