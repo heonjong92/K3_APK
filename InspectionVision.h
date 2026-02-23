@@ -408,7 +408,7 @@ public:
 	BOOL BuildUsingEasyObject_TrayChipCnt(CxGraphicObject* pGO, CxImageObject* pImgObj, int nMinThreshold, int nMaxThreshold, CRect rcChipPos,
 											double dRowPitch, double dColumnPitch, int nXCount, int nYCount);
 	BOOL BuildUsingEasyObject_Lift(CxGraphicObject* pGO, CxImageObject* pImgObj, const int nViewIndex, const CModelInfo::stLiftInfo& stLift);
-	BOOL BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, CxImageObject* pImgObj, CRect& rcTray, int nInspZoneCol, int nRatio1, int nRatio2, int nRatio3, int nSubMaterialPixelVal, int nMargin, int nTrayOutTolerance);
+	BOOL BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, CxImageObject* pImgObj, CRect& rcTray, int nInspZoneCol, int nRatio1, int nRatio2, int nRatio3, int nMargin);
 	BOOL BuildUsingEasyObject_HICDisColor( CxGraphicObject* pGO, CxImageObject* pImgObj, CRect rcRect, BOOL nKindOfObj, BOOL bColor, int nThreshold=0, BOOL bDraw = TRUE );
 	BOOL BuildUsingEasyObject_ForLabelEdge( CxGraphicObject* pGO, CxImageObject* pImgObj, CRect rcRect, BOOL nKindOfObj, int nThreshold=0 );
 	BOOL BuildUsingEasyObject_DesiccantCutting(CxGraphicObject *pGO, CxImageObject* pImgObj, int nViewIndex, CRect rcInspArea, int nDesiccantPixelValue, int nSealingLength, int nColorLineLengthDifference );
@@ -450,7 +450,7 @@ private:
 						int nFontColor = OBJ_BLACK, BOOL bRemoveBorder = FALSE, BOOL bRemoveNarrowOrFlat = FALSE, BOOL bCutLargeChar = TRUE, UINT nCharSpacing = 1, UINT nNoiseArea = 20);
 
 	// 3G Desiccant Material
-	BOOL FindSubMaterialObj(CxGraphicObject* pGO, std::vector<EROIBW8>& vecEROI, int nSubMaterialPixelVal, int nTrayOutTolerance);
+	BOOL FindSubMaterialObj(CxGraphicObject* pGO, std::vector<EROIBW8>& vecEROI);
 	static bool CompareX(const CPoint* pt1, const CPoint* pt2);
 	static bool CompareMatchX(const EMatchPosition eMatch1, const EMatchPosition eMatch2);
 

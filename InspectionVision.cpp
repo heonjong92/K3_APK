@@ -790,7 +790,7 @@ BOOL CInspectionVision::_Auto_FindLift(CxGraphicObject* pGO, CxImageObject* pSrc
 			drcArea.right += rcNormalRect.left;
 			drcArea.top += rcNormalRect.top;
 			drcArea.bottom += rcNormalRect.top;
-			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASHDOT, 1);
+			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASH, 1);
 			pGO->AddDrawBox(clrBox);
 
 			if (!bResult[i])
@@ -933,7 +933,7 @@ BOOL CInspectionVision::_Auto_FindMBB(CxGraphicObject* pGO, CxImageObject* pSrcI
 			drcArea.right += rcNormalRect.left;
 			drcArea.top += rcNormalRect.top;
 			drcArea.bottom += rcNormalRect.top;
-			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASHDOT, 1);
+			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASH, 1);
 			pGO->AddDrawBox(clrBox);
 
 			if (!bResult[i])
@@ -1760,7 +1760,7 @@ BOOL CInspectionVision::_Insp_Banding(CxGraphicObject* pGO, CxImageObject* pSrcI
 		rcBox.bottom = rcArea.bottom;
 		rcBox.NormalizeRect();
 
-		clrBox.CreateObject(PDC_ORANGE, rcBox, PS_DASHDOTDOT, 3);
+		clrBox.CreateObject(PDC_ORANGE, rcBox, PS_DASH, 3);
 		pGO->AddDrawBox(clrBox);
 
 		// Insp & Result
@@ -1824,15 +1824,15 @@ BOOL CInspectionVision::_Insp_Banding(CxGraphicObject* pGO, CxImageObject* pSrcI
 		CVisionSystem::Instance()->SetErrorCode(nViewIndex, ISRESULT_ERROR_BANDING);
 		bResult = FALSE;
 
-		if (CLanguageInfo::Instance()->m_nLangType == 0)		clrText.SetText(_T("¹êµå Æø : NG [%.lf] px"), dDst);
-		else													clrText.SetText(_T("Banding Dst : NG [%.lf] px"), dDst);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)		clrText.SetText(_T("¹êµå Æø : [%.lf] px"), dDst);
+		else													clrText.SetText(_T("Banding Dst : [%.lf] px"), dDst);
 		clrText.CreateObject(PDC_LIGHTRED, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI + (25 * 4), DEF_FONT_BASIC_SIZE);
 		pGO->AddDrawText(clrText);
 	}
 	else
 	{
-		if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("¹êµå Æø : OK [%.lf] px"), dDst);
-		else												clrText.SetText(_T("Banding Dst : OK [%.lf] px"), dDst);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("¹êµå Æø : [%.lf] px"), dDst);
+		else												clrText.SetText(_T("Banding Dst : [%.lf] px"), dDst);
 		clrText.CreateObject(PDC_GREEN, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI + (25 * 4), DEF_FONT_BASIC_SIZE);
 		pGO->AddDrawText(clrText);
 	}
@@ -2096,7 +2096,6 @@ BOOL CInspectionVision::_Insp_SubMaterial( CxGraphicObject* pGO, CxImageObject* 
 
 	//////////////////////////////////////////////////////////////////////////
 	int nDesiccantQuantity = stDesiccant.nDesiccantQuantity;
-	int nTrayOutTolerance = static_cast<int>((stDesiccant.dbOutTolerance * 1000.0) / m_fCalY[nViewIndex]);
 	std::vector<CPoint*> vecPt;
 
 	switch (nDesiccantQuantity)
@@ -2128,8 +2127,7 @@ BOOL CInspectionVision::_Insp_SubMaterial( CxGraphicObject* pGO, CxImageObject* 
 		bHICRet = FALSE;
 	}
 
-	if (!BuildUsingEasyObject_SubMaterial(pGO, pSrcImgObj, m_rcTray, stDesiccant.nInspectionZoneCol, stDesiccant.nSubMaterialPixelVal,
-											stDesiccant.nRatio1, stDesiccant.nRatio2, stDesiccant.nRatio3, stDesiccant.nInspectionZoneMargin, nTrayOutTolerance))
+	if (!BuildUsingEasyObject_SubMaterial(pGO, pSrcImgObj, m_rcTray, stDesiccant.nInspectionZoneCol, stDesiccant.nRatio1, stDesiccant.nRatio2, stDesiccant.nRatio3, stDesiccant.nInspectionZoneMargin))
 	{
 		CVisionSystem::Instance()->SetErrorCode(nViewIndex, ISRESULT_ERROR_MATERIAL);
 		bSubMaterialRet = FALSE;
@@ -4788,7 +4786,7 @@ BOOL CInspectionVision::BuildUsingEasyObject_TrayChipCnt(CxGraphicObject* pGO, C
 					drcChip.right = ChipROI.GetOrgX() + rcChipPos.Width();
 					drcChip.bottom = ChipROI.GetOrgY() + rcChipPos.Height();
 
-					clrBox.CreateObject(PDC_ORANGE, drcChip, PS_DASHDOT, 1);
+					clrBox.CreateObject(PDC_ORANGE, drcChip, PS_DASH, 1);
 					pGO->AddDrawBox(clrBox);
 				}
 				else
@@ -5090,8 +5088,7 @@ BOOL CInspectionVision::BuildUsingEasyObject_Lift(CxGraphicObject* pGO, CxImageO
 	return bCheck;
 }
 
-BOOL CInspectionVision::BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, CxImageObject* pImgObj, CRect& rcTray, int nInspZoneCol, int nSubMaterialPixelVal,
-														int nRatio1, int nRatio2, int nRatio3, int nMargin, int nTrayOutTolerance)
+BOOL CInspectionVision::BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, CxImageObject* pImgObj, CRect& rcTray, int nInspZoneCol, int nRatio1, int nRatio2, int nRatio3, int nMargin)
 {
 	if (CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE)
 		return FALSE;
@@ -5139,7 +5136,7 @@ BOOL CInspectionVision::BuildUsingEasyObject_SubMaterial(CxGraphicObject* pGO, C
 		nOffsetX += nInspZoneWidth;
 	}
 	
-	BOOL bResult = FindSubMaterialObj(pGO, vecEROI, nSubMaterialPixelVal, nTrayOutTolerance);
+	BOOL bResult = FindSubMaterialObj(pGO, vecEROI);
 
 	return bResult;
 }
@@ -6943,8 +6940,8 @@ BOOL CInspectionVision::MatchModel_Desiccant(CxGraphicObject* pGO, CxImageObject
 			pMatch->SetMinScore(0.5f);
 			pMatch->SetMinAngle(-10.f); //(-10.0f);						
 			pMatch->SetMaxAngle(10.f);// ( ( 1.f) * fRange	); //( 10.0f);
-			pMatch->SetMinScale(0.7f);
-			pMatch->SetMaxScale(1.3f);
+			pMatch->SetMinScale(0.9f);
+			pMatch->SetMaxScale(1.1f);
 			pMatch->SetMaxPositions(1);
 			pMatch->SetMaxInitialPositions(0);
 
@@ -10251,7 +10248,7 @@ BOOL CInspectionVision::FindMBB(CxGraphicObject* pGO, CxImageObject* pSrcImgObj,
 			drcArea.right += rcNormalRect.left;
 			drcArea.top += rcNormalRect.top;
 			drcArea.bottom += rcNormalRect.top;
-			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASHDOT, 1);
+			clrBox.CreateObject(bResult[i] ? PDC_BLUE : PDC_RED, drcArea, PS_DASH, 1);
 			pGO->AddDrawBox(clrBox);
 
 			if (!bResult[i])
@@ -11051,7 +11048,7 @@ BOOL CInspectionVision::InspChipCount(CxGraphicObject* pGO, CxImageObject* pSrcI
 				if (fScore < stChip.nAvgGv) 		bScoreOK = FALSE;
 				else								CVisionSystem::Instance()->m_nChipInspCnt++;
 
-				clrBox.CreateObject(bScoreOK ? PDC_GREEN : PDC_BLUE, rcRect, PS_DASHDOT, 3);
+				clrBox.CreateObject(bScoreOK ? PDC_GREEN : PDC_BLUE, rcRect, PS_DASH, 3);
 				pGO->AddDrawBox(clrBox);
 				
 				if (CLanguageInfo::Instance()->m_nLangType == 0)	str.Format(_T("Æò±Õ GV : %.2f"), fScore);
@@ -11301,7 +11298,7 @@ bool CInspectionVision::CompareMatchX(const EMatchPosition eMatch1, const EMatch
 	return eMatch1.CenterX < eMatch2.CenterX;
 }
 
-BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<EROIBW8>& vecEROI, int nSubMaterialPixelVal, int nTrayOutTolerance)
+BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<EROIBW8>& vecEROI)
 {
 	COLORBOX clrBox;
 	COLORTEXT clrText;
@@ -11311,8 +11308,6 @@ BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<ERO
 	EObjectSelection CodedImageObjectSelection;
 	EImageEncoder CodedImageEncoder;
 
-//	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetMode(EGrayscaleSingleThreshold_Absolute);
-//	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetAbsoluteThreshold(nSubMaterialPixelVal);
 	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetMode(EGrayscaleSingleThreshold_MinResidue);
 	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetWhiteLayerEncoded(true);
 	CodedImageEncoder.GetGrayscaleSingleThresholdSegmenter().SetBlackLayerEncoded(false);
@@ -11323,8 +11318,7 @@ BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<ERO
 		BOOL bCurrent = TRUE;
 		CodedImageEncoder.Encode(vecEROI[i], CodedImage);
 		CodedImageObjectSelection.Clear();
-//		CodedImageObjectSelection.AddObjectsUsingFloatFeature(CodedImage, EFeature_BoundingBoxWidth, 50.f, ESingleThresholdMode_GreaterEqual);
-		CodedImageObjectSelection.AddObjectsUsingUnsignedIntegerFeature(CodedImage, EFeature_Area, 400, ESingleThresholdMode_Greater);
+		CodedImageObjectSelection.AddObjectsUsingUnsignedIntegerFeature(CodedImage, EFeature_Area, 500, ESingleThresholdMode_Greater);
 		
 		CRect rcROI;
 		rcROI.left = vecEROI[i].GetOrgX();
@@ -11356,8 +11350,11 @@ BOOL CInspectionVision::FindSubMaterialObj(CxGraphicObject* pGO, std::vector<ERO
 		}
 
 		// »óÇÏÁÂ¿ì Áß ÇÑ °÷ÀÌ¶óµµ ¿µ¿ª ¹þ¾î³ª¸é NG
-		if (rcElement.left <= vecEROI[i].GetOrgX()								|| rcElement.top <= m_rcTray.top - nTrayOutTolerance || 
-			rcElement.right >= vecEROI[i].GetOrgX() + vecEROI[i].GetWidth() - 1	|| rcElement.bottom >= m_rcTray.bottom + nTrayOutTolerance)
+		// ROI
+		if (rcElement.left < rcROI.left || rcElement.top < rcROI.top ||
+			rcElement.right > rcROI.right || rcElement.bottom > rcROI.bottom ||
+			rcElement.left < m_rcTray.left || rcElement.top < m_rcTray.top ||
+			rcElement.right > m_rcTray.right || rcElement.bottom > m_rcTray.bottom)
 		{
 			bResult = FALSE;
 			bCurrent = FALSE;

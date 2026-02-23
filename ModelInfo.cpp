@@ -895,10 +895,6 @@ void CModelInfo::LoadDesiccantMaterialInfo(LPCTSTR lpszModelInfoFile)
 	m_DesiccantMaterialInfo.nInspectionZoneCol = (int)_tcstod(szTemp, NULL);
 	::GetPrivateProfileString(SUBMATERIAL_APPNAME, _T("INSPECTION_ZONE_MARGIN"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_DesiccantMaterialInfo.nInspectionZoneMargin = (int)_tcstod(szTemp, NULL);
-	::GetPrivateProfileString(SUBMATERIAL_APPNAME, _T("SUB_MATERIAL_OUT_TOLERANCE"), _T("0.0"), szTemp, MAX_PATH, strModelInfoFile);
-	m_DesiccantMaterialInfo.dbOutTolerance = _tcstod(szTemp, NULL);
-	::GetPrivateProfileString(SUBMATERIAL_APPNAME, _T("SUB_MATERIAL_PIXEL_VALUE"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
-	m_DesiccantMaterialInfo.nSubMaterialPixelVal = (int)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString(SUBMATERIAL_APPNAME, _T("DESICCANT_QUANTITY"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_DesiccantMaterialInfo.nDesiccantQuantity = (int)_tcstod(szTemp, NULL);
@@ -2213,10 +2209,6 @@ void CModelInfo::SaveDesiccantMaterialInfo(LPCTSTR lpszModelInfoFile)
 	::WritePrivateProfileString(SUBMATERIAL_APPNAME, _T("INSPECTION_ZONE_COL"), strTemp, strModelInfoFile);
 	strTemp.Format(_T("%d"), m_DesiccantMaterialInfo.nInspectionZoneMargin);
 	::WritePrivateProfileString(SUBMATERIAL_APPNAME, _T("INSPECTION_ZONE_MARGIN"), strTemp, strModelInfoFile);
-	strTemp.Format(_T("%.1lf"), m_DesiccantMaterialInfo.dbOutTolerance);
-	::WritePrivateProfileString(SUBMATERIAL_APPNAME, _T("SUB_MATERIAL_OUT_TOLERANCE"), strTemp, strModelInfoFile);
-	strTemp.Format(_T("%d"), m_DesiccantMaterialInfo.nSubMaterialPixelVal);
-	::WritePrivateProfileString(SUBMATERIAL_APPNAME, _T("SUB_MATERIAL_PIXEL_VALUE"), strTemp, strModelInfoFile);
 
 	strTemp.Format(_T("%d"), m_DesiccantMaterialInfo.nDesiccantQuantity);
 	::WritePrivateProfileString(SUBMATERIAL_APPNAME, _T("DESICCANT_QUANTITY"), strTemp, strModelInfoFile);

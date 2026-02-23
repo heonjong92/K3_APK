@@ -76,9 +76,7 @@ void CTeachTab3GDesiccantMaterial::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX,		IDC_EDIT_INSPECTION_ZONE_RATIO,					m_DesiccantMaterialInfo.nRatio1);
 	DDX_Text(pDX,		IDC_EDIT_INSPECTION_ZONE_RATIO2,				m_DesiccantMaterialInfo.nRatio2);
 	DDX_Text(pDX,		IDC_EDIT_INSPECTION_ZONE_RATIO3,				m_DesiccantMaterialInfo.nRatio3);
-	DDX_Text(pDX,		IDC_EDIT_SUBMATERIAL_PIXEL_VAL,					m_DesiccantMaterialInfo.nSubMaterialPixelVal);
 	DDX_Text(pDX,		IDC_EDIT_TOP_BOT_MARGIN,						m_DesiccantMaterialInfo.nInspectionZoneMargin);
-	DDX_Text(pDX,		IDC_EDIT_SUBMATERIAL_OUT_TOLERANCE,				m_DesiccantMaterialInfo.dbOutTolerance);
 
 	DDX_Text(pDX,		IDC_EDIT_HIC_PATTERN_POSI_X,					m_DesiccantMaterialInfo.ptHicShift.x);
 	DDX_Text(pDX,		IDC_EDIT_HIC_PATTERN_POSI_Y,					m_DesiccantMaterialInfo.ptHicShift.y);
@@ -236,9 +234,7 @@ BOOL CTeachTab3GDesiccantMaterial::OnInitDialog()
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_INSPECTION_ZONE_RATIO), _T("검사 구획의 비율을 지정합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_INSPECTION_ZONE_RATIO2), _T("검사 구획의 비율을 지정합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_INSPECTION_ZONE_RATIO3), _T("검사 구획의 비율을 지정합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_SUBMATERIAL_PIXEL_VAL), _T("부자재의 픽셀 값을 입력합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_DESICCANT_MATERIAL_QUANTITY), _T("방습제의 수량을 각각 입력합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_SUBMATERIAL_OUT_TOLERANCE), _T("부자재가 Tray에서 위아래로 이탈해도 허용되는 값을 입력합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_HIC_PATTERN_POSI_X), _T("HIC의 X 위치를 입력합니다. 기준점은 패턴의 중앙입니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_HIC_PATTERN_POSI_Y), _T("HIC의 Y 위치를 입력합니다. 기준점은 패턴의 중앙입니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_DESICCANT1_PATTERN_POSI_X), _T("첫 번째 방습제의 X 위치를 입력합니다. 기준점은 패턴의 중앙입니다."));
@@ -285,7 +281,6 @@ void CTeachTab3GDesiccantMaterial::UpdateLanguage()
 	GetDlgItem(IDC_BTN_TEST_SUBMATERIAL					)->SetWindowText(CLanguageInfo::Instance()->ReadString(42));
 	GetDlgItem(IDC_STATIC_INSPECTION_ZONE				)->SetWindowText(CLanguageInfo::Instance()->ReadString(43));
 	GetDlgItem(IDC_STATIC_SUBMATERIAL_PIXEL_VALUE		)->SetWindowText(CLanguageInfo::Instance()->ReadString(44));
-	GetDlgItem(IDC_STATIC_SUBMATERIAL_OUT_TOLERANCE		)->SetWindowText(CLanguageInfo::Instance()->ReadString(45));
 	GetDlgItem(IDC_STATIC_HIC_PATTERN_POSITION			)->SetWindowText(CLanguageInfo::Instance()->ReadString(46));
 	GetDlgItem(IDC_STATIC_DESICCANT1_PATTERN_POSITION	)->SetWindowText(CLanguageInfo::Instance()->ReadString(47));
 	GetDlgItem(IDC_STATIC_DESICCANT2_PATTERN_POSITION	)->SetWindowText(CLanguageInfo::Instance()->ReadString(48));
@@ -406,9 +401,6 @@ void CTeachTab3GDesiccantMaterial::CheckData()
 	strLog.Format(_T("[InspectionZoneMargin][%d→%d]"), DesiccantMaterialInfo.nInspectionZoneMargin, m_DesiccantMaterialInfo.nInspectionZoneMargin);
 	if (DesiccantMaterialInfo.nInspectionZoneMargin != m_DesiccantMaterialInfo.nInspectionZoneMargin) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
 
-	strLog.Format(_T("[SubMaterialPixelValue][%d→%d]"), DesiccantMaterialInfo.nSubMaterialPixelVal, m_DesiccantMaterialInfo.nSubMaterialPixelVal);
-	if (DesiccantMaterialInfo.nSubMaterialPixelVal != m_DesiccantMaterialInfo.nSubMaterialPixelVal) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
-
 	strLog.Format(_T("[DesiccantQuantity][%d→%d]"), DesiccantMaterialInfo.nDesiccantQuantity, m_DesiccantMaterialInfo.nDesiccantQuantity);
 	if (DesiccantMaterialInfo.nDesiccantQuantity != m_DesiccantMaterialInfo.nDesiccantQuantity) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
 
@@ -429,9 +421,6 @@ void CTeachTab3GDesiccantMaterial::CheckData()
 
 	strLog.Format(_T("[Desiccant2ShiftY][%d→%d]"), DesiccantMaterialInfo.ptDesiccant2Shift.y, m_DesiccantMaterialInfo.ptDesiccant2Shift.y);
 	if (DesiccantMaterialInfo.ptDesiccant2Shift.y != m_DesiccantMaterialInfo.ptDesiccant2Shift.y) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
-
-	strLog.Format(_T("[SubMaterialTrayOutTolerance][%.1lf→%.1lf]"), DesiccantMaterialInfo.dbOutTolerance, m_DesiccantMaterialInfo.dbOutTolerance);
-	if (DesiccantMaterialInfo.dbOutTolerance != m_DesiccantMaterialInfo.dbOutTolerance) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
 
 	strLog.Format(_T("[PatternShiftToleranceX][%d→%d]"), DesiccantMaterialInfo.ptPatternShiftTolerance.x, m_DesiccantMaterialInfo.ptPatternShiftTolerance.x);
 	if (DesiccantMaterialInfo.ptPatternShiftTolerance.x != m_DesiccantMaterialInfo.ptPatternShiftTolerance.x) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMaterial, strLog);
@@ -1018,7 +1007,6 @@ void CTeachTab3GDesiccantMaterial::UpdateTrayRecipeList()
 void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave :: Start"));
-
 
 	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
 		return;

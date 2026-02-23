@@ -609,13 +609,8 @@ public:
 		int nDesiccantQuantity;
 
 		// Teaching
-		//CPoint	ptOffset_HICExistShift;
-		//CPoint	ptOffset_DesiccantExistShift;
 		int nInspectionZoneCol;
 		int nInspectionZoneMargin;
-		int nSubMaterialPixelVal;
-		double dbOutTolerance;
-		//double dbPatternAngle;
 
 		int nRatio1;
 		int nRatio2;
@@ -637,9 +632,6 @@ public:
 			nValueCh2 = 0;
 			nDesiccantQuantity = 1;
 
-			//ptOffset_HICExistShift = CPoint(0, 0);
-			//ptOffset_DesiccantExistShift = CPoint(0, 0);
-
 			ptHicShift = CPoint(0, 0);
 			ptDesiccant1Shift = CPoint(0, 0);
 			ptDesiccant2Shift = CPoint(0, 0);
@@ -647,9 +639,7 @@ public:
 
 			nInspectionZoneCol = 2;
 			nInspectionZoneMargin = 5;
-			nSubMaterialPixelVal = 250;
-			dbOutTolerance = 0.;
-			//dbPatternAngle = 0.;
+			
 			nRatio1 = 33;
 			nRatio2 = 34;
 			nRatio3 = 33;
