@@ -339,9 +339,9 @@ BOOL CTeachTab3GDesiccantMaterial::Save()
 	CheckData();
 
 	CModelInfo::stDesiccantMaterialInfo& DesiccantMaterialInfo = CModelInfo::Instance()->GetDesiccantMaterialInfo();
-	if ((m_DesiccantMaterialInfo.nRatio1 + m_DesiccantMaterialInfo.nRatio2 + m_DesiccantMaterialInfo.nRatio3) > 100)
+	if ((m_DesiccantMaterialInfo.nRatio1 + m_DesiccantMaterialInfo.nRatio2 + m_DesiccantMaterialInfo.nRatio3) != 100)
 	{
-		AfxMessageBox(_T("Ratio의 합은 100이하여야 합니다."), MB_ICONERROR);
+		AfxMessageBox(_T("검사 구역 비율의 합은 100이여야 합니다."), MB_ICONERROR);
 		m_DesiccantMaterialInfo = DesiccantMaterialInfo;
 		UpdateData(FALSE);
 		return FALSE;
@@ -353,8 +353,8 @@ BOOL CTeachTab3GDesiccantMaterial::Save()
 
 #ifdef RELEASE_3G
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
-	pInspectionVision->Save( CModelInfo::Instance()->GetModelNameDesiccantMaterial(), TEACH_TAB_IDX_DESICCANT_MATERIAL );
-	CModelInfo::Instance()->Save( TEACH_TAB_IDX_DESICCANT_MATERIAL );
+	pInspectionVision->Save(CModelInfo::Instance()->GetModelNameDesiccantMaterial(), TEACH_TAB_IDX_DESICCANT_MATERIAL);
+	CModelInfo::Instance()->Save(TEACH_TAB_IDX_DESICCANT_MATERIAL);
 
 	pInspectionVision->Save(CModelInfo::Instance()->GetModelNameDesiccantMaterialTray(), TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY);
 	CModelInfo::Instance()->Save(TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY);
@@ -684,6 +684,11 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedRadioTeachingSubmaterialTray()
 
 void CTeachTab3GDesiccantMaterial::UpdateUI()
 {
+	if (CSystemConfig::Instance()->GetAccessRight() == AccessRightProgrammer)
+		GetDlgItem(IDC_COMBO_RECIPE_MATERIAL_TRAY)->EnableWindow(TRUE);
+	else
+		GetDlgItem(IDC_COMBO_RECIPE_MATERIAL_TRAY)->EnableWindow(FALSE);
+
 	UpdateTeachingImage();
 }
 

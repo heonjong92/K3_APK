@@ -19,10 +19,6 @@
 #include "WaitMessageDlg.h"
 
 #define WM_REFRESH_DIALOG		(WM_USER + 100)
-#define WM_REFRESH_3DCHIPCNT	(WM_USER + 200)
-#define WM_REFRESH_LIFT			(WM_USER + 201)
-#define WM_REFRESH_CHIP			(WM_USER + 202)
-#define WM_REFRESH_MBB			(WM_USER + 203)
 #define WM_REFRESH_SYSTEM		(WM_USER + 300)
 
 class CAPKDoc;

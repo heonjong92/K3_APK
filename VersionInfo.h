@@ -2,14 +2,14 @@
 
 /////////////////////////////////////////////////////////////////
 // <버전 정보>
-// 버그 수정, 코드 리팩토링, UI 위치 조정 등 : x.x.*
-// 검사 알고리즘 변경, 검사 파라미터 추가, 기능 변경 등 : x.*.x
 // 새로운 검사 추가, UI 개편 등 : *.x.x
+// 검사 알고리즘 변경, 검사 파라미터 추가, 기능 변경 등 : x.*.x
+// 버그 수정, 코드 리팩토링, UI 위치 조정 등 : x.x.*
 /////////////////////////////////////////////////////////////////
 
 #define VERSION_MAJOR 2
-#define VERSION_MINOR 8
-#define VERSION_PATCH 7
+#define VERSION_MINOR 9
+#define VERSION_PATCH 0
 #define VERSION_BUILD 0
 
 #define STRINGIFY(x) #x
@@ -19,9 +19,21 @@
 #define FILE_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH)
 
 //=========================================================
+// v 2.9.0
+// Matching 7? -> 10수정
+// MBB, BoxQuality Model 등록 여러개 되도록 수정
+// Chip Cnt ROI 버그 수정
+// Label Edge 쏠림 주석 풀기.
+// 권한에 따른 Refresh 수정
+// 신규 레시피 생성 시, 자동으로 Jobnumber도 수정되도록
+//=========================================================
+// v 2.8.8
+// 204, 205 Matching Model 수량 증가.
+//=========================================================
 // v 2.8.7
 // 203 SubMaterial Insp 수정2 - Dialog도 수정.
-// 
+// Manual doubleclick area 조건 수정.
+// 우 하단, 날짜 표시 추가
 //=========================================================
 // v 2.8.6
 // Teaching 이후 Save 버튼 누르게끔 프로그램에서 유도

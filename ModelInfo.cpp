@@ -1011,10 +1011,16 @@ void CModelInfo::LoadMBBInfo( LPCTSTR lpszModelInfoFile )
 	::GetPrivateProfileString(MBB_APPNAME, _T("RANGE_PX"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_MBBInfo.nRange_PX = (int)_tcstod(szTemp, NULL);
 
-	::GetPrivateProfileString(MBB_APPNAME, _T("MBB_OFFSET_X"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
-	m_MBBInfo.ptOffset_MBB.x = (int)_tcstod(szTemp, NULL);
-	::GetPrivateProfileString(MBB_APPNAME, _T("MBB_OFFSET_Y"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
-	m_MBBInfo.ptOffset_MBB.y = (int)_tcstod(szTemp, NULL);
+	CString strBuff = _T("");
+	for (int i = 0; i < nMATCH_MAX; i++)
+	{
+		strBuff.Format(_T("MATCH_%d_"), i);
+
+		::GetPrivateProfileString(MBB_APPNAME, strBuff + _T("CENTER_X"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
+		m_MBBInfo.ptOffset_MBB[i].x = (int)_tcstod(szTemp, NULL);
+		::GetPrivateProfileString(MBB_APPNAME, strBuff + _T("CENTER_Y"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
+		m_MBBInfo.ptOffset_MBB[i].y = (int)_tcstod(szTemp, NULL);
+	}
 
 	::GetPrivateProfileString(MBB_APPNAME, _T("RATIO"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_MBBInfo.fRatio = (float)_tcstod(szTemp, NULL);
@@ -2278,7 +2284,7 @@ void CModelInfo::SaveDesiccantMaterialTrayInfo(LPCTSTR lpszModelInfoFile)
 void CModelInfo::SaveMBBInfo(LPCTSTR lpszModelInfoFile)
 {
 	CString strModelInfoFile = lpszModelInfoFile;
-	CString strTemp;
+	CString strTemp, strBuff;
 
 	::DeleteFile(strModelInfoFile);
 
@@ -2317,10 +2323,15 @@ void CModelInfo::SaveMBBInfo(LPCTSTR lpszModelInfoFile)
 	strTemp.Format(_T("%d"), m_MBBInfo.nRange_PX);
 	::WritePrivateProfileString(MBB_APPNAME, _T("RANGE_PX"), strTemp, strModelInfoFile);
 
-	strTemp.Format(_T("%d"), m_MBBInfo.ptOffset_MBB.x);
-	::WritePrivateProfileString(MBB_APPNAME, _T("MBB_OFFSET_X"), strTemp, strModelInfoFile);
-	strTemp.Format(_T("%d"), m_MBBInfo.ptOffset_MBB.y);
-	::WritePrivateProfileString(MBB_APPNAME, _T("MBB_OFFSET_Y"), strTemp, strModelInfoFile);
+	for (int i = 0; i < nMATCH_MAX; i++)
+	{
+		strBuff.Format(_T("MATCH_%d_"), i);
+
+		strTemp.Format(_T("%d"), m_MBBInfo.ptOffset_MBB[i].x);
+		::WritePrivateProfileString(MBB_APPNAME, strBuff + _T("CENTER_X"), strTemp, strModelInfoFile);
+		strTemp.Format(_T("%d"), m_MBBInfo.ptOffset_MBB[i].y);
+		::WritePrivateProfileString(MBB_APPNAME, strBuff + _T("CENTER_Y"), strTemp, strModelInfoFile);
+	}
 
 	strTemp.Format(_T("%.2f"), m_MBBInfo.fRatio);
 	::WritePrivateProfileString(MBB_APPNAME, _T("RATIO"), strTemp, strModelInfoFile);
@@ -2826,6 +2837,57 @@ BOOL CModelInfo::Save( eTeachTabIndex TabIndex )
 	return TRUE;
 }
 
+BOOL CModelInfo::Save_JobNumber(eTeachTabIndex TabIndex)
+{
+	CString strJobNumber = _T("");
+
+	switch (TabIndex)
+	{
+#ifdef RELEASE_1G
+	case TEACH_TAB_IDX_TRAYOCR:						strJobNumber = GetRecipeRootPath() + _T("1G_TrayOcr\\");						break;
+	case TEACH_TAB_IDX_3DCHIPCNT:					strJobNumber = GetRecipeRootPath() + _T("1G_3DChipCnt\\");						break;
+	case TEACH_TAB_IDX_CHIPOCR:						strJobNumber = GetRecipeRootPath() + _T("1G_ChipOcr\\");						break;
+	case TEACH_TAB_IDX_CHIP:						strJobNumber = GetRecipeRootPath() + _T("1G_Chip\\");							break;
+	case TEACH_TAB_IDX_MIXING:						strJobNumber = GetRecipeRootPath() + _T("1G_Mixing\\");							break;
+	case TEACH_TAB_IDX_LIFTINFO:					strJobNumber = GetRecipeRootPath() + _T("1G_Lift\\");							break;
+
+#elif RELEASE_SG
+	case TEACH_TAB_IDX_STACKER_OCR:					strJobNumber = GetRecipeRootPath() + _T("SG_StackerOcr\\");						break;
+
+#elif RELEASE_2G
+	case TEACH_TAB_IDX_BANDING:						strJobNumber = GetRecipeRootPath() + _T("2G_Banding\\");						break;
+	case TEACH_TAB_IDX_HIC:							strJobNumber = GetRecipeRootPath() + _T("2G_HIC\\");							break;
+
+#elif RELEASE_3G
+	case TEACH_TAB_IDX_DESICCANT_CUTTING:			strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Cutting\\");				break;
+	case TEACH_TAB_IDX_DESICCANT_MATERIAL:			strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material\\");				break;
+	case TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY: 	strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material_Tray\\");		break;
+
+#elif RELEASE_4G
+	case TEACH_TAB_IDX_MBB:							strJobNumber = GetRecipeRootPath() + _T("4G_MBB\\");							break;
+	case TEACH_TAB_IDX_LABEL:						strJobNumber = GetRecipeRootPath() + _T("Label\\");								break;
+
+#elif RELEASE_5G
+	case TEACH_TAB_IDX_BOX:							strJobNumber = GetRecipeRootPath() + _T("5G_Box\\");							break;
+	case TEACH_TAB_IDX_SEALING:						strJobNumber = GetRecipeRootPath() + _T("5G_Sealing\\");						break;
+
+#elif RELEASE_6G
+	case TEACH_TAB_IDX_LABEL:						strJobNumber = GetRecipeRootPath() + _T("Label\\");								break;
+	case TEACH_TAB_IDX_TAPE:						strJobNumber = GetRecipeRootPath() + _T("6G_Tape\\");							break;
+#endif
+
+	default:
+		break;
+	}
+
+	if (strJobNumber != _T(""))
+	{
+		CString strName = strJobNumber + _T("_Make_JobNumber.bat");
+		ShellExecute(NULL, _T("open"), strName, NULL, NULL, SW_SHOW);
+	}
+
+	return TRUE;
+}
 void CModelInfo::Delete( LPCTSTR lpszModelName )
 {
 	CString strRecipePath = GetRecipePath(m_strModelName);

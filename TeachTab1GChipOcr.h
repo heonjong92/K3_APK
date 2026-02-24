@@ -51,7 +51,6 @@ protected:
 	BOOL m_bIsTeachChipROI;
 	BOOL m_bIsTeachChipOcr2;
 	BOOL m_bIsOcrROI;
-	BOOL m_bPendingSaveAfterTeaching;
 
 	CStatic m_ctrlPicPreviewTeach2;
 	CRect m_rcPicCtrlSizeTeach2;
@@ -76,7 +75,6 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
-	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

@@ -30,7 +30,6 @@ CTeachTab1GMixing::CTeachTab1GMixing(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab1GMixing::IDD, pParent)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachMixing(FALSE)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_Mixing.Clear();
@@ -282,8 +281,6 @@ void CTeachTab1GMixing::CheckData()
 
 void CTeachTab1GMixing::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelNameMixing();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
@@ -323,25 +320,7 @@ void CTeachTab1GMixing::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachMixing = FALSE;
-}
-
-void CTeachTab1GMixing::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1GMixing::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -558,8 +537,6 @@ void CTeachTab1GMixing::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, MIXING_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		DisableWnd(TRUE);
 		Refresh();
 		
@@ -568,22 +545,13 @@ void CTeachTab1GMixing::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
-
+	Save();
 #ifdef RELEASE_1G
 	VisionInterface::FrameGrabber& FrameGrabber = CVisionSystem::Instance()->GetFrameGrabberInterface();
 	FrameGrabber.SetPageCount(CameraTypeLine2);
 #endif
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab1GMixing::OnBnClickedBtnSave :: End"));
 	Refresh();
@@ -793,7 +761,6 @@ void CTeachTab1GMixing::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
-		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		EnableModelTeaching();
 		UpdateData(FALSE);

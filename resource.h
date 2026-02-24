@@ -1478,6 +1478,7 @@
 #define IDC_BTN_HIC_TECH_MODEL          1594
 #define IDC_PICTURE_PREVIEW_TEACH_HIC   1595
 #define IDC_EDIT_HIC_MATCHING_SCORE     1596
+#define IDC_COMBO_MBB_MODEL_NUM         1597
 #define IDX_STATIC                      65535
 #define IDD_IMAGE_PREVIEW               65535
 
@@ -1487,7 +1488,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        375
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1597
+#define _APS_NEXT_CONTROL_VALUE         1598
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

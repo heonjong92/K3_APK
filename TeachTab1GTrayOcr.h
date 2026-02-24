@@ -78,7 +78,6 @@ protected:
 	BOOL m_bIsTeachTabBegin;
 	BOOL m_bIsTeachOcrROI;
 	BOOL m_bIsTrayNonInsp;
-	BOOL m_bPendingSaveAfterTeaching;
 
 	CToolTipCtrl m_toolTip;
 
@@ -120,7 +119,6 @@ public:
 	void UpdateToolTip();
 
 	void EnableAdaptiveWindows();
-	void LockButtonsUntilSave();
 
 	//void UpdateCount_Tab(BOOL bComboReset = FALSE);
 	void UpdateTeachingImage_Tab();

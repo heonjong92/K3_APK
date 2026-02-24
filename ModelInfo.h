@@ -695,7 +695,7 @@ public:
 		int nRange_PX;
 
 		// Teaching
-		CPoint	ptOffset_MBB;
+		CPoint	ptOffset_MBB[nMATCH_MAX];
 		float fRatio;
 
 		void Clear()
@@ -720,7 +720,9 @@ public:
 			nHeight = 10;
 			nRange = 5;
 
-			ptOffset_MBB = CPoint(0, 0);
+			for (int i = 0; i < nMATCH_MAX; i++)
+				ptOffset_MBB[i] = CPoint(0, 0);
+
 			fRatio = 0.7f;
 		}
 	};
@@ -943,6 +945,7 @@ public:
 	void Delete( LPCTSTR lpszModelName );
 
 	BOOL Save( eTeachTabIndex TabIndex = TEACH_TAB_IDX_ALL );
+	BOOL Save_JobNumber( eTeachTabIndex TabIndex = TEACH_TAB_IDX_ALL );
 	BOOL SaveBypassMode( InspectType inspecttype = InspectTypeMax );
 	CString GetTrayOcrInfo(LPCTSTR lpszModelName);
 	void SetEmpty();

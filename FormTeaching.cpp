@@ -43,10 +43,6 @@ BEGIN_MESSAGE_MAP(CFormTeaching, CFormView)
 	ON_WM_SHOWWINDOW()
 	ON_REGISTERED_MESSAGE(UIExt::WM_FLAT_TABWND_SELCHANGED, OnFlatTabWndSelChanged)
 	ON_MESSAGE(WM_REFRESH_DIALOG, OnRefreshDialog)
-	ON_MESSAGE(WM_REFRESH_3DCHIPCNT, OnRefresh3DChipCnt)
-	ON_MESSAGE(WM_REFRESH_LIFT, OnRefreshLift)
-	ON_MESSAGE(WM_REFRESH_CHIP, OnRefreshChip)
-	ON_MESSAGE(WM_REFRESH_MBB, OnRefreshMBB)
 END_MESSAGE_MAP()
 
 
@@ -441,30 +437,22 @@ void CFormTeaching::UpdateUI( BOOL bAll/*=FALSE*/ )
 
 LRESULT CFormTeaching::OnRefreshDialog(WPARAM wparam, LPARAM lparam)
 {
-	m_wndTab2G_HIC.EnableHICLight();
-	return 0;
-}
-
-LRESULT CFormTeaching::OnRefresh3DChipCnt(WPARAM wparam, LPARAM lparam)
-{
+#ifdef RELEASE_1G
 	m_wndTab1G_3DChipCnt.EnableCutShift();
-	return 0;
-}
-
-LRESULT CFormTeaching::OnRefreshLift(WPARAM wparam, LPARAM lparam)
-{
 	m_wndTab1G_Lift.EnableLift();
-	return 0;
-}
-
-LRESULT CFormTeaching::OnRefreshChip(WPARAM wparam, LPARAM lparam)
-{
 	m_wndTab1G_Chip.EnableChip();
-	return 0;
-}
 
-LRESULT CFormTeaching::OnRefreshMBB(WPARAM wparam, LPARAM lparam)
-{
+#elif RELEASE_2G
+	m_wndTab2G_HIC.EnableHICLight();
+
+#elif RELEASE_3G
+	m_wndTab3G_Material.UpdateUI();
+
+#elif RELEASE_4G
 	m_wndTab4G_MBB.EnableMBB();
+
+#elif RELEASE_5G
+#elif RELEASE_6G
+#endif
 	return 0;
 }

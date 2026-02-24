@@ -51,7 +51,6 @@ protected:
 	int m_nCombo_Mixing_Select;
 
 	BOOL m_bIsTeachMixing;
-	BOOL m_bPendingSaveAfterTeaching;
 
 	CStatic m_ctrlPicPreviewTeachMixing;
 	CRect m_rcPicCtrlSizeTeachMixing;
@@ -75,7 +74,6 @@ public:
 	void UpdateCount_Mixing(BOOL bComboReset = FALSE);
 	void UpdateTeachingImage_Mixing();
 
-	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

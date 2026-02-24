@@ -40,7 +40,7 @@
 #define DEF_BTN_COLOR_SAVE			RGB(97, 135, 169),	RGB(97, 135, 169),	RGB(80, 106, 126),	RGB(180, 180, 180),	RGB(255, 255, 255)
 #define DEF_BTN_COLOR_MEASURE		RGB(192, 64, 32),	RGB(192, 64, 32),	RGB(120, 120, 120),	RGB(180, 180, 180),	RGB(255, 255, 255)
 
-#define DEF_BTN_COLOR_TEACING		RGB(200, 100, 0),   RGB(180, 90, 40),   RGB(160, 80, 80), RGB(210, 120, 60),  RGB(255, 255, 255)
+#define DEF_BTN_COLOR_TEACING		RGB(200, 100, 0),   RGB(180, 90, 40),   RGB(160, 80, 80),	RGB(180, 180, 180), RGB(255, 255, 255)
 
 #define DEF_BTN_COLOR_AUTORUN		RGB(120, 120, 120),	RGB(120, 120, 120),	RGB(60, 157, 38),	RGB(180, 180, 180),	RGB(255, 255, 255)
 #define DEF_BTN_COLOR_STOP			RGB(120, 120, 120),	RGB(120, 120, 120),	RGB(196, 36, 52),	RGB(180, 180, 180),	RGB(255, 255, 255)
@@ -87,7 +87,7 @@ void EnumerateSerialPorts( CUIntArray& ports );
 //////////////////////////////////////////////////////////////////////////
 // º¯¼ö
 static const UINT nIMAGELOG_DRIVE_MAX = 26;
-static const UINT nMATCH_MAX = 8;
+static const UINT nMATCH_MAX = 10;
 
 //////////////////////////////////////////////////////////////////////////
 

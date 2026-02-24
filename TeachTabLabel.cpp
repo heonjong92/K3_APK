@@ -28,8 +28,6 @@ CTeachTabLabel::CTeachTabLabel(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTabLabel::IDD, pParent)
 	, m_nInspCount(0)
 	, m_nInspIndex(0)
-	, m_bPendingSaveAfterTeaching(FALSE)
-
 {
 	m_pMainView = NULL;
 	m_Label.Clear();
@@ -155,11 +153,11 @@ BOOL CTeachTabLabel::OnInitDialog()
 	m_ctrlPicPreviewTeachLabel_Align.GetClientRect(m_rcPicCtrlSizeTeachLabel_Align);
 
 	m_Combo_Masking_Total_Cnt.ResetContent();
-	m_Combo_Masking_Total_Cnt.AddString( _T("No Masking") );
+	m_Combo_Masking_Total_Cnt.AddString( _T("No Marking") );
 	for(int i = 0; i < EMATCH_TYPE_LABEL_MAX-1; i ++)
 	{
 		CString strBuff;
-		strBuff.Format(_T("Masking %d EA"), i + 1);
+		strBuff.Format(_T("Marking %d EA"), i + 1);
 		m_Combo_Masking_Total_Cnt.AddString( strBuff );
 	}
 	m_Combo_Masking_Total_Cnt.SetCurSel(0);
@@ -322,10 +320,10 @@ void CTeachTabLabel::UpdateToolTip()
 	m_toolTip.AddTool(GetDlgItem(IDC_BTN_INSP_ALLDEL), strMethod + _T(" - 전체 삭제 : 등록된 영역을 전부 삭제 합니다."));
 	
 	strMethod = _T("OCR, Barcode 검사에 불필요한 그림을 지우는 기능입니다. \r\n");
-	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_TOTAL_MASKING_COUNT), strMethod + _T(" - 마스킹 수량 : 최대 10개까지 설정 가능합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_MASKING_NUMBER), strMethod + _T(" - 마스킹 번호 : 수량에서 설정한 값 만큼 번호가 부여되며, 각 번호마다 모델 티칭을 해야 합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_MASKING_SCORE), strMethod + _T(" - 마스킹 점수 : High Score(0.9), Middle Score(0.7), Low Score(0.5) 세 가지 중에서 선택합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_BTN_LABEL_TECH_MODEL), strMethod + _T(" - 라벨 마스킹 모델 등록 : 마스킹 하려는 모델을 등록 합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_TOTAL_MASKING_COUNT), strMethod + _T(" - 마킹 수량 : 최대 10개까지 설정 가능합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_MASKING_NUMBER), strMethod + _T(" - 마킹 번호 : 수량에서 설정한 값 만큼 번호가 부여되며, 각 번호마다 모델 티칭을 해야 합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_LABEL_MASKING_SCORE), strMethod + _T(" - 마킹 점수 : High Score(0.9), Middle Score(0.7), Low Score(0.5) 세 가지 중에서 선택합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_BTN_LABEL_TECH_MODEL), strMethod + _T(" - 라벨 마킹 모델 등록 : 마킹 검사 모델을 등록 합니다."));
 
 	m_toolTip.AddTool(GetDlgItem(IDC_BTN_LABEL_TECH_OCRFONTTEACHING), _T("OCR NG 발생하면 해당 버튼을 눌러서 티칭 화면을 Open하여 Font 티칭을 진행합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_CHECK_LABEL_USEMANUALDATA), _T("상위에서 전달 받은 Data와 검사에서 획득한 OCR Data가 일치하는지 확인합니다. 수동운전에서만 사용하는 기능이며, 체크를 하지 않으면 OCR이 NG여도 OK 판정이 됩니다."));
@@ -369,16 +367,16 @@ void CTeachTabLabel::CheckData()
 
 	for(int nMatchCnt = 0; nMatchCnt < EMATCH_TYPE_LABEL_MAX; nMatchCnt++)
 	{
-		strLog.Format( _T("[Label Masking(%d) Score Type][%d→%d]"), nMatchCnt, Label.nLabelMaskingScoreType[nMatchCnt], m_Label.nLabelMaskingScoreType[nMatchCnt] );
+		strLog.Format( _T("[Label Marking(%d) Score Type][%d→%d]"), nMatchCnt, Label.nLabelMaskingScoreType[nMatchCnt], m_Label.nLabelMaskingScoreType[nMatchCnt] );
 		if(Label.nLabelMaskingScoreType[nMatchCnt] != m_Label.nLabelMaskingScoreType[nMatchCnt]) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog );
 
-		strLog.Format( _T("[Label Masking(%d) Offset X][%d→%d]"), nMatchCnt, Label.ptOffset_Lable[nMatchCnt].x, m_Label.ptOffset_Lable[nMatchCnt].x );
+		strLog.Format( _T("[Label Marking(%d) Offset X][%d→%d]"), nMatchCnt, Label.ptOffset_Lable[nMatchCnt].x, m_Label.ptOffset_Lable[nMatchCnt].x );
 		if(Label.ptOffset_Lable[nMatchCnt].x != m_Label.ptOffset_Lable[nMatchCnt].x) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog );
 
-		strLog.Format( _T("[Label Masking(%d) Offset Y][%d→%d]"), nMatchCnt, Label.ptOffset_Lable[nMatchCnt].y, m_Label.ptOffset_Lable[nMatchCnt].y );
+		strLog.Format( _T("[Label Marking(%d) Offset Y][%d→%d]"), nMatchCnt, Label.ptOffset_Lable[nMatchCnt].y, m_Label.ptOffset_Lable[nMatchCnt].y );
 		if(Label.ptOffset_Lable[nMatchCnt].y != m_Label.ptOffset_Lable[nMatchCnt].y) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog );
 
-		strLog.Format( _T("[Label Masking Count][%d→%d]"), Label.nLabelMaskingCount, m_Label.nLabelMaskingCount );
+		strLog.Format( _T("[Label Marking Count][%d→%d]"), Label.nLabelMaskingCount, m_Label.nLabelMaskingCount );
 		if(Label.nLabelMaskingCount != m_Label.nLabelMaskingCount) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog );
 	}
 #endif
@@ -432,8 +430,6 @@ BOOL CTeachTabLabel::Save()
 
 void CTeachTabLabel::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load_Label( CModelInfo::Instance()->GetModelNameLabel() );
@@ -470,28 +466,10 @@ void CTeachTabLabel::Cleanup()
 		}
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
-
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
+	
 	m_bIsTeachLabel = FALSE;
 	m_bIsTeachLabel_Align = FALSE;
 //	m_toolTipImg.HideTip();
-}
-
-void CTeachTabLabel::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTabLabel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -657,7 +635,7 @@ void CTeachTabLabel::OnCbnSelchangeComboLabelTotalMaskingCount()
 	m_Label.nLabelMaskingCount = m_Combo_Masking_Total_Cnt.GetCurSel();
 
 	if( m_Label.nLabelMaskingCount <= 0 /*m_nCombo_Masking_Select*/ )	UpdateMaskingCount(TRUE);
-	else														UpdateMaskingCount();
+	else																UpdateMaskingCount();
 	UpdateMaskingScore();
 	UpdateTeachingImage();
 
@@ -692,7 +670,7 @@ void CTeachTabLabel::UpdateMaskingCount(BOOL bComboReset/*= FALSE*/)
 	for(int i = 0; i < m_Label.nLabelMaskingCount; i ++)
 	{
 		CString strBuff;
-		strBuff.Format(_T("%d번 마스킹"), i + 1);
+		strBuff.Format(_T("%d번 마킹"), i + 1);
 		m_Combo_Select_Masking_Num.AddString( strBuff );
 	}
 
@@ -1034,8 +1012,6 @@ void CTeachTabLabel::OnBnClickedBtnSaveLabel()
 			pInspectionVision->Load_Label(strSelectModelName);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -1044,17 +1020,9 @@ void CTeachTabLabel::OnBnClickedBtnSaveLabel()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab4GMBB::OnBnClickedBtnSave :: End"));
 }
@@ -1293,7 +1261,7 @@ void CTeachTabLabel::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());

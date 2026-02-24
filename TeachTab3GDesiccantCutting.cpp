@@ -854,7 +854,7 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantCuttingLeft()
 		}
 
 		m_btnLeftROI.EnableWindow(TRUE);
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA3, _OnConfirmTracker, this, m_DesiccantCuttingInfo.rcLeftInspArea);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA3, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -887,7 +887,7 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantCuttingRight()
 		}
 
 		m_btnRightROI.EnableWindow(TRUE);
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this, m_DesiccantCuttingInfo.rcRightInspArea);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -982,7 +982,7 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantPositionLeft()
 
 		m_btnPositionLeftROI.EnableWindow(TRUE);
 		AfxMessageBox(_T("검사 영역을 지정하세요."));
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this, m_DesiccantCuttingInfo.rcPositionLeftInspArea);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -1015,7 +1015,7 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantPositionRight()
 
 		m_btnPositionRightROI.EnableWindow(TRUE);
 		AfxMessageBox(_T("검사 영역을 지정하세요."));
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA2, _OnConfirmTracker, this, m_DesiccantCuttingInfo.rcPositionRightInspArea);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA2, _OnConfirmTracker, this);
 	}
 	else
 	{

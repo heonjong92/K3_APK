@@ -71,6 +71,7 @@ public:
 
 	void Initialize( HWND hWndUI );
 	void RecipeLoad();
+	void JobNumberLoad();
 	
 	class IVisionStatusChanged
 	{

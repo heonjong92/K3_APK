@@ -28,7 +28,7 @@ CTeachTab4GMBB::CTeachTab4GMBB(CWnd* pParent /*=NULL*/)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachMBBSize(FALSE)
 	, m_bIsTeachMBBRotate(FALSE)
-	, m_bPendingSaveAfterTeaching(FALSE)
+	, m_nModelNum(0)
 {
 	m_pMainView = NULL;
 	m_MBB.Clear();
@@ -86,6 +86,9 @@ void CTeachTab4GMBB::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX,	IDC_PICTURE_PREVIEW_TEACH_MBB,	m_ctrlPicPreviewTeachMBB);
 
 	DDX_Radio(pDX,		IDC_RADIO_SELECT_UNIT,			m_MBB.nSelectUnit);
+	
+	DDX_Control(pDX,	IDC_COMBO_MBB_MODEL_NUM, 		m_Combo_SelectModelNum);
+	DDX_CBIndex(pDX,	IDC_COMBO_MBB_MODEL_NUM, 		m_nModelNum);
 }
 
 BEGIN_MESSAGE_MAP(CTeachTab4GMBB, CDialog)
@@ -102,6 +105,7 @@ BEGIN_MESSAGE_MAP(CTeachTab4GMBB, CDialog)
 	ON_BN_CLICKED(IDC_BTN_ROI_MBB,			&CTeachTab4GMBB::OnBnClickedBtnRoiMbb)
 	ON_BN_CLICKED(IDC_BTN_MBB_TECH_MODEL,	&CTeachTab4GMBB::OnBnClickedBtnMbbTechModel)
 	ON_BN_CLICKED(IDC_RADIO_SELECT_UNIT,	&CTeachTab4GMBB::OnBnClickedRadioSelectUnit)
+	ON_CBN_SELCHANGE(IDC_COMBO_MBB_MODEL_NUM,	&CTeachTab4GMBB::OnCbnSelchangeComboMBBModelNum)
 	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
@@ -228,6 +232,7 @@ void CTeachTab4GMBB::UpdateToolTip()
 	m_toolTip.AddTool(GetDlgItem(IDC_BTN_ROI_MBB), _T("MBB 길이 검사 영역 설정입니다. MBB 보다 크게 영역을 설정하면 됩니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_RADIO_SELECT_UNIT), _T("길이 측정 단위를 설정 할 수 있습니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_RADIO_SELECT_UNIT2), _T("길이 측정 단위를 설정 할 수 있습니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_MBB_MODEL_NUM), _T("등록할 모델을 선택할 수 있는 콤보 박스입니다. 모델 등록 순서는 검사와 무관하며 최대 10개의 모델을 등록할 수 있습니다."));
 	m_toolTip.Activate(TRUE);
 }
 
@@ -268,7 +273,7 @@ void CTeachTab4GMBB::CheckData()
 	CModelInfo::stMBBInfo& MBBInfo = CModelInfo::Instance()->GetMBBInfo();
 
 	// ----- MBB Teaching -----
-	strLog.Format( _T("[Bypass][%s→%s]"), strBypassName[MBBInfo.nUseBypass_MBB], strBypassName[m_MBB.nUseBypass_MBB] );
+	strLog.Format(_T("[Bypass][%s→%s]"), strBypassName[MBBInfo.nUseBypass_MBB], strBypassName[m_MBB.nUseBypass_MBB] );
 	if( MBBInfo.nUseBypass_MBB != m_MBB.nUseBypass_MBB) CVisionSystem::Instance()->WriteLogforTeaching( InspectTypeMBB, strLog );
 	strLog.Format(_T("[Description][%s→%s]"), MBBInfo.strDescription, m_MBB.strDescription);
 	if (MBBInfo.strDescription != m_MBB.strDescription) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
@@ -288,11 +293,14 @@ void CTeachTab4GMBB::CheckData()
 	if (MBBInfo.fTolerance != m_MBB.fTolerance)	CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
 	strLog.Format(_T("[Length][%d→%d]"), MBBInfo.fLength, m_MBB.fLength);
 	if (MBBInfo.fLength != m_MBB.fLength) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
-
-	strLog.Format(_T("[MBB_Offset X][%d→%d]"), m_MBB.ptOffset_MBB.x, m_MBB.ptOffset_MBB.x);
-	if (m_MBB.ptOffset_MBB.x != m_MBB.ptOffset_MBB.x) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
-	strLog.Format(_T("[MBB_Offset Y][%d→%d]"), m_MBB.ptOffset_MBB.y, m_MBB.ptOffset_MBB.y);
-	if (m_MBB.ptOffset_MBB.y != m_MBB.ptOffset_MBB.y) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
+	
+	for (int i = 0; i < nMATCH_MAX; i++)
+	{
+		strLog.Format(_T("[MBB_Offset_%d X][%d→%d]"), i, m_MBB.ptOffset_MBB[i].x, m_MBB.ptOffset_MBB[i].x);
+		if (m_MBB.ptOffset_MBB[i].x != m_MBB.ptOffset_MBB[i].x) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
+		strLog.Format(_T("[MBB_Offset_%d Y][%d→%d]"), i, m_MBB.ptOffset_MBB[i].y, m_MBB.ptOffset_MBB[i].y);
+		if (m_MBB.ptOffset_MBB[i].y != m_MBB.ptOffset_MBB[i].y) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
+	}
 
 	strLog.Format(_T("[RATIO][%d→%d]"), MBBInfo.fRatio, m_MBB.fRatio);
 	if (MBBInfo.fRatio != m_MBB.fRatio) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeMBB, strLog);
@@ -301,8 +309,6 @@ void CTeachTab4GMBB::CheckData()
 
 void CTeachTab4GMBB::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameMBB(), MBB_KIND);
@@ -318,7 +324,6 @@ void CTeachTab4GMBB::Refresh()
 	GetDlgItem(IDC_EDIT_MBB_WIDTH)->EnableWindow(!bPx);
 	GetDlgItem(IDC_EDIT_MBB_HEIGHT)->EnableWindow(!bPx);
 	GetDlgItem(IDC_EDIT_MBB_RANGE)->EnableWindow(!bPx);
-
 	
 	if (CSystemConfig::Instance()->GetAccessRight() == AccessRightProgrammer)
 	{
@@ -349,6 +354,7 @@ void CTeachTab4GMBB::Refresh()
 
 void CTeachTab4GMBB::UpdateUI()
 {
+	UpdateCount_MBB();
 	UpdateTeachingImage();
 
 	CxGraphicObject* pGO = m_pMainView->GetGraphicObject(CamTypeAreaScan, IDX_AREA1);
@@ -380,26 +386,8 @@ void CTeachTab4GMBB::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachMBBSize = FALSE;
 	m_bIsTeachMBBRotate = FALSE;
-}
-
-void CTeachTab4GMBB::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab4GMBB::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -618,8 +606,6 @@ void CTeachTab4GMBB::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, MBB_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -628,17 +614,9 @@ void CTeachTab4GMBB::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab4GMBB::OnBnClickedBtnSave :: End"));
 }
@@ -710,7 +688,8 @@ void CTeachTab4GMBB::OnBnClickedBtnRoiMbb()
 		}
 
 		m_btnTeachMBB.EnableWindow(TRUE);
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this, m_MBB.rcInspArea);
+		CRect rc(100, 100, 200, 200);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -760,14 +739,15 @@ void CTeachTab4GMBB::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 	else if (m_bIsTeachMBBRotate)
 	{
 #ifdef RELEASE_4G
-		bRet = pInspectionVision->SetLearnModel(pGO, pImgObj, rcTrackRegion, InspectTypeMBB, nViewIndex, 0, FALSE, FALSE);
+		bRet = pInspectionVision->SetLearnModel_ForMBB(pGO, pImgObj, rcTrackRegion, InspectTypeMBB, nViewIndex, m_nModelNum, FALSE);
 #endif
-		m_MBB.ptOffset_MBB = CPoint(rcTrackRegion.left, rcTrackRegion.top);
 	}
 
 	if (bRet)
 	{
-		m_bPendingSaveAfterTeaching = TRUE;
+		m_MBB.ptOffset_MBB[m_nModelNum] = rcTrackRegion.CenterPoint();
+
+		Save();
 		Cleanup();
 		UpdateData(FALSE);
 	}
@@ -813,7 +793,7 @@ void CTeachTab4GMBB::UpdateTeachingImage()
 #ifdef RELEASE_4G
 	USES_CONVERSION;
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
-	EMatcher* MatchBuff = pInspectionVision->GetMatchData(IDX_AREA1, 0);
+	EMatcher* MatchBuff = pInspectionVision->GetMatchData(IDX_AREA1, m_nModelNum);
 
 	CString strImgPath;
 	strImgPath = CModelInfo::Instance()->GetRecipeRootPath() + _T("_Common_Recipe\\TeachingCross.bmp");
@@ -830,7 +810,7 @@ void CTeachTab4GMBB::UpdateTeachingImage()
 		strLoadPatch = CModelInfo::Instance()->GetRecipeRootPath() + _T("4G_MBB\\") + strLastRecipe + _T("\\");
 		strInspName = _T("MBB");
 
-		strMatchBmpFileName.Format(_T("%s%s_%d.bmp"), strLoadPatch, strInspName, 0);
+		strMatchBmpFileName.Format(_T("%s%s_%d.bmp"), strLoadPatch, strInspName, m_nModelNum);
 
 		if (IsExistFile((LPCTSTR)strMatchBmpFileName))
 			m_ImageObjectForMBBTeaching.LoadFromFile(strMatchBmpFileName);
@@ -846,6 +826,20 @@ void CTeachTab4GMBB::UpdateTeachingImage()
 	m_pMainView->UpdateImageView();
 
 #endif
+}
+
+void CTeachTab4GMBB::UpdateCount_MBB()
+{
+	m_Combo_SelectModelNum.ResetContent();
+
+	for (int i = 0; i < nMATCH_MAX; ++i)
+	{
+		CString strModelNum;
+		strModelNum.Format(_T("Model_%d"), i);
+		m_Combo_SelectModelNum.AddString(strModelNum);
+	}
+
+	m_Combo_SelectModelNum.SetCurSel(m_nModelNum);
 }
 
 void CTeachTab4GMBB::OnBnClickedRadioSelectUnit()
@@ -903,7 +897,7 @@ void CTeachTab4GMBB::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());
@@ -913,4 +907,13 @@ void CTeachTab4GMBB::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 
 	CDialog::OnLButtonDblClk(nFlags, point);
+}
+
+void CTeachTab4GMBB::OnCbnSelchangeComboMBBModelNum()
+{
+	m_nModelNum = m_Combo_SelectModelNum.GetCurSel();
+
+	UpdateTeachingImage();
+
+	UpdateData(FALSE);
 }

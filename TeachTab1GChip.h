@@ -46,7 +46,6 @@ protected:
 	BOOL m_bIsTeachChipArea;
 	BOOL m_bIsTeachChipAreaCheck;
 	BOOL m_bIsTeachMatch;
-	BOOL m_bPendingSaveAfterTeaching;
 
 public:
 	void SetMainView( CAPKView* pView ) { m_pMainView = pView; }
@@ -64,7 +63,6 @@ public:
 	void UpdateToolTip();
 
 	void EnableChip();
-	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

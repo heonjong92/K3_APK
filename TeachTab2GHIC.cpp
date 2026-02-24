@@ -28,7 +28,6 @@ CTeachTab2GHIC::CTeachTab2GHIC(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab2GHIC::IDD, pParent)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachHIC(FALSE)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_HIC.Clear();
@@ -299,8 +298,6 @@ void CTeachTab2GHIC::CheckData()
 
 void CTeachTab2GHIC::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelNameHIC();
 	CModelInfo::stHICInfo& HICInfo = CModelInfo::Instance()->GetHICInfo();
@@ -337,25 +334,7 @@ void CTeachTab2GHIC::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachHIC = FALSE;
-}
-
-void CTeachTab2GHIC::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab2GHIC::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -571,8 +550,6 @@ void CTeachTab2GHIC::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, HIC_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		DisableWnd(TRUE);
 		Refresh();
 
@@ -581,17 +558,9 @@ void CTeachTab2GHIC::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab2GHIC::OnBnClickedBtnSave :: End"));
 }
@@ -692,7 +661,7 @@ void CTeachTab2GHIC::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());
@@ -746,7 +715,6 @@ void CTeachTab2GHIC::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
-		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}
@@ -760,6 +728,7 @@ void CTeachTab2GHIC::OnBnClickedBtnHicTechModel()
 
 	UpdateData(TRUE);
 
+#ifdef RELEASE_2G
 	m_pMainView->ResetGraphic(CamTypeAreaScan, IDX_AREA2);
 
 	if (m_bIsTeachHIC)
@@ -782,6 +751,7 @@ void CTeachTab2GHIC::OnBnClickedBtnHicTechModel()
 	{
 		Cleanup();
 	}
+#endif
 }
 
 void CTeachTab2GHIC::UpdateUI()

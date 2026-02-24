@@ -46,9 +46,11 @@ protected:
 	CComboBox m_wndSelectRecipe;
 	int m_nSelectRecipeIndex;
 
+	CComboBox m_Combo_SelectModelNum;
+	int m_nModelNum;
+
 	BOOL m_bIsTeachMBBSize;
 	BOOL m_bIsTeachMBBRotate;
-	BOOL m_bPendingSaveAfterTeaching;
 
 	CStatic m_ctrlPicPreviewTeachMBB;		// pic
 	CRect m_rcPicCtrlSizeTeachMBB;			// pic size
@@ -64,13 +66,13 @@ public:
 	void Refresh();
 	void UpdateUI();
 	void UpdateTeachingImage();
+	void UpdateCount_MBB();
 	void CheckData();
 	void DisableWnd(BOOL bEnable);
 	void EnableMBB();
 
 	void UpdateLanguage();
 	void UpdateToolTip();
-	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();
@@ -103,4 +105,5 @@ public:
 	afx_msg void OnBnClickedBtnMbbTechModel();
 	afx_msg void OnBnClickedRadioSelectUnit();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnCbnSelchangeComboMBBModelNum();
 };

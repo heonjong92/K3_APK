@@ -532,7 +532,7 @@ void CTeachTab6GBoxTape::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());

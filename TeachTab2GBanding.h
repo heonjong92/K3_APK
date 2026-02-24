@@ -43,7 +43,6 @@ protected:
 	int m_nSelectRecipeIndex;
 
 	BOOL m_bIsTeachBanding;
-	BOOL m_bPendingSaveAfterTeaching;
 
 public:
 	void SetMainView( CAPKView* pView ) { m_pMainView = pView; }
@@ -60,7 +59,6 @@ public:
 
 	void UpdateLanguage();
 	void UpdateToolTip();
-	void LockButtonsUntilSave();
 
 protected:
 	void UpdateRecipeList();

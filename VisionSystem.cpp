@@ -417,6 +417,11 @@ void CVisionSystem::RecipeLoad()
 #endif
 }
 
+void CVisionSystem::JobNumberLoad()
+{
+	CJobNumberData::Instance()->Load();
+}
+
 CxImageObject* CVisionSystem::GetImageObject( eCamType nCamType, int nIdx )
 {
 	switch(nCamType)

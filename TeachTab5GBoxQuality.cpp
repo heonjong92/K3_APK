@@ -26,7 +26,6 @@ CTeachTab5GBoxQuality::CTeachTab5GBoxQuality(CWnd* pParent /*=NULL*/)
 	: CDialog(CTeachTab5GBoxQuality::IDD, pParent)
 	, m_bIsTeachBoxQuality(FALSE)
 	, m_nModelNum(0)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_BoxInfo.Clear();
@@ -199,9 +198,9 @@ void CTeachTab5GBoxQuality::UpdateToolTip()
 {
 	m_toolTip.Create(this, TTS_BALLOON);
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_BOXQUALITY_OK_SCORE), _T("등록 되어있는 모델 패턴과 실제 촬영 된 이미지의 패턴을 비교하여, 해당 값 이하이면 NG가 발생합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_BOXQUALITY_SHIFT_X), _T("등록 되어있는 모델 패턴과 실제 촬영 된 이미지의 패턴을 비교하여, 해당 값 이상이면 NG가 발생합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_BOXQUALITY_SHIFT_Y), _T("등록 되어있는 모델 패턴과 실제 촬영 된 이미지의 패턴을 비교하여, 해당 값 이상이면 NG가 발생합니다."));
-	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_BOX_QUALITY_MODEL_NUM), _T("등록할 모델을 선택할 수 있는 콤보 박스입니다. 모델 등록 순서는 검사와 무관하며 최대 7개의 모델을 등록할 수 있습니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_BOXQUALITY_SHIFT_X), _T("등록 되어있는 모델의 중심과 검사 된 모델의 중심을 비교하여, 해당 값 이상이면 NG가 발생합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_BOXQUALITY_SHIFT_Y), _T("등록 되어있는 모델의 중심과 검사 된 모델의 중심을 비교하여, 해당 값 이상이면 NG가 발생합니다."));
+	m_toolTip.AddTool(GetDlgItem(IDC_COMBO_BOX_QUALITY_MODEL_NUM), _T("등록할 모델을 선택할 수 있는 콤보 박스입니다. 모델 등록 순서는 검사와 무관하며 최대 10개의 모델을 등록할 수 있습니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_BTN_BOX_TEACH_MODEL), _T("선택된 Model 번호에 이미지 패턴을 등록합니다."));
 	m_toolTip.Activate(TRUE);
 }
@@ -244,21 +243,27 @@ void CTeachTab5GBoxQuality::CheckData()
 	CModelInfo::stBoxInfo& BoxInfo = CModelInfo::Instance()->GetBoxInfo();
 
 	// ----- BoxQuality Teaching -----
-	strLog.Format( _T("[Bypass][%s→%s]"), strBypassName[BoxInfo.nUseBypass_Box], strBypassName[m_BoxInfo.nUseBypass_Box] );
-	if( BoxInfo.nUseBypass_Box != m_BoxInfo.nUseBypass_Box ) CVisionSystem::Instance()->WriteLogforTeaching( InspectTypeBox,	strLog );
+	strLog.Format(_T("[Bypass][%s→%s]"), strBypassName[BoxInfo.nUseBypass_Box], strBypassName[m_BoxInfo.nUseBypass_Box] );
+	if( BoxInfo.nUseBypass_Box != m_BoxInfo.nUseBypass_Box ) CVisionSystem::Instance()->WriteLogforTeaching( InspectTypeBox, strLog );
 	strLog.Format(_T("[Description][%s→%s]"), BoxInfo.strDescription, m_BoxInfo.strDescription);
 	if (BoxInfo.strDescription != m_BoxInfo.strDescription) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeBox, strLog);
 	strLog.Format(_T("[LightValueCh1][%d→%d]"), BoxInfo.nValueCh1, m_BoxInfo.nValueCh1);
 	if (BoxInfo.nValueCh1 != m_BoxInfo.nValueCh1) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeBox, strLog);
 	strLog.Format(_T("[OkScore][%.1f→%.1f]"), BoxInfo.fOkScore, m_BoxInfo.fOkScore);
 	if (BoxInfo.fOkScore != m_BoxInfo.fOkScore) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeBox, strLog);
+
+	for (int i = 0; i < nMATCH_MAX; i++)
+	{
+		strLog.Format(_T("[Match[%d] Center X][%d→%d]"), i, BoxInfo.ptMatchCenter[i].x, m_BoxInfo.ptMatchCenter[i].x);
+		if (BoxInfo.ptMatchCenter[i].x != m_BoxInfo.ptMatchCenter[i].x) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeBox, strLog);
+		strLog.Format(_T("[Match[%d] Center Y][%d→%d]"), i, BoxInfo.ptMatchCenter[i].y, m_BoxInfo.ptMatchCenter[i].y);
+		if (BoxInfo.ptMatchCenter[i].y != m_BoxInfo.ptMatchCenter[i].y) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeBox, strLog);
+	}
 #endif
 }
 
 void CTeachTab5GBoxQuality::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameBoxQuality(), BOXQUALITY_KIND);
@@ -354,25 +359,7 @@ void CTeachTab5GBoxQuality::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachBoxQuality = FALSE;
-}
-
-void CTeachTab5GBoxQuality::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab5GBoxQuality::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -491,8 +478,6 @@ void CTeachTab5GBoxQuality::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInd
 	if (bRet)
 	{
 		m_BoxInfo.ptMatchCenter[m_nModelNum] = rcTrackRegion.CenterPoint();
-
-		m_bPendingSaveAfterTeaching = TRUE;
 		
 		Cleanup();
 		UpdateUI();
@@ -634,8 +619,6 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, BOXQUALITY_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -644,17 +627,9 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab5GBoxQuality::OnBnClickedBtnSave :: End"));
 }
@@ -785,7 +760,7 @@ void CTeachTab5GBoxQuality::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());

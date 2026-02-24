@@ -1760,7 +1760,7 @@ BOOL CInspectionVision::_Insp_Banding(CxGraphicObject* pGO, CxImageObject* pSrcI
 		rcBox.bottom = rcArea.bottom;
 		rcBox.NormalizeRect();
 
-		clrBox.CreateObject(PDC_ORANGE, rcBox, PS_DASH, 3);
+		clrBox.CreateObject(PDC_ORANGE, rcBox, PS_SOLID, 2);
 		pGO->AddDrawBox(clrBox);
 
 		// Insp & Result
@@ -2597,12 +2597,12 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 
 				//////////////////////////////////////////////////////////////////////////
 				LabelAreaImgObj.Clone( &pMaskingImgObj );
-#ifdef RELEASE_6G
-				for(int nWidthIndex = 1155; nWidthIndex < 1300; nWidthIndex++)
-					for(int nHeightIndex = 570; nHeightIndex < 720; nHeightIndex++)
-						EBW8ImgLabelArea.SetPixel( 0, nWidthIndex, nHeightIndex );
-#elif RELEASE_4G
-#endif
+//#ifdef RELEASE_6G
+//				for(int nWidthIndex = 1155; nWidthIndex < 1300; nWidthIndex++)
+//					for(int nHeightIndex = 570; nHeightIndex < 720; nHeightIndex++)
+//						EBW8ImgLabelArea.SetPixel( 0, nWidthIndex, nHeightIndex );
+//#elif RELEASE_4G
+//#endif
 				EasyImage::OpenBox(&EBW8ImgLabelArea, &EBW8ImgLabelArea, nLabel_AreaOpenValue);
 
 				if (CLanguageInfo::Instance()->m_nLangType == 0)		strErrorCode = _T("라벨 영역 찾기(2) : NG");
@@ -2656,8 +2656,8 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 
 		if( reLabelArea.left < 0 || reLabelArea.top < 0 || EBW8ImgLabelArea.GetWidth() < reLabelArea.right || EBW8ImgLabelArea.GetHeight() < reLabelArea.bottom )
 		{
-			if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("마스킹 영역 에러"));
-			else												clrText.SetText( _T("Masking Area Error") );
+			if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("마킹 영역 에러"));
+			else												clrText.SetText( _T("Marking Area Error") );
 			clrText.CreateObject( PDC_YELLOW, (int)reLabelArea.CenterPoint().x, (int)reLabelArea.CenterPoint().y, 15, TRUE, CxGOText::TextAlignmentCenter );
 			pGO->AddDrawText( clrText );
 			return FALSE;
@@ -2739,14 +2739,14 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 		pGO->AddDrawBox( clrBox );
 
 		// TEST 영상에는 속지가 있어서.
-	//	strErrorCode = _T("Label Print Edge Line : NG");
-	//	if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
-	//	{
-	//		clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
-	//		pGO->AddDrawBox( clrBox );
-	//
-	//		throw strErrorCode;
-	//	}
+		strErrorCode = _T("Label Print Edge Line : NG");
+		if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
+		{
+			clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
+			pGO->AddDrawBox( clrBox );
+		
+			throw strErrorCode;
+		}
 
 	}
 	catch ( CString strErrorCode )
@@ -2990,12 +2990,14 @@ BOOL CInspectionVision::Save( LPCTSTR lpszRecipeName, eTeachTabIndex TabIndex )
 
 #elif RELEASE_4G									
 				case IDX_AREA1:		strInspName = _T("MBB");			break; // MBB
+				case IDX_AREA2:		continue;
 
 #elif RELEASE_5G									
 				case IDX_AREA1:		strInspName = _T("Box");			break; // Box Quality
 				case IDX_AREA2:		strInspName = _T("None");			break; // Sealing Quality
 
 #elif RELEASE_6G
+				case IDX_AREA1:		continue;
 				case IDX_AREA2:		strInspName = _T("Tape");			break; // Tape
 
 #endif
@@ -3876,6 +3878,64 @@ BOOL CInspectionVision::SetLearnModel( CxGraphicObject* pGO, CxImageObject* pImg
 	return TRUE;
 }
 
+BOOL CInspectionVision::SetLearnModel_ForMBB(CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, InspectType inspecttype, UINT nIdx, UINT nType, BOOL bBlob)
+{
+	if (CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE)
+		return FALSE;
+
+	CRect rtNormalRect;
+
+	if (pImgObj == NULL) return 0;
+
+	int nPageSizeX = pImgObj->GetWidth();
+	int nPageSizeY = pImgObj->GetHeight();
+
+	CRect rcTrack(rcTracker);
+	CRect rcImgBody(0, 0, pImgObj->GetWidth() - 1, pImgObj->GetHeight() - 1);
+	rcTrack.IntersectRect(rcTrack, rcImgBody);
+
+	try
+	{
+		CRect rcAlign = rcTrack;
+		if (rcAlign.IsRectEmpty())
+			return FALSE;
+
+		EImageBW8 ImageX;
+		ImageX.SetImagePtr(pImgObj->GetWidth(), pImgObj->GetHeight(), pImgObj->GetImageBuffer(), pImgObj->GetWidthBytes() * 8);
+
+		EMatcher* pMatcher = m_pMatch[nIdx][nType];
+
+		rtNormalRect.left = rcTrack.left;
+		rtNormalRect.right = rcTrack.right;
+		rtNormalRect.top = rcTrack.top <= nPageSizeY ? rcTrack.top : rcTrack.top;
+		rtNormalRect.bottom = rcTrack.bottom <= nPageSizeY ? rcTrack.bottom : rcTrack.bottom;
+
+		EROIBW8 ImageROI;
+		ImageROI.Detach();
+		ImageROI.Attach(&ImageX);
+		ImageROI.SetPlacement(rtNormalRect.left, rtNormalRect.top, rtNormalRect.Width(), rtNormalRect.Height());
+
+		pMatcher->SetMinReducedArea(256); // MBB는 난반사가 심해서 64, 128로는 오버킬이 많음.
+		pMatcher->LearnPattern(&ImageROI);
+
+		COLORBOX clrBox;
+		clrBox.CreateObject(PDC_GREEN, rtNormalRect, PS_SOLID, 3);
+		pGO->AddDrawBox(clrBox);
+
+		return TRUE;
+	}
+
+	catch (EException& e)
+	{
+		std::string error = e.what();
+		error += "\n";
+		OutputDebugStringA(error.c_str());
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 BOOL CInspectionVision::SetLearnModel_ForLabel( CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, UINT nIdx, UINT nType )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
@@ -4126,8 +4186,8 @@ BOOL CInspectionVision::EVisionOCR_TrayOCR(CxGraphicObject* pGO, CxImageObject* 
 			rcOcrArea.right > pImgObj2.GetWidth() ||
 			rcOcrArea.bottom > pImgObj2.GetHeight())
 		{
-			WRITE_LOG(WL_ERROR, _T("ROI Out of Range"));
-			clrText.SetText(_T("ROI Out of Range"));
+			WRITE_LOG(WL_ERROR, _T("[OCR] ROI Out of Range"));
+			clrText.SetText(_T("[OCR] ROI Out of Range"));
 			clrText.CreateObject(PDC_RED, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI * 4, 70, TRUE);
 			pGO->AddDrawText(clrText);
 			return FALSE;
@@ -4786,7 +4846,7 @@ BOOL CInspectionVision::BuildUsingEasyObject_TrayChipCnt(CxGraphicObject* pGO, C
 					drcChip.right = ChipROI.GetOrgX() + rcChipPos.Width();
 					drcChip.bottom = ChipROI.GetOrgY() + rcChipPos.Height();
 
-					clrBox.CreateObject(PDC_ORANGE, drcChip, PS_DASH, 1);
+					clrBox.CreateObject(PDC_ORANGE, drcChip, PS_SOLID, 1);
 					pGO->AddDrawBox(clrBox);
 				}
 				else
@@ -6551,7 +6611,7 @@ BOOL CInspectionVision::MatchModel_Mixing(CxGraphicObject* pGO, CxImageObject *p
 			nDrawTextPosY += nDrawTextSize * 5;
 			throw strException;
 		}
-		clrBox.CreateObject(PDC_ORANGE, rcTrayCount, PS_DASH, 1);
+		clrBox.CreateObject(PDC_ORANGE, rcTrayCount, PS_SOLID, 1);
 		pGO->AddDrawBox(clrBox);
 
 		EROIBW8 eTrayCountROI;
@@ -6610,7 +6670,7 @@ BOOL CInspectionVision::MatchModel_Mixing(CxGraphicObject* pGO, CxImageObject *p
 			nDrawTextPosY += nDrawTextSize * 5;
 			throw strException;
 		}
-		clrBox.CreateObject(PDC_ORANGE, rcMixing, PS_DASH, 1);
+		clrBox.CreateObject(PDC_ORANGE, rcMixing, PS_SOLID, 1);
 		pGO->AddDrawBox(clrBox);
 
 		// 260210 HJ : 위치 변경 Plain이면 검사를 안해야지..
@@ -7194,6 +7254,8 @@ BOOL CInspectionVision::MatchModel_MBB(CxGraphicObject* pGO, CxImageObject *pImg
 	CString strException = _T("");
 	int nDrawTextPosY = 100;
 	int nDrawTextSize = 25;
+	BOOL bSearchRet[nMATCH_MAX];
+	BOOL bResult = TRUE;
 
 	if (pImgObj == NULL)
 		return FALSE;
@@ -7215,58 +7277,75 @@ BOOL CInspectionVision::MatchModel_MBB(CxGraphicObject* pGO, CxImageObject *pImg
 		ImageROI.Attach(&ImageX);
 		ImageROI.SetPlacement(rcRect.left, rcRect.top, rcRect.Width(), rcRect.Height());
 
-		EMatcher* pMatch = m_pMatch[nViewIndex][0];
-		if (!pMatch) return FALSE;
-
-		if (!pMatch->GetPatternLearnt())
+		for (int i = 0; i < nMATCH_MAX; ++i)
 		{
-			if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("MBB 찾기 : NG [등록 모델 없음]"));
-			else												clrText.SetText(_T("MBB Match Search : NG [No Teaching]"));
-			clrText.CreateObject(PDC_LIGHTRED, DEF_FONT_BASIC_POSI, nDrawTextPosY, nDrawTextSize);
+			bSearchRet[i] = TRUE;
+			EMatcher* pMatch = m_pMatch[nViewIndex][i];
+			if (!pMatch) return FALSE;
+
+			if (!pMatch->GetPatternLearnt()) continue;
+
+			//////////////////////////////////////////////////////////////////////////
+			pMatch->SetContrastMode(EMatchContrastMode_Normal);
+			pMatch->SetCorrelationMode(ECorrelationMode_Normalized);
+			pMatch->SetInterpolate(TRUE);
+			pMatch->SetMinScore(0.4f);
+			pMatch->SetMaxPositions(10);
+			pMatch->SetMaxAngle(5.00f);
+			pMatch->SetMinAngle(-5.00f);
+			pMatch->SetMaxScale(1.05f);
+			pMatch->SetMinScale(0.95f);
+
+			pMatch->Match(&ImageROI);
+
+			int nCount = pMatch->GetNumPositions();
+			if (nCount == 0)
+			{
+				if (CLanguageInfo::Instance()->m_nLangType == 0)	strException.Format(_T("MBB 등록 모델[%d] 찾을 수 없음"), i);
+				else 												strException.Format(_T("None Matching[%d] MBB"), i);
+				throw strException;
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			float fScore = stMBB.fRatio;
+			float fBestScore = -0.01f;
+			CRect rePatternArea;
+
+			// 1) 가장 큰 score 찾기
+			int nBestIdx = -1;
+			for (int nMatchCnt = 0; nMatchCnt < nCount; ++nMatchCnt)
+			{
+				EMatchPosition& ePos = pMatch->GetPosition(nMatchCnt);
+
+				if (ePos.Score > fBestScore)
+				{
+					fBestScore = ePos.Score;
+					nBestIdx = nMatchCnt;
+				}
+			}
+
+			EMatchPosition& eMatchPos = pMatch->GetPosition(nBestIdx);
+			rePatternArea.left = (int)GetRoundLong(eMatchPos.CenterX - ((float)pMatch->GetPatternWidth() / 2.f)) + rcRect.left;
+			rePatternArea.top = (int)GetRoundLong(eMatchPos.CenterY - ((float)pMatch->GetPatternHeight() / 2.f)) + rcRect.top;
+			rePatternArea.right = (int)GetRoundLong(eMatchPos.CenterX + ((float)pMatch->GetPatternWidth() / 2.f)) + rcRect.left;
+			rePatternArea.bottom = (int)GetRoundLong(eMatchPos.CenterY + ((float)pMatch->GetPatternHeight() / 2.f)) + rcRect.top;
+			rePatternArea.NormalizeRect();
+
+			if (eMatchPos.Score * 100.f > fScore)	clrColor = PDC_GREEN;
+			else									clrColor = PDC_LIGHTRED, bSearchRet[i] = FALSE;
+
+			clrText.SetText(_T("[Score : %.2f]"), eMatchPos.Score * 100.f);
+			clrText.CreateObject(clrColor, rePatternArea.left + 3, rePatternArea.top, 25, TRUE);
 			pGO->AddDrawText(clrText);
 
-			return FALSE;
+			clrBox.CreateObject(bSearchRet[i] ? PDC_GREEN : PDC_LIGHTRED, rePatternArea, PS_SOLID, 3);
+			pGO->AddDrawBox(clrBox);
 		}
 
-		//////////////////////////////////////////////////////////////////////////
-		pMatch->SetContrastMode(EMatchContrastMode_Normal);
-		pMatch->SetCorrelationMode(ECorrelationMode_Normalized);
-		pMatch->SetInterpolate(TRUE);
-		pMatch->SetMinScore(0.5f);
-		pMatch->SetMinAngle((-5.f));
-		pMatch->SetMaxAngle((5.f));
-		pMatch->SetMinScale(0.9f);
-		pMatch->SetMaxScale(1.1f);
-		pMatch->SetMaxPositions(1);
-		pMatch->SetMaxInitialPositions(0);
+		for (int i = 0; i < nMATCH_MAX; ++i)
+			bResult &= bSearchRet[i];
 
-		pMatch->Match(&ImageROI);
-
-		BOOL bSearchRet = TRUE;
-
-		int nCount = pMatch->GetNumPositions();
-		if (nCount == 0)
-		{
-			if (CLanguageInfo::Instance()->m_nLangType == 0)	strException = _T("MBB 등록 모델 찾을 수 없음");
-			else 												strException = _T("None Matching MBB");
-			throw strException;
-		}
-
-		//////////////////////////////////////////////////////////////////////////
-		float fScore = stMBB.fRatio;
-
-		EMatchPosition& eMatchPos = pMatch->GetPosition(0);
-		CRect rePatternArea;
-		rePatternArea.left = (int)GetRoundLong(eMatchPos.CenterX - ((float)pMatch->GetPatternWidth() / 2.f)) + rcRect.left;
-		rePatternArea.top = (int)GetRoundLong(eMatchPos.CenterY - ((float)pMatch->GetPatternHeight() / 2.f)) + rcRect.top;
-		rePatternArea.right = (int)GetRoundLong(eMatchPos.CenterX + ((float)pMatch->GetPatternWidth() / 2.f)) + rcRect.left;
-		rePatternArea.bottom = (int)GetRoundLong(eMatchPos.CenterY + ((float)pMatch->GetPatternHeight() / 2.f)) + rcRect.top;
-		rePatternArea.NormalizeRect();
-
-		if (eMatchPos.Score * 100.f > fScore)	clrColor = PDC_GREEN;
-		else									clrColor = PDC_LIGHTRED, bSearchRet = FALSE;
-
-		if (bSearchRet)
+		if (bResult)
 		{
 			if (CLanguageInfo::Instance()->m_nLangType == 0)	clrText.SetText(_T("MBB 정방향 검사 : OK"));
 			else 												clrText.SetText(_T("MBB Orientation Check : OK"));
@@ -7279,15 +7358,6 @@ BOOL CInspectionVision::MatchModel_MBB(CxGraphicObject* pGO, CxImageObject *pImg
 		clrText.CreateObject(clrColor, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI + (25 * 16), DEF_FONT_BASIC_SIZE);
 		pGO->AddDrawText(clrText);
 
-		if (!bSearchRet)
-			return FALSE;
-
-		clrText.SetText(_T("[Score : %.2f]"), eMatchPos.Score * 100.f);
-		clrText.CreateObject(clrColor, rePatternArea.left + 3, rePatternArea.top, 25, TRUE);
-		pGO->AddDrawText(clrText);
-
-		clrBox.CreateObject(bSearchRet ? PDC_GREEN : PDC_LIGHTRED, rePatternArea, PS_SOLID, 3);
-		pGO->AddDrawBox(clrBox);
 	}
 	catch (EException& e)
 	{
@@ -7302,7 +7372,7 @@ BOOL CInspectionVision::MatchModel_MBB(CxGraphicObject* pGO, CxImageObject *pImg
 		return FALSE;
 	}
 
-	return TRUE;
+	return bResult;
 }
 
 BOOL CInspectionVision::MatchModel_ForLabel(CxGraphicObject* pGO, CxImageObject *pImgObj, int nViewIndex, int nType)
@@ -7521,8 +7591,6 @@ BOOL CInspectionVision::MatchModel_BoxQuality(CxGraphicObject* pGO, CxImageObjec
 			}
 
 			EMatchPosition& eMatchPos = pMatch->GetPosition(0);
-			float fAngle = eMatchPos.Angle;
-			float fScale = eMatchPos.Scale;
 
 			CRect rePatternArea;
 			rePatternArea.left		= (int)GetRoundLong(eMatchPos.CenterX - ((float)pMatch->GetPatternWidth() / 2.f));
@@ -7558,8 +7626,8 @@ BOOL CInspectionVision::MatchModel_BoxQuality(CxGraphicObject* pGO, CxImageObjec
 			bShiftX = bShiftY = FALSE;
 			if (bSearchRet[i])
 			{
-				int nDisX = stBoxInfo.ptMatchCenter[i].x - rePatternArea.CenterPoint().x;
-				int nDisY = stBoxInfo.ptMatchCenter[i].y - rePatternArea.CenterPoint().y;
+				int nDisX = rePatternArea.CenterPoint().x - stBoxInfo.ptMatchCenter[i].x;
+				int nDisY = rePatternArea.CenterPoint().y - stBoxInfo.ptMatchCenter[i].y;
 
 				if (stBoxInfo.nShiftX < abs(nDisX))
 					bShiftX = TRUE;
@@ -7584,7 +7652,6 @@ BOOL CInspectionVision::MatchModel_BoxQuality(CxGraphicObject* pGO, CxImageObjec
 					bSearchRet[i] = FALSE;
 			}
 		}
-
 
 		for (int i = 0; i < nMATCH_MAX; ++i)
 			bResult &= bSearchRet[i];
@@ -11035,6 +11102,15 @@ BOOL CInspectionVision::InspChipCount(CxGraphicObject* pGO, CxImageObject* pSrcI
 					rcRect.right = stChip.rcInspArea.right - GetRoundLong((stChip.fChipUnitPitch_X_MM * 1000.f / m_fCalX[nViewIndex]) * nX);
 					rcRect.top = stChip.rcInspArea.top - GetRoundLong((stChip.fChipUnitPitch_Y_MM * 1000.f / m_fCalY[nViewIndex]) * nY);
 					rcRect.bottom = stChip.rcInspArea.bottom - GetRoundLong((stChip.fChipUnitPitch_Y_MM * 1000.f / m_fCalY[nViewIndex]) * nY);
+				}
+
+				if (rcRect.left < 0 || rcRect.top < 0 || rcRect.right > ImageX.GetWidth() || rcRect.bottom > ImageX.GetHeight())
+				{
+					WRITE_LOG(WL_ERROR, _T("[Chip] ROI Out of Range"));
+					clrText.SetText(_T("[Chip] ROI Out of Range"));
+					clrText.CreateObject(PDC_RED, DEF_FONT_BASIC_POSI, DEF_FONT_BASIC_POSI * 4, 70, TRUE);
+					pGO->AddDrawText(clrText);
+					return FALSE;
 				}
 
 				EROIBW8 EBW8InspROI;

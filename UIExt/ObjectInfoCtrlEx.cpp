@@ -1,5 +1,6 @@
 // StripInfoCtrl.cpp : ±¸Çö ÆÄÀÏÀÔ´Ï´Ù.
 //
+
 #include "stdafx.h"
 #include "ObjectInfoCtrlEx.h"
 #include "ResourceManager.h"
@@ -285,7 +286,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 	int nRowCount = m_nRowCount+1;			//Y
 	int nColCount = m_nColumnCount+1;		//X
 
-	float fStepX = (float)rectStripBody.Width / nColCount;		//1ê°œì˜ width
+	float fStepX = (float)rectStripBody.Width / nColCount;		//1°³ÀÇ width
 	float fFirstStepX = fStepX * 1.0f;// * 0.5f
 	fStepX = (rectStripBody.Width - fFirstStepX) / (nColCount-1);
 
@@ -372,7 +373,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 			rectUnit.X = (int)(fPosX+0.5f) + 1;
 			rectUnit.Y = (int)(fPosY+0.5f) + 1;
 
-			// Xì¶?
+			// XÃà
 			if (j == nColCount - 1)
 			{
 				rectUnit.Width = (int)(fPosX + fFirstStepX + 0.5f) + 1	- rectUnit.X - 1;
@@ -387,7 +388,7 @@ void CObjectInfoCtrlEx::DrawStrip( Graphics& g, Rect& rectStripBody )
 					rectUnit.Width = (int)(fPosX + fStepX + 0.5f) + 1 - rectUnit.X - 1;
 			}
 
-			// Yì¶?
+			// YÃà
 			if (i==0)
 				rectUnit.Height = (int)(fPosY+fFirstStepY+0.5f) + 1 - rectUnit.Y - 1;
 			else
@@ -1090,7 +1091,7 @@ void CObjectInfoCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 BOOL UIExt::CObjectInfoCtrlEx::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO: ?¬ê¸°???¹ìˆ˜?”ëœ ì½”ë“œë¥?ì¶”ê? ë°??ëŠ” ê¸°ë³¸ ?´ëž˜?¤ë? ?¸ì¶œ?©ë‹ˆ??
+	// TODO: ¿©±â¿¡ Æ¯¼öÈ­µÈ ÄÚµå¸¦ Ãß°¡ ¹×/¶Ç´Â ±âº» Å¬·¡½º¸¦ È£ÃâÇÕ´Ï´Ù.
 	m_pToolTip->RelayEvent(pMsg);
 
 

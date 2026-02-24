@@ -400,6 +400,7 @@ public:
 	BOOL MatchModel_ForLabelAlign(CxGraphicObject* pGO, CxImageObject *pImgObj, int nViewIndex);
 	
 	BOOL SetLearnModel( CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, InspectType inspecttype, UINT nIdx, UINT nType, BOOL bBlob, BOOL bColor );
+	BOOL SetLearnModel_ForMBB( CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, InspectType inspecttype, UINT nIdx, UINT nType, BOOL bBlob );
 	BOOL SetLearnModel_ForLabel( CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, UINT nIdx, UINT nType );
 	BOOL SetLearnModel_ForBox(CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker, UINT nIdx, UINT nType);
 	BOOL SetLearnModel_ForChip(CxGraphicObject* pGO, CxImageObject* pImgObj, RECT rcTracker);

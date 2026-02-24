@@ -892,18 +892,8 @@ void CAPKView::OnMenuAccessRights()
 		if (AccessRightsDlg.DoModal() == IDOK)
 		{
 			UpdateAccessRight();
-#ifdef RELEASE_2G
 			::SendMessage(m_pFormTeaching->GetSafeHwnd(), WM_REFRESH_DIALOG, NULL, NULL);
 
-#elif RELEASE_1G
-			::SendMessage(m_pFormTeaching->GetSafeHwnd(), WM_REFRESH_LIFT, NULL, NULL);
-			::SendMessage(m_pFormTeaching->GetSafeHwnd(), WM_REFRESH_3DCHIPCNT, NULL, NULL);
-			::SendMessage(m_pFormTeaching->GetSafeHwnd(), WM_REFRESH_CHIP, NULL, NULL);
-
-#elif RELEASE_4G
-			::SendMessage(m_pFormTeaching->GetSafeHwnd(), WM_REFRESH_MBB, NULL, NULL);
-
-#endif
 			::SendMessage(m_pFormDevice->GetSafeHwnd(),	WM_REFRESH_DIALOG, NULL, NULL);
 			::SendMessage(m_pFormDevice->GetSafeHwnd(), WM_REFRESH_SYSTEM, NULL, NULL);
 		}

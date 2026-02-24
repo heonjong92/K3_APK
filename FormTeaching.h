@@ -66,7 +66,6 @@ public:
 	void UpdateLanguage();
 	void UpdateUI( BOOL bAll=FALSE );
 
-	void UpdateRecipeList();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
@@ -80,11 +79,5 @@ protected:
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
 	afx_msg LRESULT OnFlatTabWndSelChanged(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnRefreshDialog(WPARAM wparam, LPARAM lparam);
-	afx_msg LRESULT OnRefresh3DChipCnt(WPARAM wparam, LPARAM lparam);
-	afx_msg LRESULT OnRefreshLift(WPARAM wparam, LPARAM lparam);
-	afx_msg LRESULT OnRefreshChip(WPARAM wparam, LPARAM lparam);
-	afx_msg LRESULT OnRefreshMBB(WPARAM wparam, LPARAM lparam);
-	afx_msg void OnCbnSelchangeComboRecipe();
-	afx_msg void OnBnClickedBtnSave();
 };
 

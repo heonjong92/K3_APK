@@ -35,7 +35,6 @@ CTeachTab1GTrayOcr::CTeachTab1GTrayOcr(CWnd* pParent /*=NULL*/)
 	, m_bIsTeachOcrROI(FALSE)
 	, m_bOCRPreview(FALSE)
 	, m_bIsTrayNonInsp(FALSE)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_TrayOcr.Clear();
@@ -388,8 +387,6 @@ void CTeachTab1GTrayOcr::CheckData()
 
 void CTeachTab1GTrayOcr::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelNameTrayOcr();
 
@@ -430,27 +427,9 @@ void CTeachTab1GTrayOcr::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachTabBegin = FALSE;
 	m_bIsTeachOcrROI = FALSE;
 	m_bIsTrayNonInsp = FALSE;
-}
-
-void CTeachTab1GTrayOcr::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1GTrayOcr::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -671,8 +650,6 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, TRAYOCR_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		Refresh();
 		DisableWnd(TRUE);
 
@@ -681,7 +658,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 
 #ifdef RELEASE_1G
 	VisionInterface::FrameGrabber& FrameGrabber = CVisionSystem::Instance()->GetFrameGrabberInterface();
@@ -689,14 +666,6 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnSave()
 #endif
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab1GTrayOcr::OnBnClickedBtnSave :: End"));
 }
@@ -916,7 +885,7 @@ void CTeachTab1GTrayOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
-		m_bPendingSaveAfterTeaching = TRUE;
+		Save();
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
@@ -956,7 +925,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnRoiTrayocr()
 		}
 
 		m_btnROI.EnableWindow(TRUE);
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this, m_TrayOcr.rcInspArea);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -991,7 +960,7 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabAlignTeachModel()
 
 		AfxMessageBox(_T("Tray 기준점을 찾기 위한 영역을 지정하세요."));
 
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this, m_TrayOcr.rcTabBegin);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -1196,7 +1165,7 @@ void CTeachTab1GTrayOcr::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());

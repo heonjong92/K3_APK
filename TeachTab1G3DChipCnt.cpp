@@ -31,7 +31,6 @@ CTeachTab1G3DChipCnt::CTeachTab1G3DChipCnt(CWnd* pParent /*=NULL*/)
 	, m_nSelectRecipeIndex(-1)
 	, m_bIsTeachFirst(FALSE)
 	, m_bCheckEqualize(FALSE)
-	, m_bPendingSaveAfterTeaching(FALSE)
 {
 	m_pMainView = NULL;
 	m_3DChipCnt.Clear();
@@ -281,8 +280,6 @@ void CTeachTab1G3DChipCnt::CheckData()
 
 void CTeachTab1G3DChipCnt::Refresh()
 {
-	m_bPendingSaveAfterTeaching = FALSE;
-
 	UpdateRecipeList();
 	CString strModelName = CModelInfo::Instance()->GetModelName3DChipCnt();
 	CModelInfo::st3DChipCnt& st3DChipCnt = CModelInfo::Instance()->Get3DChipCnt();
@@ -357,25 +354,7 @@ void CTeachTab1G3DChipCnt::Cleanup()
 		pChild = pChild->GetWindow(GW_HWNDNEXT);
 	}
 
-	if (m_bPendingSaveAfterTeaching)
-		LockButtonsUntilSave();
-
 	m_bIsTeachFirst = FALSE;
-}
-
-void CTeachTab1G3DChipCnt::LockButtonsUntilSave()
-{
-	CWnd* pChild = GetWindow(GW_CHILD);
-	while (pChild)
-	{
-		if (pChild->IsKindOf(RUNTIME_CLASS(UIExt::CFlatButton)))
-		{
-			pChild->EnableWindow(FALSE);
-		}
-		pChild = pChild->GetWindow(GW_HWNDNEXT);
-	}
-
-	m_btnSave.EnableWindow(TRUE);
 }
 
 HBRUSH CTeachTab1G3DChipCnt::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -609,8 +588,6 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnSave()
 			pInspectionVision->Load(strSelectModelName, TOPCHIPCNT_KIND);
 		}
 
-		m_bPendingSaveAfterTeaching = FALSE;
-
 		DisableWnd(TRUE);
 		Refresh();
 
@@ -619,18 +596,10 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnSave()
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));
 
-	BOOL bSaveResult = Save();
+	Save();
 	Refresh();
 
 	m_pMainView->ShowWaitMessage(FALSE);
-
-	if (bSaveResult && m_bPendingSaveAfterTeaching)
-	{
-		m_bPendingSaveAfterTeaching = FALSE;
-		Cleanup();
-		UpdateUI();
-		UpdateData(FALSE);
-	}
 
 	WRITE_LOG(WL_MSG, _T("CTeachTab1G3DChipCnt::OnBnClickedBtnSave :: End"));
 }
@@ -723,7 +692,6 @@ void CTeachTab1G3DChipCnt::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInde
 
 	if (bRet)
 	{
-		m_bPendingSaveAfterTeaching = TRUE;
 		Cleanup();
 		UpdateData(FALSE);
 	}
@@ -759,7 +727,7 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnRoi3dchipcntFirst()
 		}
 		
 		m_btnFirstROI.EnableWindow(TRUE);
-		m_pMainView->SetTrackerMode(TRUE, IDX_AREA3, _OnConfirmTracker, this, m_3DChipCnt.rcChipPosFirst);
+		m_pMainView->SetTrackerMode(TRUE, IDX_AREA3, _OnConfirmTracker, this);
 	}
 	else
 	{
@@ -826,7 +794,7 @@ void CTeachTab1G3DChipCnt::OnLButtonDblClk(UINT nFlags, CPoint point)
 				if ((INT_PTR)hInst <= 32)
 					AfxMessageBox(_T("Manual Pdf 파일을 열 수 없습니다."));
 			}
-			else if (point.x < nRightAreaEndX)	// Right
+			else if (point.x > nRightAreaEndX)	// Right
 			{
 				CString strPath;
 				strPath.Format(_T("%s\\Manual"), GetExecuteDirectory());

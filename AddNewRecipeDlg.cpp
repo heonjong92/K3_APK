@@ -197,6 +197,8 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 
 	UpdateData(TRUE);
 
+	BOOL bSave = FALSE;
+
 	if (m_strNewRecipeName.IsEmpty())
 	{
 		GetDlgItem(IDC_EDIT_RECIPE_NAME)->SetFocus();
@@ -213,7 +215,7 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 	{
 		// 신규 레시피
 		CModelInfo::Instance()->New(m_strNewRecipeName, GetRecipeKind());
-		CModelInfo::Instance()->Save(GetTeachTab());
+		bSave = CModelInfo::Instance()->Save(GetTeachTab());
 	}
 	else
 	{
@@ -249,7 +251,8 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 			else												CModelInfo::Instance()->Rename(m_strNewRecipeName);
 
 			//////////////////////////////////////////////////////////////////////////
-			CModelInfo::Instance()->Save();
+			bSave = CModelInfo::Instance()->Save();
+
 #ifdef RELEASE_1G
 			if (strKind == TRAYOCR_KIND)				pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_TRAYOCR);
 			if (strKind == CHIPOCR_KIND)				pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_CHIPOCR);
@@ -263,16 +266,22 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 			if (strKind == SUBMATERIAL_KIND)			pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY); // 추가
 
 #elif RELEASE_4G
-			if (strKind == LABEL_KIND)						pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_LABEL);
+			if (strKind == LABEL_KIND)					pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_LABEL);
 
 #elif RELEASE_5G
-			if (strKind == BOXQUALITY_KIND)					pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_BOX);
+			if (strKind == BOXQUALITY_KIND)				pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_BOX);
 
 #elif RELEASE_6G
-			if (strKind == LABEL_KIND)						pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_LABEL);
+			if (strKind == LABEL_KIND)					pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_LABEL);
 
 #endif
 		}
+	}
+
+	if (bSave)
+	{
+		CModelInfo::Instance()->Save_JobNumber(GetTeachTab());
+		CVisionSystem::Instance()->JobNumberLoad();
 	}
 
 	CDialog::OnOK();
