@@ -196,7 +196,7 @@ void CVisionSystem::Initialize( HWND hWndUI )
 		CreateImageGrabBuffers( CamTypeAreaScan, nAREA_CAM_SIZE_X[i], nAREA_CAM_SIZE_Y[i], i );
 
 #ifndef RELEASE_SG
-	// ¡∂∏Ì ƒ¡∆Æ∑—∑Ø
+	// Ï°∞Î™Ö Ïª®Ìä∏Î°§Îü¨
 	CSplashWnd::ShowMessage(CSplashWnd::MessageTypeNormal, _T("Light Ctrl Connect Check..."));
 	LightCtrlConnect();
 #endif
@@ -733,7 +733,7 @@ void CVisionSystem::Shutdown()
 void CVisionSystem::OnGrabFinishAreaScanCamera( UINT nWidth, UINT nHeight, int nChannel, void* pBuffer )
 {
 #ifdef RELEASE_1G
-	int nViewerIndex = nChannel + 1; // 1G Image Viewer4ø° ≥™øÕæﬂ µ«π«∑Œ nChannelø° 1 ¥ı«‘
+	int nViewerIndex = nChannel + 1; // 1G Image Viewer4Ïóê ÎÇòÏôÄÏïº ÎêòÎØÄÎ°ú nChannelÏóê 1 ÎçîÌï®
 
 	if (m_bChipCnt)
 	{
@@ -824,16 +824,8 @@ void CVisionSystem::OnGrabFinishAreaScanCamera( UINT nWidth, UINT nHeight, int n
 		WRITE_LOG(WL_ERROR, _T("m_pInspectProcess->PushInspectItem :: Fail[%d]"), nViewerIndex);
 
 #elif RELEASE_2G || RELEASE_6G
-	if (nChannel == 0)
-	{
-//		if (!CreateImageGrabBuffers(CamTypeAreaScan, nWidth, nHeight, nChannel))
-//			return;
-		m_ImageObjectArea[nChannel].Create(nWidth, nHeight, 8, 1);
-	}
-	else
-	{
-		m_ImageObjectArea[nChannel].Create(nWidth, nHeight, 8, 3, 0, CxImageObject::ChannelSeqBGR);
-	}
+	if (!CreateImageGrabBuffers(CamTypeAreaScan, nWidth, nHeight, nChannel))
+		return;
 
 	BYTE* pDstBuf = (BYTE*)m_ImageObjectArea[nChannel].GetImageBuffer();
 	int nWidthBytes = m_ImageObjectArea[nChannel].GetWidthBytes();
@@ -1076,33 +1068,31 @@ BOOL CVisionSystem::CreateImageGrabBuffers( eCamType nCamtype, int nWidth, int n
 	switch( nCamtype )
 	{
 	case CamTypeAreaScan:
-
-		if( m_ImageObjectArea[nViewIndex].GetWidth()  == nWidth		&&
-			m_ImageObjectArea[nViewIndex].GetHeight() == nHeight	&&
-			m_ImageObjectArea[nViewIndex].GetChannelSeq() != CxImageObject::ChannelSeqBGR ) 
-		{
-			bOK = TRUE;
-			break;
-		}
-
 		eCamChannel ecamchannel = CamChannel8BIT;
 		CxImageObject::ChannelSeqModel echannelseqmodel = CxImageObject::ChannelSeqUnknown;
 
 #if defined(RELEASE_2G) || defined(RELEASE_6G)
-		if (m_ImageObjectArea[nViewIndex].GetWidth() == nWidth &&
-			m_ImageObjectArea[nViewIndex].GetHeight() == nHeight &&
-			m_ImageObjectArea[nViewIndex].GetChannelSeq() != CxImageObject::ChannelSeqBGR)
-		{
-			bOK = TRUE;
-			break;
-		}
-
 		if (nViewIndex == IDX_AREA2)
 		{
 			ecamchannel = CamChannel24BIT;
 			echannelseqmodel = CxImageObject::ChannelSeqBGR;
 		}
 #endif
+
+		if (m_ImageObjectArea[nViewIndex].GetWidth() == nWidth &&
+			m_ImageObjectArea[nViewIndex].GetHeight() == nHeight)
+		{
+			CxImageObject::ChannelSeqModel eCurrentSeq = m_ImageObjectArea[nViewIndex].GetChannelSeq();
+			BOOL bChannelSeqMatched = (echannelseqmodel == CxImageObject::ChannelSeqBGR)
+				? (eCurrentSeq == CxImageObject::ChannelSeqBGR)
+				: (eCurrentSeq != CxImageObject::ChannelSeqBGR);
+
+			if (bChannelSeqMatched)
+			{
+				bOK = TRUE;
+				break;
+			}
+		}
 
 		CxImageObject vImageCutY;
 		if (!vImageCutY.Create(nWidth, nHeight, 8, ecamchannel, 0, echannelseqmodel))
@@ -1346,12 +1336,12 @@ void CVisionSystem::InspectionFinish(InspectType inspecttype, int nViewIndex)
 
 
 #elif RELEASE_3G
-		// Desiccant Position ∞ÀªÁ¿œ ∂ß¥¬ DEEø°º≠ Light Off
+		// Desiccant Position Í≤ÄÏÇ¨Ïùº ÎïåÎäî DEEÏóêÏÑú Light Off
 		if (inspecttype == InspectTypeDesiccantLeft || inspecttype == InspectTypeDesiccantRight || inspecttype == InspectTypeMaterial)
 			LightOnOff(inspecttype, FALSE);
 
 #elif RELEASE_5G
-		// æ» ≤®¡˙ ∂ß∞° ¿÷æÓº≠ 2π¯ «ÿ∫∏¿⁄!!
+		// Ïïà Í∫ºÏßà ÎïåÍ∞Ä ÏûàÏñ¥ÏÑú 2Î≤à Ìï¥Î≥¥Ïûê!!
 		LightOnOff(inspecttype, FALSE);
 		LightOnOff(inspecttype, FALSE);
 #else
@@ -1404,23 +1394,23 @@ void CVisionSystem::SaveTrayOcr()
 	CString strImgPathName;
 	strImgPathName.Format(_T("%s\\%s_TrayOcr_%s.bmp"), strImgBasePath, strImgSaveTime, strRecipeName);
 
-	// 3. ∆ƒ¿œ ¿Ãµø
+	// 3. ÌååÏùº Ïù¥Îèô
 	if (!MoveFileEx(strFileName, strImgPathName, MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED))
 	{
 		DWORD dw = GetLastError();
 		CString msg;
-		msg.Format(_T("MoveFileEx Ω«∆– (Err=%lu)"), dw);
+		msg.Format(_T("MoveFileEx Ïã§Ìå® (Err=%lu)"), dw);
 		WRITE_LOG(WL_ERROR, msg);
 		return;
 	}
 
-	// 4. OpenCV∑Œ BMP ¿–±‚
+	// 4. OpenCVÎ°ú BMP ÏùΩÍ∏∞
 	USES_CONVERSION;
 	cv::String str = CT2A(strImgPathName);
 	cv::Mat mat = cv::imread(str);
 	if (mat.empty())
 	{
-		WRITE_LOG(WL_ERROR, _T("BMP ∑ŒµÂ Ω«∆–"));
+		WRITE_LOG(WL_ERROR, _T("BMP Î°úÎìú Ïã§Ìå®"));
 		return;
 	}
 
@@ -1433,7 +1423,7 @@ void CVisionSystem::SaveTrayOcr()
 
 	strMergePathName.Format(_T("%s\\%s_TrayOcr_%s.jpg"), strMergePath, strImgSaveTime, strRecipeName);
 
-	// JPG «∞¡˙ º≥¡§ (90%)
+	// JPG ÌíàÏßà ÏÑ§Ï†ï (90%)
 	std::vector<int> params;
 	params.push_back(cv::IMWRITE_JPEG_QUALITY);
 	params.push_back(90);
@@ -1441,7 +1431,7 @@ void CVisionSystem::SaveTrayOcr()
 	cv::String str2 = CT2A(strMergePathName);
 	if (!cv::imwrite(str2, mat, params))
 	{
-		WRITE_LOG(WL_ERROR, _T("JPG ¿˙¿Â Ω«∆–"));
+		WRITE_LOG(WL_ERROR, _T("JPG Ï†ÄÏû• Ïã§Ìå®"));
 		return;
 	}
 
@@ -1568,59 +1558,59 @@ BOOL CVisionSystem::TestEvisionDongle()
 
 void CVisionSystem::GetMetrixInfoCount( int nGrabIndex, int &nScanColCnt, int &nScanRowCnt, int &nInspCol, int &nInspRow, int &nResultMatrix_OffsetX, int &nResultMatrix_OffsetY )
 {
-	// X ¡¬«•¥¬ Row∏¶, Y ¡¬«•¥¬ Col¿ª ¿«πÃ
-	// Row = X ¡¬«•
-	// Col = Y ¡¬«•
+	// X Ï¢åÌëúÎäî RowÎ•º, Y Ï¢åÌëúÎäî ColÏùÑ ÏùòÎØ∏
+	// Row = X Ï¢åÌëú
+	// Col = Y Ï¢åÌëú
 
 	CModelInfo::stChip& sChip = CModelInfo::Instance()->GetChip();
 
-	// ----- √‘øµ »Ωºˆ -----
-	// ----- X = Row °Ê -----
-	int nTrayMatrix_X = sChip.nMatrix_X;  // X ¡¬«• (Row ºˆ)
-	int nChipRow = sChip.nChipFovCnt_X;   // X πÊ«‚ ƒ® FOV ∞≥ºˆ
+	// ----- Ï¥¨ÏòÅ ÌöüÏàò -----
+	// ----- X = Row ‚Üí -----
+	int nTrayMatrix_X = sChip.nMatrix_X;  // X Ï¢åÌëú (Row Ïàò)
+	int nChipRow = sChip.nChipFovCnt_X;   // X Î∞©Ìñ• Ïπ© FOV Í∞úÏàò
 
 	int nNumberOfShoots_X = (int)floor(nTrayMatrix_X / nChipRow);
 	if (nTrayMatrix_X % nChipRow != 0) nNumberOfShoots_X++;
 	nScanRowCnt = nNumberOfShoots_X;  // Row count (X)
 
-	// ----- Y = Col °È -----
-	int nTrayMatrix_Y = sChip.nMatrix_Y;  // Y ¡¬«• (Col ºˆ)
-	int nChipCol = sChip.nChipFovCnt_Y;   // Y πÊ«‚ ƒ® FOV ∞≥ºˆ
+	// ----- Y = Col ‚Üì -----
+	int nTrayMatrix_Y = sChip.nMatrix_Y;  // Y Ï¢åÌëú (Col Ïàò)
+	int nChipCol = sChip.nChipFovCnt_Y;   // Y Î∞©Ìñ• Ïπ© FOV Í∞úÏàò
 
 	int nNumberOfShoots_Y = (int)floor(nTrayMatrix_Y / nChipCol);
 	if (nTrayMatrix_Y % nChipCol != 0) nNumberOfShoots_Y++;
 	nScanColCnt = nNumberOfShoots_Y;  // Col count (Y)
 
-	// ----- Scan ¿ßƒ° ∆ƒæ« -----
+	// ----- Scan ÏúÑÏπò ÌååÏïÖ -----
 	int nScanLine_Col, nScanLine_Row;
-	nScanLine_Row = (int)floor(nGrabIndex / nNumberOfShoots_Y);  // Row ∞ËªÍ (X)
+	nScanLine_Row = (int)floor(nGrabIndex / nNumberOfShoots_Y);  // Row Í≥ÑÏÇ∞ (X)
 	if (nScanLine_Row % 2 == 0)
-		nScanLine_Col = nGrabIndex - (nNumberOfShoots_Y * nScanLine_Row);  // Column ∞ËªÍ (Y)
+		nScanLine_Col = nGrabIndex - (nNumberOfShoots_Y * nScanLine_Row);  // Column Í≥ÑÏÇ∞ (Y)
 	else
 		nScanLine_Col = (nNumberOfShoots_Y * (nScanLine_Row + 1)) - (nGrabIndex + 1);
 
-	// ----- Insp Row Col (¡¬«•∞Ë ∫Ò±≥Ω√ X, Y π›¿¸) -----
+	// ----- Insp Row Col (Ï¢åÌëúÍ≥Ñ ÎπÑÍµêÏãú X, Y Î∞òÏ†Ñ) -----
 	if (nNumberOfShoots_X - 1 == nScanLine_Row || nNumberOfShoots_Y - 1 == nScanLine_Col)
 	{
 		if (nNumberOfShoots_X - 1 == nScanLine_Row)
-			nInspRow = sChip.nMatrix_X - (nScanLine_Row * sChip.nChipFovCnt_X);  // X ¡¬«• (Row)
+			nInspRow = sChip.nMatrix_X - (nScanLine_Row * sChip.nChipFovCnt_X);  // X Ï¢åÌëú (Row)
 		else
 			nInspRow = sChip.nChipFovCnt_X;
 
 		if (nNumberOfShoots_Y - 1 == nScanLine_Col)
-			nInspCol = sChip.nMatrix_Y - (nScanLine_Col * sChip.nChipFovCnt_Y);  // Y ¡¬«• (Col)
+			nInspCol = sChip.nMatrix_Y - (nScanLine_Col * sChip.nChipFovCnt_Y);  // Y Ï¢åÌëú (Col)
 		else
 			nInspCol = sChip.nChipFovCnt_Y;
 	}
 	else
 	{
-		nInspRow = sChip.nChipFovCnt_X;  // X ¡¬«• (Row)
-		nInspCol = sChip.nChipFovCnt_Y;  // Y ¡¬«• (Col)
+		nInspRow = sChip.nChipFovCnt_X;  // X Ï¢åÌëú (Row)
+		nInspCol = sChip.nChipFovCnt_Y;  // Y Ï¢åÌëú (Col)
 	}
 
 	// ----- Insp Start Offset -----
-	nResultMatrix_OffsetX = sChip.nChipFovCnt_X * nScanLine_Row;  // X ¡¬«• (Row)
-	nResultMatrix_OffsetY = sChip.nChipFovCnt_Y * nScanLine_Col;  // Y ¡¬«• (Col)
+	nResultMatrix_OffsetX = sChip.nChipFovCnt_X * nScanLine_Row;  // X Ï¢åÌëú (Row)
+	nResultMatrix_OffsetY = sChip.nChipFovCnt_Y * nScanLine_Col;  // Y Ï¢åÌëú (Col)
 }
 
 void CVisionSystem::GetMetrixInfoGrab( int &nGrabIndex, int &nImgCol, int &nImgRow, int &OffsetX, int &OffsetY, int nCol, int nRow  )
@@ -1818,7 +1808,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 	}
 
 #if defined(RELEASE_4G) || defined(RELEASE_6G)
-	CString strLotID = _T("LOTTESTDATA"); // √ﬂ»ƒ ∞ÀªÁ Data πﬁ∞Ì
+	CString strLotID = _T("LOTTESTDATA"); // Ï∂îÌõÑ Í≤ÄÏÇ¨ Data Î∞õÍ≥†
 
 	if( (inspecttype == InspectTypeLabel) && bOK)
 	{
@@ -1836,7 +1826,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 	}
 
 #elif RELEASE_3G
-	float fLength = 0.f; // √ﬂ»ƒ ∞ÀªÁ Data πﬁ∞Ì
+	float fLength = 0.f; // Ï∂îÌõÑ Í≤ÄÏÇ¨ Data Î∞õÍ≥†
 	if (inspecttype == InspectTypePositionLeft)					fLength = m_fDesiPosDistLeft; 
 	else if (inspecttype == InspectTypePositionRight)			fLength = m_fDesiPosDistRight;
 	
@@ -1848,7 +1838,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 	{
 		if (bOK == TRUE)
 		{
-			// | ∞·∞˙ | ¡æ∑˘ | ±Ê¿Ã |
+			// | Í≤∞Í≥º | Ï¢ÖÎ•ò | Í∏∏Ïù¥ |
 			strSendBuf.Format(_T("%s%sSIZE|%d|0|%.3f|^"), strVisionCode, strCommandCode, bOK, fLength);
 			CStringA strA(strSendBuf);
 			nLength = strA.GetLength();
@@ -1856,7 +1846,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 		} 
 		else
 		{
-			// | ∞·∞˙ | ¡æ∑˘ | Retry |
+			// | Í≤∞Í≥º | Ï¢ÖÎ•ò | Retry |
 			strSendBuf.Format(_T("%s%sSIZE|%d|0|%d|^"), strVisionCode, strCommandCode, bOK, bNgRetry);
 			CStringA strA(strSendBuf);
 			nLength = strA.GetLength();
@@ -1890,7 +1880,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 				strSendBuf.Format(_T("%s%sSIZE|%d|^"), strVisionCode, strCommandCode, bOK);
 				CStringA strA(strSendBuf);
 				nLength = strA.GetLength();
-				strSendBuf.Format(_T("%s%s%04d|%d|^"), strVisionCode, strCommandCode, nLength, bOK); // ex) 22VIE0013|0|^, HIC ø¯«¸ ∫Øªˆ
+				strSendBuf.Format(_T("%s%s%04d|%d|^"), strVisionCode, strCommandCode, nLength, bOK); // ex) 22VIE0013|0|^, HIC ÏõêÌòï Î≥ÄÏÉâ
 				break;
 			}
 			case HIC_CIRCLE_FINDING_ERROR:
@@ -1898,7 +1888,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 				strSendBuf.Format(_T("%s%sSIZE|%d|^"), strVisionCode, strCommandCode, 2);
 				CStringA strA(strSendBuf);
 				nLength = strA.GetLength();
-				strSendBuf.Format(_T("%s%s%04d|%d|^"), strVisionCode, strCommandCode, nLength, 2); // ex) 22VIE0013|2|^, HIC ¿ﬂ∏¯ ≤®≥¬¿ª ∂ß
+				strSendBuf.Format(_T("%s%s%04d|%d|^"), strVisionCode, strCommandCode, nLength, 2); // ex) 22VIE0013|2|^, HIC ÏûòÎ™ª Í∫ºÎÉàÏùÑ Îïå
 				break;
 			}
 			}
@@ -1921,7 +1911,7 @@ BOOL CVisionSystem::ResultOKNG_MMI( InspectType inspecttype, BOOL bOK )
 	}
 
 #elif RELEASE_SG
-	CString strStackerLotID = _T("LOTTESTDATA"); // √ﬂ»ƒ ∞ÀªÁ Data πﬁ∞Ì
+	CString strStackerLotID = _T("LOTTESTDATA"); // Ï∂îÌõÑ Í≤ÄÏÇ¨ Data Î∞õÍ≥†
 
 	strSendBuf.Format(_T("%s%sSIZE|%s|^"), strVisionCode, strCommandCode, strStackerLotID);
 	CStringA strA(strSendBuf);
@@ -1948,25 +1938,25 @@ BOOL CVisionSystem::SetBypassMode( InspectType inspecttype, eBypass eBypassMode 
 	{
 #ifdef RELEASE_1G
 	case InspectTypeTrayOcr:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetTrayOcr().nUseBypass_TrayOcr], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetTrayOcr().nUseBypass_TrayOcr], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetTrayOcr().nUseBypass_TrayOcr = eBypassMode; break;
 		break;
 	case InspectType3DChipCnt:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->Get3DChipCnt().nUseBypass_3DChipCnt], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->Get3DChipCnt().nUseBypass_3DChipCnt], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->Get3DChipCnt().nUseBypass_3DChipCnt = eBypassMode; break;
 		break;
 	case InspectTypeChipOcr:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetChipOcr().nUseBypass_ChipOcr], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetChipOcr().nUseBypass_ChipOcr], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetChipOcr().nUseBypass_ChipOcr = eBypassMode; break;
 	case InspectTypeChip:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetChip().nUseBypass_Chip], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetChip().nUseBypass_Chip], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetChip().nUseBypass_Chip = eBypassMode; break;
 	case InspectTypeMixing:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetMixing().nUseBypass_Mixing], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetMixing().nUseBypass_Mixing], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetMixing().nUseBypass_Mixing = eBypassMode; break;
 	case InspectTypeLiftFront:
 	case InspectTypeLiftRear:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetLiftInfo().nUseBypass_Lift], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetLiftInfo().nUseBypass_Lift], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetLiftInfo().nUseBypass_Lift = eBypassMode; break;
 
 #elif RELEASE_SG
@@ -1976,51 +1966,51 @@ BOOL CVisionSystem::SetBypassMode( InspectType inspecttype, eBypass eBypassMode 
 
 #elif RELEASE_2G
 	case InspectTypeBanding:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetBandingInfo().nUseBypass_Banding], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetBandingInfo().nUseBypass_Banding], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetBandingInfo().nUseBypass_Banding = eBypassMode; break;
 	case InspectTypeHIC:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetHICInfo().nUseBypass_HIC], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetHICInfo().nUseBypass_HIC], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetHICInfo().nUseBypass_HIC = eBypassMode; break;
 
 #elif RELEASE_3G
 	case InspectTypePositionLeft:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionLeft], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionLeft], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionLeft = eBypassMode; break;
 	case InspectTypePositionRight:
-		strLogData.Format(_T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionRight], strBypassName[eBypassMode]);
+		strLogData.Format(_T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionRight], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_PositionRight = eBypassMode; break;
 	case InspectTypeDesiccantLeft:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingLeft], strBypassName[eBypassMode]);
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingLeft], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingLeft = eBypassMode; break;
 	case InspectTypeDesiccantRight:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingRight], strBypassName[eBypassMode]);
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingRight], strBypassName[eBypassMode]);
 		CModelInfo::Instance()->GetDesiccantCuttingInfo().nUseBypass_Desiccant_CuttingRight = eBypassMode; break;
 	case InspectTypeMaterial:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantMaterialInfo().nUseBypass_Material], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetDesiccantMaterialInfo().nUseBypass_Material], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetDesiccantMaterialInfo().nUseBypass_Material = eBypassMode; break;	
 
 #elif RELEASE_4G
 	case InspectTypeMBB:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetMBBInfo().nUseBypass_MBB], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetMBBInfo().nUseBypass_MBB], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetMBBInfo().nUseBypass_MBB = eBypassMode; break;
 	case InspectTypeLabel:
- 		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label], strBypassName[eBypassMode]);			
+ 		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label], strBypassName[eBypassMode]);			
  		CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label = eBypassMode;	break;
 
 #elif RELEASE_5G
 	case InspectTypeBox:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetBoxInfo().nUseBypass_Box], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetBoxInfo().nUseBypass_Box], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetBoxInfo().nUseBypass_Box = eBypassMode; break;
 	case InspectTypeSealing:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetSealingInfo().nUseBypass_Sealing], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetSealingInfo().nUseBypass_Sealing], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetSealingInfo().nUseBypass_Sealing = eBypassMode; break;
 
 #elif RELEASE_6G
 	case InspectTypeLabel:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetLabelInfo().nUseBypass_Label = eBypassMode; 	break;
 	case InspectTypeTape:
-		strLogData.Format( _T("[Bypass][%s°Ê%s]"), strBypassName[CModelInfo::Instance()->GetTapeInfo().nUseBypass_Tape], strBypassName[eBypassMode]);			
+		strLogData.Format( _T("[Bypass][%s‚Üí%s]"), strBypassName[CModelInfo::Instance()->GetTapeInfo().nUseBypass_Tape], strBypassName[eBypassMode]);			
 		CModelInfo::Instance()->GetTapeInfo().nUseBypass_Tape = eBypassMode; 	break;
 
 #endif
@@ -2224,8 +2214,8 @@ void CVisionSystem::ProcessBuffer( ServerThreadContext* pContext, char* pReceive
 	CString strLength		= strReceiveBuf.Mid(5,4);
 
 	BOOL bOK = TRUE;
-	if( nStringLength != _ttoi(strLength)	)	bOK = FALSE; // Handler ø°º≠ ∫∏≥ª¡ÿ ¡§∫∏
-	if( nStringLength != nRecvBytes			)	bOK = FALSE; // Socketø°º≠ πﬁ¿∫¡§∫∏ »Æ¿Œ
+	if( nStringLength != _ttoi(strLength)	)	bOK = FALSE; // Handler ÏóêÏÑú Î≥¥ÎÇ¥Ï§Ä Ï†ïÎ≥¥
+	if( nStringLength != nRecvBytes			)	bOK = FALSE; // SocketÏóêÏÑú Î∞õÏùÄÏ†ïÎ≥¥ ÌôïÏù∏
 	if( !bOK ) WriteMessage(LogTypeError, _T("[Packet Bytes: %d] [String Length: %d] [Handler Data: %d]"), nRecvBytes, nStringLength, _ttoi(strLength));	
 
 	VisionInterface::FrameGrabber& FrameGrabber = CVisionSystem::Instance()->GetFrameGrabberInterface();
@@ -3091,7 +3081,7 @@ BOOL CVisionSystem::ShowErrorDlg(CString strTitle, CString strMessage, CString s
 
 void CVisionSystem::SetPreviewGainOffset(int nViewIndex, BOOL bPreview)
 {
-	CString strMessage = _T("OpenEvision Dongle¿Ã æ¯Ω¿¥œ¥Ÿ.");
+	CString strMessage = _T("OpenEvision DongleÏù¥ ÏóÜÏäµÎãàÎã§.");
 	if (CLanguageInfo::Instance()->m_nLangType == 0)
 		strMessage = _T("OpenEvision dongle not found.");
 
@@ -3204,7 +3194,7 @@ void CVisionSystem::DES201(const CString& strReceiveBuf, const CString& strVisio
 		}
 		ResetImageGrabBuffer_3DChip();
 
-		m_b3DChipCntResult = TRUE; // √÷¡æ ∞·∞˙ √ ±‚»≠
+		m_b3DChipCntResult = TRUE; // ÏµúÏ¢Ö Í≤∞Í≥º Ï¥àÍ∏∞Ìôî
 
 		SetLotID(InspectType3DChipCnt, strLotID);
 		SetBoxNo(InspectType3DChipCnt, _ttoi(strBoxNo));
@@ -3255,7 +3245,7 @@ void CVisionSystem::DES201(const CString& strReceiveBuf, const CString& strVisio
 		m_bChipCntHandlerStart = TRUE;
 		m_nChipGrabCnt = 0;
 		m_nChipInspCnt = 0;
-		m_bChipCntResult = TRUE; // √÷¡æ ∞·∞˙ √ ±‚»≠
+		m_bChipCntResult = TRUE; // ÏµúÏ¢Ö Í≤∞Í≥º Ï¥àÍ∏∞Ìôî
 
 		ResetImageGrabBuffer_Chip();
 
@@ -3267,7 +3257,7 @@ void CVisionSystem::DES201(const CString& strReceiveBuf, const CString& strVisio
 
 		m_pNotifyVisionStatusChanged->SendPacket(strSendBuf, SOCKET_CHIPCNT);
 
-		// DESø°º≠ ƒ—≥ı∞Ì DEEø° ≤Ù¥¬ πÊΩƒ¿∏∑Œ ∫Ø∞Ê.
+		// DESÏóêÏÑú ÏºúÎÜìÍ≥† DEEÏóê ÎÅÑÎäî Î∞©ÏãùÏúºÎ°ú Î≥ÄÍ≤Ω.
 		LightOnOff(InspectTypeChip, TRUE);
 		SetTrayMapGridReset();
 	}
@@ -3437,12 +3427,12 @@ void CVisionSystem::DES203(const CString& strReceiveBuf, const CString& strVisio
 		if (bSendBuf)	strSendBuf = strVisionCode + strCommandCode + _T("SIZE|1|^");
 		else			strSendBuf = strVisionCode + strCommandCode + _T("SIZE|0|^");
 
-		// strInspectionKind == "0" : Cutting ¿¸
-		// strInspectionKind == "1" : Cutting »ƒ
+		// strInspectionKind == "0" : Cutting Ï†Ñ
+		// strInspectionKind == "1" : Cutting ÌõÑ
 		if (strInspectionKind == _T("0"))	m_bDesiccantInspRight = FALSE;
 		else								m_bDesiccantInspRight = TRUE;
 
-		if (!m_bDesiccantInspRight) // Right Position ∞ÀªÁ¿œ ∂ß
+		if (!m_bDesiccantInspRight) // Right Position Í≤ÄÏÇ¨Ïùº Îïå
 			LightOnOff(InspectTypePositionRight, TRUE);
 
 		m_pNotifyVisionStatusChanged->SendPacket(strSendBuf, SOCKET_CUTTING1);
@@ -3465,12 +3455,12 @@ void CVisionSystem::DES203(const CString& strReceiveBuf, const CString& strVisio
 		SetBoxNo(InspectTypePositionLeft, _ttoi(strBoxNo));
 		SetBoxNo(InspectTypeDesiccantLeft, _ttoi(strBoxNo));
 
-		// strInspectionKind == "0" : Cutting ¿¸
-		// strInspectionKind == "1" : Cutting »ƒ
+		// strInspectionKind == "0" : Cutting Ï†Ñ
+		// strInspectionKind == "1" : Cutting ÌõÑ
 		if (strInspectionKind == _T("0"))	m_bDesiccantInspLeft = FALSE;
 		else								m_bDesiccantInspLeft = TRUE;
 
-		if (!m_bDesiccantInspLeft) // Left Position ∞ÀªÁ¿œ ∂ß
+		if (!m_bDesiccantInspLeft) // Left Position Í≤ÄÏÇ¨Ïùº Îïå
 			LightOnOff(InspectTypePositionLeft, TRUE);
 
 		if (bSendBuf)	strSendBuf = strVisionCode + strCommandCode + _T("SIZE|1|^");
@@ -3478,7 +3468,7 @@ void CVisionSystem::DES203(const CString& strReceiveBuf, const CString& strVisio
 
 		m_pNotifyVisionStatusChanged->SendPacket(strSendBuf, SOCKET_CUTTING2);
 	}
-	else if (strVisionCode == _T("33")) // ∫Œ¿⁄¿Á ¿Øπ´
+	else if (strVisionCode == _T("33")) // Î∂ÄÏûêÏû¨ Ïú†Î¨¥
 	{
 		if (CModelInfo::Instance()->GetModelNameDesiccantMaterialTray() != strSubMaterialTraySID)
 		{
@@ -3853,7 +3843,7 @@ void CVisionSystem::VIS201(const CString& strReceiveBuf, const CString& strVisio
 		m_pMainView->ResetGraphic(CamTypeAreaScan, IDX_AREA4);
 
 		m_AreaScanCamera.m_bRotate = FALSE;
-		m_nMMIChipCnt = _ttoi(strVISData); // Chip Count ºˆ∑Æ
+		m_nMMIChipCnt = _ttoi(strVISData); // Chip Count ÏàòÎüâ
 
 		// Light & Grab
 		strLog.Format(_T("case : Chip Cnt Inspect Start"));
@@ -4301,7 +4291,7 @@ void CVisionSystem::DEE201S(const CString& strReceiveBuf, const CString& strVisi
 	CString strCommandCode(_T("DEE"));
 	CString strResultData, strSendBuf;
 
-	//m_strTraySID = CModelInfo::Instance()->GetModelNameStackerOcr(); // ¿”Ω√
+	//m_strTraySID = CModelInfo::Instance()->GetModelNameStackerOcr(); // ÏûÑÏãú
 	strResultData.Format(_T("%d|"), bResult);
 	strSendBuf = strVisionCode + strCommandCode + _T("SIZE|") + strResultData + m_strTraySID + _T("|^");
 
@@ -4336,7 +4326,7 @@ void CVisionSystem::DEE201(const CString& strReceiveBuf, const CString& strVisio
 
 	m_pNotifyVisionStatusChanged->SendPacket(strSendBuf, nPort);
 
-	// ChipCount ∞·∞˙ OK¿œ ∂ß Image Merge
+	// ChipCount Í≤∞Í≥º OKÏùº Îïå Image Merge
 	if (_ttoi(strVisionCode) == 14 && bResult == TRUE)
 	{
 		VisionProcess::CInspectSaveMergeProcess::MergeItem pQueueData;
@@ -4594,7 +4584,7 @@ BOOL CVisionSystem::SaveDepthToBin(const CString& strPath)
 	errno_t err = _wfopen_s(&fp, strPath, L"wb");
 	if (err != 0 || fp == nullptr)
 	{
-		WRITE_LOG(WL_ERROR, _T("Bin ∆ƒ¿œ ¿˙¿Â"));
+		WRITE_LOG(WL_ERROR, _T("Bin ÌååÏùº Ï†ÄÏû•"));
 		return FALSE;
 	}
 
@@ -4609,7 +4599,7 @@ BOOL CVisionSystem::LoadDepthFromBin(const CString& strPath)
 	errno_t err = _wfopen_s(&fp, strPath, L"rb");
 	if (err != 0 || fp == nullptr)
 	{
-		WRITE_LOG(WL_ERROR, _T("Bin ø≠±‚ Ω«∆–"));
+		WRITE_LOG(WL_ERROR, _T("Bin Ïó¥Í∏∞ Ïã§Ìå®"));
 		return FALSE;
 	}
 
@@ -4681,14 +4671,14 @@ void CVisionSystem::ReworkBoxData(const CString& strReceiveBuf, int nIndex)
 	strLog.Format(_T("Rework Box Folder : [%s][%s][%s]"), strImgSaveDay, strLotID, strBoxNo);
 	WriteMessage(LogTypeNormal, strLog);
 
-	// Group º≠πˆµÈ
+	// Group ÏÑúÎ≤ÑÎì§
 	for (int i = 1; i <= nIndex; i++)
 	{
 		CString strOldFolder, strNewFolder;
 		strOldFolder.Format(_T("\\\\192.168.11.3%d\\ImageLog\\%s\\%s\\%s"),	i, strImgSaveDay, strLotID, strBoxNo);
 		strNewFolder = strOldFolder + _T("_Rework_") + strImgSaveTime;
 
-		// ∆˙¥ı ¿Ã∏ß ∫Ø∞Ê
+		// Ìè¥Îçî Ïù¥Î¶Ñ Î≥ÄÍ≤Ω
 		if (MoveFile(strOldFolder, strNewFolder))
 		{
 			strLog.Format(_T("Rename OK - [%s] -> [%s]"), strOldFolder, strNewFolder);
@@ -4702,7 +4692,7 @@ void CVisionSystem::ReworkBoxData(const CString& strReceiveBuf, int nIndex)
 		}
 	}
 
-	// 11.99 º≠πˆ
+	// 11.99 ÏÑúÎ≤Ñ
 	CString strOldFolder, strNewFolder;
 	strOldFolder.Format(_T("\\\\192.168.11.99\\VisionImageLog\\%s\\%s\\%s"), strImgSaveDay, strLotID, strBoxNo);
 	strNewFolder = strOldFolder + _T("_Rework_") + strImgSaveTime;
@@ -4726,7 +4716,7 @@ BOOL CVisionSystem::DeleteFolderRecursive(LPCTSTR folderPath)
 	TCHAR searchPath[MAX_PATH];
 	TCHAR fullPath[MAX_PATH];
 
-	// ∞Àªˆ ∆–≈œ ∏∏µÈ±‚
+	// Í≤ÄÏÉâ Ìå®ÌÑ¥ ÎßåÎì§Í∏∞
 	_stprintf_s(searchPath, _T("%s\\*"), folderPath);
 
 	HANDLE hFind = FindFirstFile(searchPath, &fd);
@@ -4743,12 +4733,12 @@ BOOL CVisionSystem::DeleteFolderRecursive(LPCTSTR folderPath)
 
 		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			// «œ¿ß ∆˙¥ı ªË¡¶
+			// ÌïòÏúÑ Ìè¥Îçî ÏÇ≠Ï†ú
 			DeleteFolderRecursive(fullPath);
 		}
 		else
 		{
-			// ∆ƒ¿œ º”º∫ √ ±‚»≠ »ƒ ªË¡¶
+			// ÌååÏùº ÏÜçÏÑ± Ï¥àÍ∏∞Ìôî ÌõÑ ÏÇ≠Ï†ú
 			SetFileAttributes(fullPath, FILE_ATTRIBUTE_NORMAL);
 			DeleteFile(fullPath);
 		}
@@ -4757,7 +4747,7 @@ BOOL CVisionSystem::DeleteFolderRecursive(LPCTSTR folderPath)
 
 	FindClose(hFind);
 
-	// ∏∂¡ˆ∏∑¿∏∑Œ ¿⁄±‚ ¿⁄Ω≈ ªË¡¶
+	// ÎßàÏßÄÎßâÏúºÎ°ú ÏûêÍ∏∞ ÏûêÏã† ÏÇ≠Ï†ú
 	SetFileAttributes(folderPath, FILE_ATTRIBUTE_NORMAL);
 	return RemoveDirectory(folderPath);
 }
