@@ -290,7 +290,9 @@ BOOL CTeachTab1GTrayOcr::Save()
 	// Validation Check
 	if (m_TrayOcr.nCharWidthMin > m_TrayOcr.nCharWidthMax)
 	{
-		AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character width must be less than or equal to the maximum value."), MB_ICONERROR);
+		
 		m_TrayOcr = stTrayOcr;
 		UpdateData(FALSE);
 
@@ -298,7 +300,9 @@ BOOL CTeachTab1GTrayOcr::Save()
 	}
 	if (m_TrayOcr.nCharHeightMin > m_TrayOcr.nCharHeightMax)
 	{
-		AfxMessageBox(_T("글자 높이 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 높이 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character height must be less than or equal to the maximum value."), MB_ICONERROR);
+
 		m_TrayOcr = stTrayOcr;
 		UpdateData(FALSE);
 
@@ -634,7 +638,11 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab1GTrayOcr::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameTrayOcr();
@@ -885,10 +893,11 @@ void CTeachTab1GTrayOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
-		Save();
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }
@@ -903,7 +912,9 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnRoiTrayocr()
 
 	if (m_TrayOcr.rcTabBegin.IsRectEmpty())
 	{
-		AfxMessageBox(_T("Tab Align 모델 티칭을 먼저 진행해주세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Tab Align 모델 티칭을 먼저 진행해주세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Please perform the teaching of the Tab Align model first"), MB_ICONERROR);
+		
 		m_bIsTeachOcrROI = FALSE;
 		m_btnROI.SetCheck(BST_UNCHECKED);
 		return;
@@ -925,6 +936,10 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnRoiTrayocr()
 		}
 
 		m_btnROI.EnableWindow(TRUE);
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("OCR 검사 영역을 지정하세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Please specify the OCR inspection area."), MB_ICONERROR);
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
@@ -958,7 +973,8 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabAlignTeachModel()
 
 		m_btnTabAlignTeachModel.EnableWindow(TRUE);
 
-		AfxMessageBox(_T("Tray 기준점을 찾기 위한 영역을 지정하세요."));
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Tray 기준점을 찾기 위한 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area to locate the tray reference point"));
 
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
@@ -1025,7 +1041,9 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabNoninspTeaching()
 
 	if (m_TrayOcr.rcTabBegin.IsRectEmpty())
 	{
-		AfxMessageBox(_T("Ocr 영역 설정을 먼저 진행해주세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Ocr 영역 설정을 먼저 진행해주세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Please perform the OCR area setting first."), MB_ICONERROR);
+		
 		m_bIsTrayNonInsp = FALSE;
 		m_btnTrayNonInspTeachModel.SetCheck(BST_UNCHECKED);
 		return;
@@ -1047,6 +1065,10 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnTabNoninspTeaching()
 		}
 
 		m_btnTrayNonInspTeachModel.EnableWindow(TRUE);
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("OCR 검사에서 제외할 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area to be excluded from the OCR inspection."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else

@@ -107,6 +107,7 @@ protected:
 
 public:
 	CxImageObject* GetObject_TeachOCR() { return &m_ImageObjectForOcr; }
+	void UpdateLanguage();
 
 	UIExt::CFlatButton m_btnFontSave;
 	UIExt::CFlatButton m_btnViewRefresh;

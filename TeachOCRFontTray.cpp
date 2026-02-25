@@ -10,6 +10,7 @@
 #include "InspectionVision.h"
 #include "TeachTabLabel.h"
 #include "TeachOCRReRegistration.h"
+#include "LanguageInfo.h"
 
 #include "UIExt/ResourceManager.h"
 #include <XUtil/xUtils.h>
@@ -181,6 +182,26 @@ void TeachOCRFontTray::OnPaint()
 	SysFreeString(bstrTitle);
 
 	m_ImageViewForOcr.ImageUpdate();
+
+	UpdateLanguage();
+}
+
+void TeachOCRFontTray::UpdateLanguage()
+{
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+	{
+		GetDlgItem(IDC_FONTTEACH_BTN_FONTSAVE		)->SetWindowText(_T("Font 티칭 저장"));
+		GetDlgItem(IDC_FONTTEACH_BTN_VIEWREFRESH	)->SetWindowText(_T("이미지 새로고침"));
+		GetDlgItem(IDC_FONTTEACH_BTN_REREGISTER_FONT)->SetWindowText(_T("저장된 Font 보기"));
+		GetDlgItem(IDOK								)->SetWindowText(_T("닫기"));
+	}
+	else
+	{
+		GetDlgItem(IDC_FONTTEACH_BTN_FONTSAVE		)->SetWindowText(_T("Teaching Font Save"));
+		GetDlgItem(IDC_FONTTEACH_BTN_VIEWREFRESH	)->SetWindowText(_T("View Refresh"));
+		GetDlgItem(IDC_FONTTEACH_BTN_REREGISTER_FONT)->SetWindowText(_T("Font\nRe-Registration"));
+		GetDlgItem(IDOK								)->SetWindowText(_T("Close"));
+	}
 }
 
 int TeachOCRFontTray::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -469,8 +490,12 @@ void TeachOCRFontTray::OnBnClickedFontteachBtnFontsave()
 {
 	USES_CONVERSION;
 
-	if (AfxMessageBox(_T("Teaching Data를 저장하시겠습니까?"), MB_YESNO) != IDYES) return;
+	CString strMessage = _T("Teaching Data를 저장하시겠습니까?");
+	if (CLanguageInfo::Instance()->m_nLangType == 1)
+		strMessage = _T("Do you want to save the teaching data ?");
 
+	if (AfxMessageBox(strMessage, MB_YESNO) != IDYES) return;
+	
 	// ----- Time Data -----
 	CTime	cTimeData = CTime::GetCurrentTime();
 	CString strTime;
@@ -479,7 +504,8 @@ void TeachOCRFontTray::OnBnClickedFontteachBtnFontsave()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (m_OCRFontReadingData.vbTeaching.empty())
 	{
-		AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Font Teaching Data None"), MB_ICONERROR);
 		return;
 	}
 	
@@ -490,7 +516,8 @@ void TeachOCRFontTray::OnBnClickedFontteachBtnFontsave()
 		if (m_OCRFontReadingData.vbTeaching.at(nFontNum)) break;
 		else if (nFontNum == (int)m_OCRFontReadingData.vbTeaching.size() - 1)
 		{
-			AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+			if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+			else												AfxMessageBox(_T("Font Teaching Data None"), MB_ICONERROR);
 			return;
 		}
 		else continue;

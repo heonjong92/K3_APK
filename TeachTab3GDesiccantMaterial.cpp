@@ -341,7 +341,11 @@ BOOL CTeachTab3GDesiccantMaterial::Save()
 	CModelInfo::stDesiccantMaterialInfo& DesiccantMaterialInfo = CModelInfo::Instance()->GetDesiccantMaterialInfo();
 	if ((m_DesiccantMaterialInfo.nRatio1 + m_DesiccantMaterialInfo.nRatio2 + m_DesiccantMaterialInfo.nRatio3) != 100)
 	{
-		AfxMessageBox(_T("검사 구역 비율의 합은 100이여야 합니다."), MB_ICONERROR);
+		CString strMessage = _T("검사 구역 비율의 합은 100이여야 합니다.");
+		if (CLanguageInfo::Instance()->m_nLangType == 1)
+			strMessage = _T("The sum of the inspection area ratios must be 100.");
+
+		AfxMessageBox(strMessage, MB_ICONERROR);
 		m_DesiccantMaterialInfo = DesiccantMaterialInfo;
 		UpdateData(FALSE);
 		return FALSE;
@@ -654,12 +658,14 @@ void CTeachTab3GDesiccantMaterial::OnConfirmTracker( CRect& rcTrackRegion, UINT 
 		}
 	}
 
-	//if( bRet )
-	//{
 	Cleanup();
+
+	if( bRet )
+		Save();
+	
 	UpdateUI();
 	UpdateData(FALSE);
-	//}
+
 #endif
 }
 
@@ -759,7 +765,10 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSubmaterialTechModel()
 		}
 
 		m_btnSubMaterialTechModel.EnableWindow(TRUE);
-		AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the model to be registered."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA5, _OnConfirmTracker, this);
 	}
 	else
@@ -793,6 +802,10 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSubmaterialTeachTraymodel()
 		}
 
 		m_btnTeachModelTray.EnableWindow(TRUE);
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Tray 영역을 딱 맞게 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the tray area precisely."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA5, _OnConfirmTracker, this);
 	}
 	else
@@ -1013,7 +1026,11 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameDesiccantMaterial();

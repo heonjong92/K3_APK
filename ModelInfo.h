@@ -820,6 +820,7 @@ public:
 		CString strDescription;
 		int nValueCh1;
 
+		int		nLabelEdgeMargin;
 		float	fLabelEdgeOffset;
 		float	fLabelAngleSpec;
 
@@ -848,6 +849,7 @@ public:
 			nUseBypass_Label = BYPASS_OFF;
 			nValueCh1 = 0;
 
+			nLabelEdgeMargin = 10;
 			fLabelEdgeOffset = 1.0f;
 			nLabelMaskingCount = 0;
 			fLabelAngleSpec = 5.f;

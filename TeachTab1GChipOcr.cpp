@@ -260,7 +260,9 @@ BOOL CTeachTab1GChipOcr::Save()
 	// Validation Check
 	if (m_ChipOcr.nCharWidthMin > m_ChipOcr.nCharWidthMax)
 	{
-		AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character width must be less than or equal to the maximum value."), MB_ICONERROR);
+		
 		m_ChipOcr = stChipOcr;
 		UpdateData(FALSE);
 
@@ -268,7 +270,9 @@ BOOL CTeachTab1GChipOcr::Save()
 	}
 	if (m_ChipOcr.nCharHeightMin > m_ChipOcr.nCharHeightMax)
 	{
-		AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 높이 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character height must be less than or equal to the maximum value."), MB_ICONERROR);
+
 		m_ChipOcr = stChipOcr;
 		UpdateData(FALSE);
 
@@ -591,7 +595,11 @@ void CTeachTab1GChipOcr::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab1GChipOcr::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameChipOcr();
@@ -737,7 +745,10 @@ void CTeachTab1GChipOcr::OnBnClickedBtnRoiChipOcr()
 		}
 
 		m_btnTeachChipROI.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사할 Chip의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("검사할 Chip의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the chip to be inspected"));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
 	}
 	else
@@ -771,7 +782,10 @@ void CTeachTab1GChipOcr::OnBnClickedBtnRoiChipOcr2()
 		}
 
 		m_btnTeachChipOcr2.EnableWindow(TRUE);
-		AfxMessageBox(_T("OCR 검사 위치를 보정하기 위한 Fiducial Mark의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("OCR 검사 위치를 보정하기 위한 Fiducial Mark의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the fiducial mark to correct the OCR inspection position"));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
 	}
 	else
@@ -791,7 +805,9 @@ void CTeachTab1GChipOcr::OnBnClickedBtnRoiChipocrOcrarea()
 
 	if (m_ChipOcr.rcInspInside.IsRectEmpty())
 	{
-		AfxMessageBox(_T("Chip Inside Align 모델 티칭을 먼저 진행해주세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Chip Inside Align 모델 티칭을 먼저 진행해주세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Please perform the teaching of the Chip Inside Align model first."));
+		
 		m_bIsOcrROI = FALSE;
 		m_btnOcrROI.SetCheck(BST_UNCHECKED);
 		return;
@@ -813,7 +829,10 @@ void CTeachTab1GChipOcr::OnBnClickedBtnRoiChipocrOcrarea()
 		}
 
 		m_btnOcrROI.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사할 OCR 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("검사할 OCR 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the OCR area to be inspected."));
+		
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
 	}
 	else
@@ -898,9 +917,10 @@ void CTeachTab1GChipOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 
 	if (bRet)
 	{
-		Save();
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }

@@ -8,6 +8,7 @@
 
 #include "VisionSystem.h"
 #include "ModelInfo.h"
+#include "LanguageInfo.h"
 
 #include "UIExt/ResourceManager.h"
 #include <XUtil/xUtils.h>
@@ -170,6 +171,26 @@ void TeachOCRReRegistration::OnPaint()
 	BSTR bstrTitle = m_strTitle.AllocSysString();
 	g.DrawString( bstrTitle, -1, &fontTitle, RectF((float)rcTitle.left+nIX+nIW+3, (float)rcTitle.top, (float)rcTitle.Width()-8, (float)rcTitle.Height()), &stringFormat, &brushTitle );
 	SysFreeString( bstrTitle );
+
+	UpdateLanguage();
+}
+
+void TeachOCRReRegistration::UpdateLanguage()
+{
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+	{
+		GetDlgItem(IDC_BUTTON_SELECTALLLITS		)->SetWindowText(_T("목록 전체 선택"));
+		GetDlgItem(IDC_BUTTON_SELECTDATAALLCLEAR)->SetWindowText(_T("선택 목록 초기화"));
+		GetDlgItem(IDC_BUTTON_RECREATEFONTFILE	)->SetWindowText(_T("Font 파일 재 생성"));
+		GetDlgItem(IDOK							)->SetWindowText(_T("닫기"));
+	}
+	else
+	{
+		GetDlgItem(IDC_BUTTON_SELECTALLLITS		)->SetWindowText(_T("Select All Lists"));
+		GetDlgItem(IDC_BUTTON_SELECTDATAALLCLEAR)->SetWindowText(_T("Select Data All Clear"));
+		GetDlgItem(IDC_BUTTON_RECREATEFONTFILE	)->SetWindowText(_T("Font File Re-Registration"));
+		GetDlgItem(IDOK							)->SetWindowText(_T("Close"));
+	}
 }
 
 HBRUSH TeachOCRReRegistration::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -589,7 +610,11 @@ void TeachOCRReRegistration::OnBnClickedButtonSelectdataallclear()
 
 void TeachOCRReRegistration::OnBnClickedButtonRecreatefontfile()
 {
-	if(AfxMessageBox(_T("Font 파일를 다시 만드시겠습니까?"), MB_YESNO) != IDYES ) return;
+	CString strMessage = _T("Font 파일를 다시 만드시겠습니까?");
+	if (CLanguageInfo::Instance()->m_nLangType == 1)
+		strMessage = _T("Do you want to recreate the font file?");
+
+	if(AfxMessageBox(strMessage, MB_YESNO) != IDYES ) return;
 
 	USES_CONVERSION;
 

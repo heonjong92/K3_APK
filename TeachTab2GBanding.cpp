@@ -448,7 +448,11 @@ void CTeachTab2GBanding::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab2GBanding::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameBanding();
@@ -542,7 +546,10 @@ void CTeachTab2GBanding::OnBnClickedBtnRoiBanding()
 		}
 
 		m_btnTeachBanding.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사할 Banding 영역을 지정하세요."));
+		
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Tray 1, 2단의 Banding 영역을 지정하세요. 가로 길이는 넉넉해야 합니다."));
+		else												AfxMessageBox(_T("Please specify the banding area of tray levels 1 and 2. The horizontal length must be sufficient"));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
@@ -597,6 +604,8 @@ void CTeachTab2GBanding::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 	{
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 }
 

@@ -83,19 +83,16 @@ protected:
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	CString strFontPatch;
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	std::vector<stSegmentFileData> m_SegmentFileData;
 	stOCRFontData m_OCRFontLoadData;
-	//VisionProcess::TrayOCRData m_TrayData;
+
 	VisionProcess::ChipOCRData m_ChipData;
 	VisionProcess::stOCRResult m_OCRFontReadingData;
-	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	CxImageViewCtrl m_ImageViewForOcr;
 	CxImageViewManager m_ImageViewManagerForOcr;
 	CxImageObject m_ImageObjectForOcr;
 	CPoint m_FontSizeViewPosition;
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 	static BOOL APIENTRY ImageViewEvent_OCR(ImageViewEvent::Event evt, UINT nIndexData, LPVOID lpUsrData);
 	static BOOL APIENTRY ImageViewMouseEvent_OCR(DWORD dwMsg, CPoint& point, UINT nIndexData, LPVOID lpUsrData);
@@ -103,38 +100,19 @@ protected:
 
 	void OCRSegmentReading(BOOL bSave = FALSE);
 	void OCRSegmentBtnCheck();
-	//void OCRSegmentImgTypeCheck(int nImageType);
-	//void SegmentImageChange(CString strImagePath);
 
 	void ViewGraphicObjectUpdate();
 	void AddFontData(int nAreaNum, CPoint ptImagePoint);
 
 public:
 	CxImageObject* GetObject_TeachOCR() { return &m_ImageObjectForOcr; }
+	void UpdateLanguage();
 
 	UIExt::CFlatButton m_btnFontSave;
 	UIExt::CFlatButton m_btnViewRefresh;
 	UIExt::CFlatButton m_btnDataClear;
 	UIExt::CFlatButton m_btnReRegistration;
 	UIExt::CFlatButton m_btnClose;
-
-	//CString strImgSubCode[LABLE_INSPECTION_MAX_IMAGE_TYPE];				// 0:Center Cut Image, 1:Algorithm Cut Image, 2:OneThird Cut Image, 3:TwoThirds Cut Image, 4:Original Image
-	//int m_nImageType;					// Image Type 0:Center Cut Image, 1:Algorithm Cut Image, 2:OneThird Cut Image, 3:TwoThirds Cut Image, 4:Original Image
-
-	//CComboBox m_Combo_Option1;				// Image Type
-	//CComboBox m_Combo_Option2;				// Threshold Check
-	//CComboBox m_Combo_Option3;				// Image Filtering Check
-	//CComboBox m_Combo_Option4;				// Font Size Filtering Check
-	//CComboBox m_Combo_Option5;				// eVision Large Chars Cut Check
-
-	//CButton m_Check_ManualTeachingMode;		// Reading Option Manual Teaching Mode
-	//CComboBox m_Combo_ManualOption;			// Manual Option List
-
-
-	//BOOL SetReadingOption(VisionProcess::SegmentReadingOption &stReadingOption, BOOL bTeachingMode);
-	//void SetManualOptionList();
-
-	//////////////////////////////////////////////////////////////////////////
 
 	virtual BOOL OnInitDialog();
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -145,6 +123,5 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedFontteachBtnFontsave();
 	afx_msg void OnBnClickedFontteachBtnViewrefresh();
-	//afx_msg void OnBnClickedFontteachBtnTeachingDataClear();
 	afx_msg void OnBnClickedFontteachBtnReregisterFont();
 };

@@ -205,7 +205,9 @@ BOOL CTeachTab1G3DChipCnt::Save()
 	// Validation Check
 	if (m_3DChipCnt.nMinThreshold > m_3DChipCnt.nMaxThreshold)
 	{
-		AfxMessageBox(_T("Empty Chip Area 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Empty Chip Area 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum value of the Empty Chip Area must be less than or equal to the maximum value."), MB_ICONERROR);
+		
 		m_3DChipCnt = st3DChipCnt;
 		UpdateData(FALSE);
 
@@ -572,7 +574,11 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab1G3DChipCnt::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelName3DChipCnt();
@@ -694,6 +700,8 @@ void CTeachTab1G3DChipCnt::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInde
 	{
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 }
 
@@ -709,6 +717,9 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnRoi3dchipcntFirst()
 
 	CString strDescription = _T("Tray 좌상단 Chip의 영역을 선택해주세요.");
 	
+	if (CLanguageInfo::Instance()->m_nLangType == 1)
+		strDescription = _T("Please select the area of the chip in the upper left of the tray.");
+
 	if(m_bIsTeachFirst)	
 		AfxMessageBox(strDescription, MB_ICONINFORMATION);
 

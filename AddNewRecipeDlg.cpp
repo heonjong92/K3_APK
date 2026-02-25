@@ -12,6 +12,7 @@
 
 #include "VisionSystem.h"
 #include "StringMacro.h"
+#include "LanguageInfo.h"
 
 #include <XUtil/xUtils.h>
 
@@ -207,7 +208,8 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 
 	if (CModelInfo::IsExistModelName(m_strKind + _T("\\") + m_strNewRecipeName)) // 검사 종류 추가
 	{
-		AfxMessageBox( _T("레시피 이름이 이미 존재합니다."), MB_OK|MB_ICONERROR );
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("레시피 이름이 이미 존재합니다."), MB_OK | MB_ICONERROR);
+		else												AfxMessageBox(_T("The recipe name already exists."), MB_OK | MB_ICONERROR);
 		return;
 	}
 

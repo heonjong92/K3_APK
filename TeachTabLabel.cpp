@@ -69,6 +69,7 @@ void CTeachTabLabel::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxFloat	(pDX, m_Label.fLabelAngleSpec, 0.5f, 5.0f);
 	DDX_Text	(pDX, IDC_EDIT_LABEL_EDGE_OFFSET,			m_Label.fLabelEdgeOffset);
 	DDV_MinMaxFloat	(pDX, m_Label.fLabelEdgeOffset, 0.4f, 10.0f);
+	DDX_Text	(pDX, IDC_EDIT_LABEL_EDGE_MARGIN,			m_Label.nLabelEdgeMargin);
 
 	DDX_Control	(pDX, IDC_COMBO_LABEL_TOTAL_MASKING_COUNT,	m_Combo_Masking_Total_Cnt);
 	DDX_CBIndex	(pDX, IDC_COMBO_LABEL_TOTAL_MASKING_COUNT,	m_Label.nLabelMaskingCount);
@@ -265,6 +266,7 @@ void CTeachTabLabel::UpdateLanguage()
 	GetDlgItem(IDC_BTN_SHOWAREA)->SetWindowText(CLanguageInfo::Instance()->ReadString(52));
 	GetDlgItem(IDC_BTN_INSP_SELDEL)->SetWindowText(CLanguageInfo::Instance()->ReadString(53));
 	GetDlgItem(IDC_BTN_INSP_ALLDEL)->SetWindowText(CLanguageInfo::Instance()->ReadString(54));
+	GetDlgItem(IDC_STATIC_LABEL_EDGE_OFFSET2)->SetWindowText(CLanguageInfo::Instance()->ReadString(55));
 
 #elif RELEASE_6G
 	GetDlgItem(IDC_LABEL_TITLE_LABEL)->SetWindowText(CLanguageInfo::Instance()->ReadString(11));
@@ -284,6 +286,7 @@ void CTeachTabLabel::UpdateLanguage()
 	GetDlgItem(IDC_BTN_LABEL_TECH_OCRFONTTEACHING)->SetWindowText(CLanguageInfo::Instance()->ReadString(25));
 	GetDlgItem(IDC_CHECK_LABEL_USEMANUALDATA)->SetWindowText(CLanguageInfo::Instance()->ReadString(26));
 	GetDlgItem(IDC_BTN_TEST_LABEL)->SetWindowText(CLanguageInfo::Instance()->ReadString(27));
+	GetDlgItem(IDC_STATIC_LABEL_EDGE_OFFSET2)->SetWindowText(CLanguageInfo::Instance()->ReadString(28));
 
 	GetDlgItem(IDC_BTN_LABEL_TECH_ALIGN_MODEL)->SetWindowText(CLanguageInfo::Instance()->ReadString(4));
 	GetDlgItem(IDC_STATIC_INSP_AREA_NO)->SetWindowText(CLanguageInfo::Instance()->ReadString(5));
@@ -306,6 +309,7 @@ void CTeachTabLabel::UpdateToolTip()
 	m_toolTip.Create(this, TTS_BALLOON);
 	m_toolTip.SetMaxTipWidth(300);  //멀티라인 활성화
 
+	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_LABEL_EDGE_MARGIN), _T("Label 영역을 잡고 Warpage로 인해 Margin 값 넣는 파라미터 입니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_LABEL_EDGE_OFFSET), _T("Label 인쇄 상태가 끝으로 쏠렸는지 확인하는 파라미터 입니다.검사에서 Label이라고 찾은 영역 Edge에서 보정 값 만큼 영역을 획득 후 검은색이 있는지 확인합니다.검은색이 발견되면 NG로 판정합니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_EDIT_LABEL_ANGLE_SPEC), _T("Label이 발행 됐을 때, 검사에 사용하기 위해 Label 이미지를 회전 시켜서 검사합니다.만약, 각도의 범위가 커서 OK가 됐다면 MBB에 부착 상태는 회전되어 있을 수도 있습니다."));
 	m_toolTip.AddTool(GetDlgItem(IDC_BTN_LABEL_TECH_ALIGN_MODEL), _T("Label의 OCR을 검사하기 위해 Fiducial Mark처럼 사용하는 모델을 등록합니다.해당 검사가 NG시, OCR 검사를 하지 않고 NG 판정합니다."));
@@ -358,6 +362,9 @@ void CTeachTabLabel::CheckData()
 
 	strLog.Format(_T("[LightValueCh1][%d→%d]"), Label.nValueCh1, Label.nValueCh1);
 	if(Label.nValueCh1 != Label.nValueCh1)	CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog);
+
+	strLog.Format(_T("[Label Edge Margin][%d→%d]"), Label.nLabelEdgeMargin, Label.nLabelEdgeMargin);
+	if (Label.nLabelEdgeMargin != Label.nLabelEdgeMargin)	CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog);
 
 	strLog.Format( _T("[Label Edge Offset][%.1f→%.1f]"), Label.fLabelEdgeOffset, m_Label.fLabelEdgeOffset );
 	if(Label.fLabelEdgeOffset != m_Label.fLabelEdgeOffset) CVisionSystem::Instance()->WriteLogforTeaching(InspectTypeLabel, strLog );
@@ -486,6 +493,7 @@ HBRUSH CTeachTabLabel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	case IDC_STATIC_LIGHT_VALUE:
 	case IDC_STATIC_LABEL_ANGLE_SPEC:
 	case IDC_STATIC_LABEL_EDGE_OFFSET:
+	case IDC_STATIC_LABEL_EDGE_OFFSET2:
 	case IDC_STATIC_LABEL_MASKING_COUNT:
 	case IDC_STATIC_LABEL_MASKING_NO:
 	case IDC_STATIC_LABEL_MASKING_SCORE:
@@ -621,6 +629,8 @@ void CTeachTabLabel::OnConfirmTracker( CRect& rcTrackRegion, UINT nViewIndex )
 	if( bRet )
 	{
 		Cleanup();
+		Save();
+
 		UpdateData(FALSE);
 	}
 }
@@ -996,7 +1006,11 @@ void CTeachTabLabel::OnBnClickedBtnSaveLabel()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTabLabel::OnBnClickedBtnSaveLabel :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameLabel();
@@ -1155,7 +1169,11 @@ void CTeachTabLabel::OnBnClickedBtnInspSeldel()
 
 void CTeachTabLabel::OnBnClickedBtnInspAlldel()
 {
-	if (AfxMessageBox(_T("모든 검사 영역을 삭제 하시겠습니까?"), MB_YESNO | MB_ICONQUESTION) == IDNO)
+	CString strMessage = _T("모든 검사 영역을 삭제 하시겠습니까?");
+	if (CLanguageInfo::Instance()->m_nLangType == 1)
+		strMessage = _T("Do you want to delete all inspection areas?");
+
+	if (AfxMessageBox(strMessage, MB_YESNO | MB_ICONQUESTION) == IDNO)
 		return;
 
 	UpdateData(TRUE);

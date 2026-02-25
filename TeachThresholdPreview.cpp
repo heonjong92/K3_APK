@@ -268,7 +268,11 @@ void CTeachThresholdPreview::OnBnClickedBtnSave()
 
 	UpdateData(TRUE);
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CModelInfo::stChipOcr& ChipOcr = CModelInfo::Instance()->GetChipOcr();

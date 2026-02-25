@@ -2509,7 +2509,6 @@ BOOL CInspectionVision::_Insp_Label( CxGraphicObject* pGO, CxImageObject* pSrcIm
 	return TRUE;
 }
 
-
 BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, int nViewIndex, CRect& rcLabelRect )
 {
 	COLORTEXT	clrText;
@@ -2552,7 +2551,8 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 		if( !BuildUsingEasyObject( pGO, &LabelAreaImgObj, reNormalArea, reLabelArea, OBJ_WHITE, FALSE, nLabel_AreaThreshold ) ) throw strErrorCode;
 
 		// 240401 HJ : Angle 보정을 해도 정확히 0도가 아닐 때가 있어서 Overkill 발생 함
-		reLabelArea.DeflateRect( 3, 3, 3, 3 );
+		int nEdgeMargin = CModelInfo::Instance()->GetLabelInfo().nLabelEdgeMargin;
+		reLabelArea.DeflateRect(nEdgeMargin, nEdgeMargin, nEdgeMargin, nEdgeMargin);
 
 		//////////////////////////////////////////////////////////////////////////
 		DPOINT	dptCenter, dptResult;
@@ -2594,15 +2594,8 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 				float fCenterY = (float)pMaskingImgObj.GetHeight() / 2.0f;
 				EasyImage::ScaleRotate( &EBW8Image_Buff, fCenterX, fCenterY, fCenterX, fCenterY, 1.000f, 1.000f, (float)dLabelAngle, &EBW8Image_Rotate, 8 );
 
-
 				//////////////////////////////////////////////////////////////////////////
 				LabelAreaImgObj.Clone( &pMaskingImgObj );
-//#ifdef RELEASE_6G
-//				for(int nWidthIndex = 1155; nWidthIndex < 1300; nWidthIndex++)
-//					for(int nHeightIndex = 570; nHeightIndex < 720; nHeightIndex++)
-//						EBW8ImgLabelArea.SetPixel( 0, nWidthIndex, nHeightIndex );
-//#elif RELEASE_4G
-//#endif
 				EasyImage::OpenBox(&EBW8ImgLabelArea, &EBW8ImgLabelArea, nLabel_AreaOpenValue);
 
 				if (CLanguageInfo::Instance()->m_nLangType == 0)		strErrorCode = _T("라벨 영역 찾기(2) : NG");
@@ -2662,20 +2655,8 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 			pGO->AddDrawText( clrText );
 			return FALSE;
 		}
-		else
-		{
-			LONG lHeight = reLabelArea.bottom - reLabelArea.top;
-//#ifdef RELEASE_4G
-//			if ( lHeight > 1290 ) // Label 용지는 항상 같을테니?
-//				reLabelArea.top = reLabelArea.bottom - 1280;
-//#else
-//			if ( lHeight > 1300 ) // 230703 HJ : Al Label Size가 달라짐.. WD 변경 된 것 같은데...
-//				reLabelArea.top = reLabelArea.bottom - 1290;
-//#endif
-		}
 
 		//////////////////////////////////////////////////////////////////////////
-		// 230703 HJ : Masking 수정 및 분리
 		// 좌측 구석
 		for(int nWidthIndex = reLabelArea.left; nWidthIndex < reLabelArea.left+80; nWidthIndex++)
 		{
@@ -2734,20 +2715,17 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 		//////////////////////////////////////////////////////////////////////////
 
 		CRect reBuff = reLabelArea;
-		reBuff.DeflateRect( 10,10,10,10 );
 		clrBox.CreateObject( PDC_LIGHTGREEN, reBuff, PS_SOLID, 1 );
 		pGO->AddDrawBox( clrBox );
 
-		// TEST 영상에는 속지가 있어서.
-		strErrorCode = _T("Label Print Edge Line : NG");
-		if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
-		{
-			clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
-			pGO->AddDrawBox( clrBox );
-		
-			throw strErrorCode;
-		}
-
+//		strErrorCode = _T("Label Print Edge Line : NG");
+//		if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
+//		{
+//			clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
+//			pGO->AddDrawBox( clrBox );
+//		
+//			throw strErrorCode;
+//		}
 	}
 	catch ( CString strErrorCode )
 	{

@@ -7,6 +7,7 @@
 
 #include "VisionSystem.h"
 #include "TeachTabLabel.h"
+#include "LanguageInfo.h"
 
 #include "UIExt/ResourceManager.h"
 #include <XUtil/xUtils.h>
@@ -152,8 +153,9 @@ void TeachAddFont::OnBnClickedOk()
 	UpdateData(TRUE);
 	if( 1 < m_TeachingText.GetLength() )
 	{
-		AfxMessageBox(_T("문자열 Teaching이 불가능 합니다.\n1개의 문자만 입력하세요!"));
-		UpdateData(FALSE);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("문자열 Teaching이 불가능 합니다.\n1개의 문자만 입력하세요!"));
+		else												AfxMessageBox(_T("The string 'Teaching' is not allowed. Please enter only one character!"));
+		
 		return;
 	}
 	UpdateData(FALSE);

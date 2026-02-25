@@ -10,6 +10,7 @@
 #include "InspectionVision.h"
 #include "TeachTabLabel.h"
 #include "TeachOCRReRegistration.h"
+#include "LanguageInfo.h"
 
 #include "UIExt/ResourceManager.h"
 #include <XUtil/xUtils.h>
@@ -215,6 +216,36 @@ void TeachOCRFont::OnPaint()
 	BSTR bstrTitle = m_strTitle.AllocSysString();
 	g.DrawString( bstrTitle, -1, &fontTitle, RectF((float)rcTitle.left+nIX+nIW+3, (float)rcTitle.top, (float)rcTitle.Width()-8, (float)rcTitle.Height()), &stringFormat, &brushTitle );
 	SysFreeString( bstrTitle );
+
+	UpdateLanguage();
+}
+
+void TeachOCRFont::UpdateLanguage()
+{
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+	{
+		GetDlgItem(IDC_FONTTEACH_BTN_FONTSAVE				)->SetWindowText(_T("Font 티칭 저장"));
+		GetDlgItem(IDC_FONTTEACH_BTN_VIEWREFRESH			)->SetWindowText(_T("이미지 새로고침"));
+		GetDlgItem(IDC_FONTTEACH_BTN_REREGISTER_FONT		)->SetWindowText(_T("저장된\nFont 보기"));
+		GetDlgItem(IDOK										)->SetWindowText(_T("닫기"));
+		GetDlgItem(IDC_FONTTEACH_BTN_TEACHING_DATA_CLEAR	)->SetWindowText(_T("티칭 데이터 초기화"));
+
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_APPLY	)->SetWindowText(_T("적용")); 
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_SAVE		)->SetWindowText(_T("저장"));
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_DELETE	)->SetWindowText(_T("삭제"));
+	}
+	else
+	{
+		GetDlgItem(IDC_FONTTEACH_BTN_FONTSAVE				)->SetWindowText(_T("Teaching Font Save"));
+		GetDlgItem(IDC_FONTTEACH_BTN_VIEWREFRESH			)->SetWindowText(_T("View Refresh"));
+		GetDlgItem(IDC_FONTTEACH_BTN_REREGISTER_FONT		)->SetWindowText(_T("Font\nRe-Registration"));
+		GetDlgItem(IDOK										)->SetWindowText(_T("Close"));
+		GetDlgItem(IDC_FONTTEACH_BTN_TEACHING_DATA_CLEAR	)->SetWindowText(_T("Teaching Data Clear"));
+		
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_APPLY	)->SetWindowText(_T("Apply"));
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_SAVE		)->SetWindowText(_T("Save"));
+		GetDlgItem(IDC_FONTTEACH_BTN_MANUAL_OPTION_DELETE	)->SetWindowText(_T("Delete"));
+	}
 }
 
 int TeachOCRFont::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -411,7 +442,9 @@ void TeachOCRFont::CheckImageNameFormat(CString strFilePath)
 
 	if(!bCheckFilePath)
 	{
-		AfxMessageBox(_T("Image File 경로를 확인하세요!\nD:/Label_Segment Folder Image만 사용 가능합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Image File 경로를 확인하세요!\nD:/Label_Segment Folder Image만 사용 가능합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("Please check the image file path! Only images in the D:/Label_Segment folder can be used"), MB_ICONERROR);
+
 		return;
 	}
 
@@ -466,7 +499,10 @@ void TeachOCRFont::CheckImageNameFormat(CString strFilePath)
 		if(!bLoadResult)
 		{
 			m_OCRFontLoadData.bSegmentFileLoad = FALSE;
-			AfxMessageBox(_T("Segment Image Name Error!!\nImage File을 확인하세요!!"), MB_ICONERROR);	
+
+			if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Segment Image Name Error!!\nImage File을 확인하세요!!"), MB_ICONERROR);
+			else												AfxMessageBox(_T("Segment Image Name Error!! Please check the image file!!"), MB_ICONERROR);
+			
 		}
 	}
 }
@@ -598,7 +634,7 @@ void TeachOCRFont::OCRSegmentReading()
 
 	if( !CVisionSystem::Instance()->OCRMeasureInspection(BW8Buff, m_LabelData, MasterData, strFontPatch, stReadingOption) )
 	{
-		AfxMessageBox(_T("Segment Reading Error!!"), MB_ICONERROR);	
+		AfxMessageBox(_T("Segment Reading Error!!"), MB_ICONERROR);
 
 		WRITE_LOG(WL_ERROR, _T("No Font File in ReadOcr()"));
 		return;
@@ -996,7 +1032,9 @@ void TeachOCRFont::OnBnClickedButtonRetryprev()
 	}
 	if(nPositionIndex == -1) 
 	{
-		AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The segment file data has been changed. Please refresh and run again."), MB_ICONERROR);
+		
 		return;
 	}
 
@@ -1014,7 +1052,9 @@ void TeachOCRFont::OnBnClickedButtonRetryprev()
 	}
 	if(nChangePosition == -1) 
 	{
-		AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The segment file data has been changed. Please refresh and run again."), MB_ICONERROR);
+
 		return;
 	}
 
@@ -1044,7 +1084,9 @@ void TeachOCRFont::OnBnClickedButtonRetrynext()
 	}
 	if(nPositionIndex == -1) 
 	{
-		AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The segment file data has been changed. Please refresh and run again."), MB_ICONERROR);
+
 		return;
 	}
 
@@ -1062,7 +1104,9 @@ void TeachOCRFont::OnBnClickedButtonRetrynext()
 	}
 	if(nChangePosition == -1) 
 	{
-		AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Segment File Data가 변경되었습니다.\nRefresh후 다시 실행하세요."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The segment file data has been changed. Please refresh and run again."), MB_ICONERROR);
+
 		return;
 	}
 
@@ -1108,7 +1152,11 @@ void TeachOCRFont::OnBnClickedFontteachBtnFontsave()
 {	
 	USES_CONVERSION;
 
-	if(AfxMessageBox(_T("Teaching Data를 저장하시겠습니까?"), MB_YESNO) != IDYES ) return;
+	CString strMessage = _T("Teaching Data를 저장하시겠습니까?");
+	if (CLanguageInfo::Instance()->m_nLangType == 1)
+		strMessage = _T("Do you want to save the teaching data?");
+
+	if(AfxMessageBox(strMessage, MB_YESNO) != IDYES ) return;
 	
 	// ----- Time Data -----
 	CTime	cTimeData = CTime::GetCurrentTime();
@@ -1123,7 +1171,9 @@ void TeachOCRFont::OnBnClickedFontteachBtnFontsave()
 		if( m_OCRFontReadingData.vbTeaching.at(nFontNum) ) break;	
 		else if( nFontNum == (int)m_OCRFontReadingData.vbTeaching.size()-1)
 		{
-			AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+			if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("폰트 티칭 데이터가 없습니다."), MB_ICONERROR);
+			else												AfxMessageBox(_T("Font Teaching Data None"), MB_ICONERROR);
+
 			return;
 		}
 		else continue;
@@ -1131,7 +1181,8 @@ void TeachOCRFont::OnBnClickedFontteachBtnFontsave()
 
 	if( &m_ImageObjectForOcr == NULL || m_ImageObjectForOcr.GetImageBuffer() == NULL )	
 	{
-		AfxMessageBox(_T("Image Error!!"), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("이미지 에러!!"), MB_ICONERROR);
+		else												AfxMessageBox(_T("Image Error!!"), MB_ICONERROR);
 		return;
 	}
 
@@ -1173,7 +1224,8 @@ void TeachOCRFont::OnBnClickedFontteachBtnFontsave()
 
 	if( !CVisionSystem::Instance()->OCRMeasureInspection(BW8Buff/*BW8SegmentImg*/, m_LabelData, MasterData, strFontPatch, stReadingOption) )
 	{
-		AfxMessageBox(_T("Add Font Error!!"), MB_ICONERROR);	
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("폰트 추가 에러!!"), MB_ICONERROR);
+		else												AfxMessageBox(_T("Add Font Error!!"), MB_ICONERROR);	
 		return;
 	}
 

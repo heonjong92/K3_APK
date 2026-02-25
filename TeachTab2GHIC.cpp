@@ -534,7 +534,11 @@ void CTeachTab2GHIC::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab2GHIC::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameHIC();
@@ -717,6 +721,8 @@ void CTeachTab2GHIC::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 	{
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 }
 
@@ -744,7 +750,10 @@ void CTeachTab2GHIC::OnBnClickedBtnHicTechModel()
 		}
 
 		m_btnHICTechModel.EnableWindow(TRUE);
-		AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the model to be registered."));
+		
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA2, _OnConfirmTracker, this);
 	}
 	else

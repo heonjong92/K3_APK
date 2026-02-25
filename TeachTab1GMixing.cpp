@@ -521,7 +521,11 @@ void CTeachTab1GMixing::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab1GMixing::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameMixing();
@@ -713,6 +717,18 @@ void CTeachTab1GMixing::OnBnClickedBtnMixingTechModel()
 		}
 
 		m_btnMixingTechModel.EnableWindow(TRUE);
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)
+		{
+			if (m_nCombo_Mixing_Select == 0)	AfxMessageBox(_T("Tray Side Font 영역을 지정하세요."));
+			else								AfxMessageBox(_T("지정된 영역에서 Font를 세분화해서 영역을 지정하세요."));
+		}
+		else
+		{
+			if (m_nCombo_Mixing_Select == 0)	AfxMessageBox(_T("Please specify the tray side font area."));
+			else								AfxMessageBox(_T("Please subdivide the font within the specified area and define the regions."));
+		}
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA5, _OnConfirmTracker, this);
 	}
 	else
@@ -764,6 +780,8 @@ void CTeachTab1GMixing::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 		Cleanup();
 		EnableModelTeaching();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }

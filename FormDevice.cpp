@@ -229,7 +229,11 @@ void CFormDevice::OnBnClickedBtnSave()
 {
 	WRITE_LOG( WL_BTN, _T("CFormDevice::OnBnClickedBtnSave :: Start") );
 
-	if ( IDYES != AfxMessageBox( _T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장을 하시겠습니까?");
+
+	if ( IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;	
 
 	m_pMainView->ShowWaitMessage(TRUE, _T("Recipe Save"), _T("Recipe Saving..."));

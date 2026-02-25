@@ -478,10 +478,12 @@ void CTeachTab5GBoxQuality::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInd
 	if (bRet)
 	{
 		m_BoxInfo.ptMatchCenter[m_nModelNum] = rcTrackRegion.CenterPoint();
-		
+
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }
@@ -603,7 +605,11 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab5GBoxQuality::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameBoxQuality();
@@ -708,7 +714,10 @@ void CTeachTab5GBoxQuality::OnBnClickedBtnBoxTeachModel()
 		}
 		
 		m_btnBoxTeachModel.EnableWindow(TRUE);
-		AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the model to be registered."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else

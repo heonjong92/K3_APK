@@ -232,7 +232,9 @@ BOOL CTeachTabSGStackerOcr::Save()
 	// Validation Check
 	if (m_StackerOcr.nCharWidthMin > m_StackerOcr.nCharWidthMax)
 	{
-		AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 너비 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character width must be less than or equal to the maximum value."), MB_ICONERROR);
+		
 		m_StackerOcr = stStackerOcr;
 		UpdateData(FALSE);
 
@@ -240,7 +242,8 @@ BOOL CTeachTabSGStackerOcr::Save()
 	}
 	if (m_StackerOcr.nCharHeightMin > m_StackerOcr.nCharHeightMax)
 	{
-		AfxMessageBox(_T("글자 높이 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("글자 높이 최소값은 최대값 이하여야 합니다."), MB_ICONERROR);
+		else												AfxMessageBox(_T("The minimum character height must be less than or equal to the maximum value."), MB_ICONERROR);
 		m_StackerOcr = stStackerOcr;
 		UpdateData(FALSE);
 
@@ -563,7 +566,11 @@ void CTeachTabSGStackerOcr::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTabSGStackerOcr::OnBnClickedBtnSave::Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameStackerOcr();
@@ -757,6 +764,8 @@ void CTeachTabSGStackerOcr::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewInd
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }

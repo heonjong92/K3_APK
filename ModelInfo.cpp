@@ -1139,6 +1139,9 @@ void CModelInfo::LoadLabelInfo( LPCTSTR lpszModelInfoFile, LPCTSTR lpszCustomerM
 	m_LabelInfo.strDescription = szTemp;
 	::GetPrivateProfileString(LABEL_APPNAME, _T("LIGHT_CH1"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
 	m_LabelInfo.nValueCh1 = (int)_tcstod(szTemp, NULL);
+	
+	::GetPrivateProfileString(LABEL_APPNAME, _T("EDGE_MARGIN"), _T("0"), szTemp, MAX_PATH, strModelInfoFile);
+	m_LabelInfo.nLabelEdgeMargin = (int)_tcstod(szTemp, NULL);
 
 	::GetPrivateProfileString( LABEL_APPNAME, _T("EDGE_OFFSET"), _T("1.5"), szTemp, MAX_PATH, strModelInfoFile );
 	m_LabelInfo.fLabelEdgeOffset = (float)_tcstod( szTemp, NULL );
@@ -2448,6 +2451,9 @@ void CModelInfo::SaveLabelInfo( LPCTSTR lpszModelInfoFile, LPCTSTR lpszCustomerM
 	::WritePrivateProfileString(LABEL_APPNAME, _T("DESCRIPTION"), strTemp, strModelInfoFile);
 	strTemp.Format(_T("%d"), m_LabelInfo.nValueCh1);
 	::WritePrivateProfileString(LABEL_APPNAME, _T("LIGHT_CH1"), strTemp, strModelInfoFile);
+
+	strTemp.Format(_T("%d"), m_LabelInfo.nLabelEdgeMargin);
+	::WritePrivateProfileString(LABEL_APPNAME, _T("EDGE_MARGIN"), strTemp, strModelInfoFile);
 
 	strTemp.Format( _T("%.1f"), m_LabelInfo.fLabelEdgeOffset );
 	::WritePrivateProfileString( LABEL_APPNAME, _T("EDGE_OFFSET"), strTemp, strModelInfoFile );

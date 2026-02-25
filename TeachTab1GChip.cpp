@@ -592,7 +592,11 @@ void CTeachTab1GChip::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab1GChip::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameChip();
@@ -692,7 +696,9 @@ void CTeachTab1GChip::OnBnClickedBtnRoiChipArea()
 		}
 
 		m_btnTeachChipArea.EnableWindow(TRUE);
-		AfxMessageBox(_T("Tray의 우하단 첫 번째 Chip 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Tray의 우하단 첫 번째 Chip 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the first chip in the lower right of the tray."));
 
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
 	}
@@ -744,7 +750,8 @@ void CTeachTab1GChip::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 		m_bIsTeachChipArea = FALSE;
 		m_bIsTeachMatch = TRUE;
 
-		AfxMessageBox(_T("Shift 검사에 사용할 Fiducial Mark의 영역을 지정하세요."));
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Shift 검사에 사용할 Fiducial Mark의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the fiducial mark to be used for the shift inspection."));
 
 #ifdef RELEASE_1G
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA4, _OnConfirmTracker, this);
@@ -759,7 +766,8 @@ void CTeachTab1GChip::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 		bRet = pInspectionVision->SetLearnModel_ForChip(pGO, pImgObj, m_Chip.rcMatchArea);
 		if (!bRet)
 		{
-			AfxMessageBox(_T("Fiducial Mark Teaching Fail !!"));
+			if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Fiducial Mark 티칭 실패 !!"));
+			else												AfxMessageBox(_T("Fiducial Mark Teaching Fail !!"));
 
 			m_Chip.rcMatchArea.SetRectEmpty();
 			m_Chip.ptMatch = (0, 0);
@@ -770,6 +778,8 @@ void CTeachTab1GChip::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 	{
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 }
 

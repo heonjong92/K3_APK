@@ -9,7 +9,7 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 9
-#define VERSION_PATCH 0
+#define VERSION_PATCH 1
 #define VERSION_BUILD 0
 
 #define STRINGIFY(x) #x
@@ -18,6 +18,11 @@
 #define FULL_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH) "." TOSTR(VERSION_BUILD)
 #define FILE_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH)
 
+//=========================================================
+// v 2.9.1
+// AfxMeesegeBox 언어 변환
+// Label 검사 Edge Margin Parameter 추가 (warpage가 너무 심해서)
+// Area, Model 설정 OK되면 Save 자동으로 되도록 구문 수정.
 //=========================================================
 // v 2.9.0
 // Matching 7? -> 10수정

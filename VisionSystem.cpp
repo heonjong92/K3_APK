@@ -16,6 +16,7 @@
 #include "InspectSaveProcess.h"
 #include "InspectSaveMergeProcess.h"
 #include "InspectionVision.h"
+#include "LanguageInfo.h"
 
 #include "VisionInterfaces.h"
 #include "APKView.h"
@@ -3090,9 +3091,13 @@ BOOL CVisionSystem::ShowErrorDlg(CString strTitle, CString strMessage, CString s
 
 void CVisionSystem::SetPreviewGainOffset(int nViewIndex, BOOL bPreview)
 {
+	CString strMessage = _T("OpenEvision Dongle이 없습니다.");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("OpenEvision dongle not found.");
+
 	if (CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE)
 	{
-		AfxMessageBox(_T("OpenEvision Dongle이 없습니다."), MB_OK | MB_ICONERROR);
+		AfxMessageBox(strMessage, MB_OK | MB_ICONERROR);
 		return;
 	}
 

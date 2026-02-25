@@ -689,7 +689,11 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab3GDesiccantCutting::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameDesiccantCutting();
@@ -789,6 +793,7 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 	}
 
 	pGO->Reset();
+	BOOL bRet = FALSE;
 
 	if (m_bIsCheckedLeftROI)
 	{
@@ -797,6 +802,8 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 
 		clrBox.CreateObject(PDC_ORANGE, m_DesiccantCuttingInfo.rcLeftInspArea);
 		pGO->AddDrawBox(clrBox);
+
+		bRet = TRUE;
 	}
 	
 	if(m_bIsCheckedRightROI)
@@ -806,6 +813,8 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 
 		clrBox.CreateObject(PDC_ORANGE, m_DesiccantCuttingInfo.rcRightInspArea);
 		pGO->AddDrawBox(clrBox);
+
+		bRet = TRUE;
 	}
 
 	if (m_bIsPositionLeftROI)
@@ -815,6 +824,8 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 
 		clrBox.CreateObject(PDC_ORANGE, m_DesiccantCuttingInfo.rcPositionLeftInspArea);
 		pGO->AddDrawBox(clrBox);
+
+		bRet = TRUE;
 	}
 	
 	if (m_bIsPositionRightROI)
@@ -824,9 +835,15 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 
 		clrBox.CreateObject(PDC_ORANGE, m_DesiccantCuttingInfo.rcPositionRightInspArea);
 		pGO->AddDrawBox(clrBox);
+
+		bRet = TRUE;
 	}
 
 	Cleanup();
+
+	if (bRet)
+		Save();
+
 	UpdateData(FALSE);
 }
 
@@ -981,7 +998,10 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantPositionLeft()
 		}
 
 		m_btnPositionLeftROI.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("흡습제 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the desiccant area."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
@@ -1014,7 +1034,10 @@ void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantPositionRight()
 		}
 
 		m_btnPositionRightROI.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("흡습제 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the desiccant area."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA2, _OnConfirmTracker, this);
 	}
 	else

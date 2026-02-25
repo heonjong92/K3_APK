@@ -407,6 +407,8 @@ void CTeachTab5GSealingQuality::OnConfirmTracker(CRect& rcTrackRegion, UINT nVie
 		Cleanup();
 		UpdateUI();
 		UpdateData(FALSE);
+
+		Save();
 	}
 #endif
 }
@@ -527,7 +529,11 @@ void CTeachTab5GSealingQuality::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab5GSealingQuality::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameSealingQuality();
@@ -634,7 +640,10 @@ void CTeachTab5GSealingQuality::OnBnClickedBtnSealingTeachModel()
 		}
 		
 		m_btnSealingTeachModel.EnableWindow(TRUE);
-		AfxMessageBox(_T("검사 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("박스 내부 MBB 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the MBB area inside the box."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA2, _OnConfirmTracker, this);
 	}
 	else

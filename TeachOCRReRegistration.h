@@ -89,6 +89,7 @@ public:
 	UIExt::CFlatButton m_btnClose;
 
 	void SetOcrMode(int nOcrMode) { m_nOcrMode = nOcrMode; }
+	void UpdateLanguage();
 
 	afx_msg void OnPaint();
 	virtual BOOL OnInitDialog();

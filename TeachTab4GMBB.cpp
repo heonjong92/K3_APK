@@ -590,7 +590,11 @@ void CTeachTab4GMBB::OnBnClickedBtnSave()
 {
 	WRITE_LOG(WL_BTN, _T("CTeachTab4GMBB::OnBnClickedBtnSave :: Start"));
 
-	if (IDYES != AfxMessageBox(_T("Do you want Save?"), MB_YESNO))
+	CString strMessage = _T("Do you want Save?");
+	if (CLanguageInfo::Instance()->m_nLangType == 0)
+		strMessage = _T("저장 하시겟습니까?");
+
+	if (IDYES != AfxMessageBox(strMessage, MB_YESNO))
 		return;
 
 	CString strModelName = CModelInfo::Instance()->GetModelNameMBB();
@@ -688,7 +692,10 @@ void CTeachTab4GMBB::OnBnClickedBtnRoiMbb()
 		}
 
 		m_btnTeachMBB.EnableWindow(TRUE);
-		CRect rc(100, 100, 200, 200);
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("MBB 보다 조금 크게 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area slightly larger than the MBB."));
+
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else
@@ -747,9 +754,10 @@ void CTeachTab4GMBB::OnConfirmTracker(CRect& rcTrackRegion, UINT nViewIndex)
 	{
 		m_MBB.ptOffset_MBB[m_nModelNum] = rcTrackRegion.CenterPoint();
 
-		Save();
 		Cleanup();
 		UpdateData(FALSE);
+
+		Save();
 	}
 }
 
@@ -776,7 +784,10 @@ void CTeachTab4GMBB::OnBnClickedBtnMbbTechModel()
 		}
 
 		m_btnMBBTechModel.EnableWindow(TRUE);
-		AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("등록할 모델의 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the area of the model to be registered."));
+		
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}
 	else

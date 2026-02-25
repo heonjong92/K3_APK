@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include "UIExt/GdiplusExt.h"
 #include "UIExt/ResourceManager.h"
+#include "LanguageInfo.h"
 
 #include "SystemConfig.h"
 #include "ChangePasswordDlg.h"
@@ -268,7 +269,9 @@ void CAccessRightsDlg::OnBnClickedOk()
 		return;
 	}
 	WRITE_LOG( WL_MSG, _T("비밀번호가 일치하지 않습니다.") );
-	AfxMessageBox( _T("비밀번호가 일치하지 않습니다."), MB_OK|MB_ICONERROR );
+
+	if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("비밀번호가 일치하지 않습니다."), MB_OK | MB_ICONERROR);
+	else												AfxMessageBox(_T("The password does not match."), MB_OK | MB_ICONERROR);
 }
 
 void CAccessRightsDlg::OnBnClickedBtnChangePasswd()
@@ -299,7 +302,9 @@ void CAccessRightsDlg::OnBnClickedBtnChangePasswd()
 	else
 	{
 		WRITE_LOG( WL_MSG, _T("비밀번호가 일치하지 않습니다.") );
-		AfxMessageBox( _T("비밀번호가 일치하지 않습니다."), MB_OK|MB_ICONERROR );
+
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("비밀번호가 일치하지 않습니다."), MB_OK | MB_ICONERROR);
+		else												AfxMessageBox(_T("The password does not match."), MB_OK | MB_ICONERROR);
 	}
 }
 
