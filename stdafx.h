@@ -177,7 +177,6 @@ enum eIndex_Area { IDX_AREA1=0, IDX_AREA2, IDX_AREA_MAX };
 enum InspectType { InspectTypeBox=0, InspectTypeSealing, InspectTypeMax };
 enum eTeachTabIndex	{ TEACH_TAB_IDX_BOX=0, TEACH_TAB_IDX_SEALING, TEACH_TAB_IDX_ALL };
 enum CameraType { CameraTypeArea=0, CameraTypeArea2, CameraTypeMax };
-//enum eMatchType_BoxQuality { EMATCH_TYPE_CAUTION = 0, EMATCH_TYPE_MOISTURE, EMATCH_TYPE_FRAGILE, EMATCH_TYPE_UMBRELLA, EMATCH_TYPE_RECYCLABLE };
 static const UINT nAREA_CAM_SIZE_X[IDX_AREA_MAX] = {2448, 2048};
 static const UINT nAREA_CAM_SIZE_Y[IDX_AREA_MAX] = {2048, 1536};
 
@@ -191,7 +190,7 @@ static const UINT nAREA_CAM_SIZE_Y[IDX_AREA_MAX] = {3000, 1024};
 
 #endif
 
-typedef struct _READ_DATA_Label
+typedef struct _READ_DATA_LABEL
 {
 	CString		strCode;
 	enum SegmentType { OTHER_INFO=0, TEXT_SEGMENT, BARCODE_SEGMENT, BARCODE_TEXT_SEGMENT  };
@@ -214,7 +213,7 @@ typedef struct _READ_DATA_Label
 
 		bInspCheck	= FALSE;
 	}
-}READ_DATA_Label;
+}READ_DATA_LABEL;
 
 // Basic Defect Codes ----------------------------------------------
 #define ISRESULT_ERROR						(0x80000000)

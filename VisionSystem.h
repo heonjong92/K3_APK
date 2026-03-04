@@ -26,6 +26,7 @@
 
 #include <Open_eVision_2_11.h>
 #include "DecoderCortex.h"
+#include "MariaDbClient.h"
 
 #define WM_LOG_MESSAGE					(WM_USER+10)
 #define WM_MODEL_CHANGE_STATUS			(WM_USER+11)
@@ -121,9 +122,9 @@ protected:
 	CLightControllerForAreaScan3	m_LightControllerForArea3;
 
 	// Label
-	std::vector<READ_DATA_Label>	m_stLabelData;
+	std::vector<READ_DATA_LABEL>	m_stLabelData;
 	CString strLabelData_Manual_Path;
-	std::vector<READ_DATA_Label>	m_stLabelData_Manual;
+	std::vector<READ_DATA_LABEL>	m_stLabelData_Manual;
 
 	// Tray OCR
 	VisionProcess::TrayOCRData		m_stTrayOCRData;
@@ -131,6 +132,7 @@ protected:
 
 	// Stacker OCR
 	CString m_strTraySID;
+	CString m_strTrayOcrData;
 
 	// StopWatch - Tacttime
 	CxStopWatch stopwatch[IDX_AREA_MAX];
@@ -150,6 +152,16 @@ protected:
 
 	CString m_strLotID[InspectTypeMax];
 	int m_nBoxNo[InspectTypeMax];
+
+	CMariaDbClient m_MariaDB;
+//	struct SBubblewrapExportRow
+//	{
+//		CString bubble_wrap_sisd;
+//		double  width_mm = 0.0;
+//		double  length_mm = 0.0;
+//		CString desciption;
+//	};
+//	BOOL LoadBubblewrapExport(CMariaDbClient& db, std::vector<SBubblewrapExportRow>& outRows);คำ
 
 private:
 	CAPKView* m_pMainView;
@@ -217,7 +229,7 @@ public:
 	BOOL OCRMeasureInspection(CxGraphicObject* pGO, CxImageObject* pImgObj, VisionProcess::ChipOCRData& stTrayData, BOOL bSave = FALSE);
 
 	// Measure-Label(OCR)
-	BOOL OCRMeasureInspection(EImageBW8 SegmentImage, VisionProcess::LabelOCRData& LabelData, std::vector<READ_DATA_Label> &MasterData, CString strFontPatch, VisionProcess::SegmentReadingOption stReadingOption);
+	BOOL OCRMeasureInspection(EImageBW8 SegmentImage, VisionProcess::LabelOCRData& LabelData, std::vector<READ_DATA_LABEL> &MasterData, CString strFontPatch, VisionProcess::SegmentReadingOption stReadingOption);
 	void SetOCRResult(VisionProcess::stOCRResult stOCRData) {	m_pInspectVision->m_LabelReadingData = stOCRData;	}
 
 	void SaveTrayOcr();
@@ -237,6 +249,9 @@ public:
 	void OCRImagePreview_stacker(CxImageObject* pImgObj);
 	CString GetTraySID() const { return m_strTraySID; }
 	void SetTraySID(CString strRecipe) { m_strTraySID = strRecipe; }
+	CString GetTrayOcrData() const { return m_strTrayOcrData; }
+	void SetTrayOcrData(CString strRead) { m_strTrayOcrData = strRead; }
+	
 
 	BOOL Result_OK( int nViewIndex, InspectType inspecttype );
 	BOOL ResultOKNG_MMI( InspectType inspecttype, BOOL bOK );
@@ -247,8 +262,8 @@ public:
 	void SetErrorCode( int nVIewIndex, DWORD dwErrorCode )	{ m_dwErrorCode[nVIewIndex] |= dwErrorCode; }
 
 	// Label
-	std::vector<READ_DATA_Label>	GetLabelData()			{ return m_stLabelData;				}
-	std::vector<READ_DATA_Label>	GetLabelData_Manual()	{ return m_stLabelData_Manual;		}
+	std::vector<READ_DATA_LABEL>	GetLabelData()			{ return m_stLabelData;				}
+	std::vector<READ_DATA_LABEL>	GetLabelData_Manual()	{ return m_stLabelData_Manual;		}
 	CString							GetManualData_Path()	{ return strLabelData_Manual_Path;	}
 	void LoadLabelData_Manual( BOOL bReset, CString strPath = _T("") );
 
@@ -375,6 +390,7 @@ public:
 	void LightCtrlConnect();
 	void ServerOpen();
 	void ServerClose();
+	void MariaDBOpen();
 
 	BOOL CheckCamera(CameraType  nCamType);
 	BOOL CheckLedCtrl(LedCtrlType nCtrlType);

@@ -368,7 +368,7 @@ void TeachOCRFontTray::OCRSegmentReading(BOOL bSave /*=FALSE*/)
 
 	m_TrayData.clear();
 	m_TrayData = CVisionSystem::Instance()->GetTrayOCRData();
-	std::vector<READ_DATA_Label> MasterData; 
+	std::vector<READ_DATA_LABEL> MasterData; 
 	MasterData.clear();
 
 	CxGraphicObject& pGO = m_ImageViewForOcr.GetGraphicObject();
@@ -561,7 +561,7 @@ void TeachOCRFontTray::OnBnClickedFontteachBtnFontsave()
 	BW8Buff.SetSize(BW8SegmentImg.GetWidth(), BW8SegmentImg.GetHeight());
 	EasyImage::Oper(EArithmeticLogicOperation_Copy, &BW8SegmentImg, &BW8Buff);
 
-	std::vector<READ_DATA_Label> MasterData; MasterData.clear();
+	std::vector<READ_DATA_LABEL> MasterData; MasterData.clear();
 	VisionProcess::SegmentReadingOption stReadingOption; stReadingOption.clear();
 	//SetReadingOption(stReadingOption, TRUE);
 

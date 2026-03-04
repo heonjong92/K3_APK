@@ -44,6 +44,7 @@ CJobNumberData::CJobNumberData(void) :
 #elif RELEASE_3G
 	m_strJobNumberPathName[TEACH_TAB_IDX_DESICCANT_CUTTING] = GetExecuteDirectory() + _T("\\Data\\Recipe\\3G_Desiccant_Cutting\\JobNumber.ini");
 	m_strJobNumberPathName[TEACH_TAB_IDX_DESICCANT_MATERIAL] = GetExecuteDirectory() + _T("\\Data\\Recipe\\3G_Desiccant_Material\\JobNumber.ini");
+	m_strJobNumberPathName[TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY] = GetExecuteDirectory() + _T("\\Data\\Recipe\\3G_Desiccant_Material_Tray\\JobNumber.ini");
 
 	SetRecipeKind(DESICCANT_KIND, TEACH_TAB_IDX_DESICCANT_CUTTING);
 	SetRecipeKind(SUBMATERIAL_KIND, TEACH_TAB_IDX_DESICCANT_MATERIAL);

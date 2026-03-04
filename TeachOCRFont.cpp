@@ -628,7 +628,7 @@ void TeachOCRFont::OCRSegmentReading()
 	m_LabelData.clear();
 	m_LabelData.reLineArea = CRect(0, 0, BW8SegmentImg.GetWidth(), BW8SegmentImg.GetHeight());
 
-	std::vector<READ_DATA_Label> MasterData; MasterData.clear();
+	std::vector<READ_DATA_LABEL> MasterData; MasterData.clear();
 	VisionProcess::SegmentReadingOption stReadingOption; stReadingOption.clear();
 	SetReadingOption(stReadingOption, FALSE);
 
@@ -1218,7 +1218,7 @@ void TeachOCRFont::OnBnClickedFontteachBtnFontsave()
 	BW8Buff.SetSize(BW8SegmentImg.GetWidth(), BW8SegmentImg.GetHeight());
 	EasyImage::Oper( EArithmeticLogicOperation_Copy, &BW8SegmentImg, &BW8Buff);
 
-	std::vector<READ_DATA_Label> MasterData; MasterData.clear();
+	std::vector<READ_DATA_LABEL> MasterData; MasterData.clear();
 	VisionProcess::SegmentReadingOption stReadingOption; stReadingOption.clear();
 	SetReadingOption(stReadingOption, TRUE);
 

@@ -7,8 +7,8 @@
 // 버그 수정, 코드 리팩토링, UI 위치 조정 등 : x.x.*
 /////////////////////////////////////////////////////////////////
 
-#define VERSION_MAJOR 2
-#define VERSION_MINOR 9
+#define VERSION_MAJOR 3
+#define VERSION_MINOR 0
 #define VERSION_PATCH 1
 #define VERSION_BUILD 0
 
@@ -18,6 +18,23 @@
 #define FULL_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH) "." TOSTR(VERSION_BUILD)
 #define FILE_VERSION_STR TOSTR(VERSION_MAJOR) "." TOSTR(VERSION_MINOR) "." TOSTR(VERSION_PATCH)
 
+//=========================================================
+// v 3.0.1
+// 203 JobNumber Bug 수정
+// 전 그룹 Maria DB 추가.
+// 201S DEE에 결과 보고할 때, Reading한 Ocr Data도 같이 넘기기로.
+// 201 Chip Cnt X축 3번 찍을 때 Merge 안되던 버그 수정
+// READ_DATA_Label -> LABEL로 변경
+//=========================================================
+// v 3.0.0
+// Maria DB Test 완료. 아직 미적용.
+//=========================================================
+// v 2.9.3
+// Mixing Masking 추가
+// Teaching AfxMess 수정
+//=========================================================
+// v 2.9.2
+// CreateBuffer 수정
 //=========================================================
 // v 2.9.1
 // AfxMeesegeBox 언어 변환

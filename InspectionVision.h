@@ -309,6 +309,7 @@ public:
 	// SG
 	BOOL _Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pSrcImgObj, int nViewIndex, InspectType inspecttype, BOOL bManual = FALSE);
 	BOOL StackerOcr_ImageCut(CxImageObject* pSrcImgObj);
+	CString m_strStackerOcrReading;
 
 	// 2G
 	BOOL _Insp_Banding( CxGraphicObject* pGO, CxImageObject* pSrcImgObj, int nViewIndex, InspectType inspecttype );
@@ -336,10 +337,10 @@ public:
 	// Label
 	BOOL _Insp_Label( CxGraphicObject* pGO, CxImageObject* pSrcImgObj, int nViewIndex, InspectType inspecttype );
 	BOOL LabelInspect( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, int nViewIndex, CRect& rcLabelRect );
-	BOOL ReadCode( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<READ_DATA_Label> LabelData, BOOL& bReadingRet, BOOL& bCheckLotID, InspectType inspecttype );
-	BOOL InspeOCR( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, CRect rcLabelRect, std::vector<READ_DATA_Label> LabelData, BOOL bSegmentSave );
+	BOOL ReadCode( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<READ_DATA_LABEL> LabelData, BOOL& bReadingRet, BOOL& bCheckLotID, InspectType inspecttype );
+	BOOL InspeOCR( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, CRect rcLabelRect, std::vector<READ_DATA_LABEL> LabelData, BOOL bSegmentSave );
 
-	BOOL CheckCode( CxGraphicObject* pGO, CxImageObject& pImgObj, std::vector<READ_DATA_Label> LabelData, LabelCodeData& CodeData, InspectType inspecttype );
+	BOOL CheckCode( CxGraphicObject* pGO, CxImageObject& pImgObj, std::vector<READ_DATA_LABEL> LabelData, LabelCodeData& CodeData, InspectType inspecttype );
 	BOOL CheckString( LabelOCRData &stTargetData, CString strMaster );
 	BOOL CheckSimilarFont( CString strMaster, CString& strTarget );
 	BOOL ClearSpecialFont( CString strSrc, CString &strDst, std::vector<int> &DeletePos );
@@ -347,12 +348,12 @@ public:
 	void GetBarcodeArea( CxImageObject& pMaskingImgObj, CxGraphicObject* pGO, CRect& rcBarcode );
 	void BlobBarcodeLine( EImageBW8* pImageX, CRect rcBarcode, CxDPoint& dptBarcode );
 
-	BOOL ReadingSegment( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<CRect> reSegmentArea, std::vector<READ_DATA_Label> LabelData, CString strFontPatch, BOOL bSegmentSave );
+	BOOL ReadingSegment( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<CRect> reSegmentArea, std::vector<READ_DATA_LABEL> LabelData, CString strFontPatch, BOOL bSegmentSave );
 	BOOL CuttingSegment( CxGraphicObject* pGO, EROIBW8& BW8CuttingImg, CRect reSegmentArea, int nCutting );
-	BOOL EVisionOCRRead( EImageBW8 SegmentImage, LabelOCRData& LabelData, std::vector<READ_DATA_Label> &MasterData, CString strFontPatch, SegmentReadingOption stReadingOption );
+	BOOL EVisionOCRRead( EImageBW8 SegmentImage, LabelOCRData& LabelData, std::vector<READ_DATA_LABEL> &MasterData, CString strFontPatch, SegmentReadingOption stReadingOption );
 	BOOL EVisionOCRAddFont(EROIBW8 SegmentImage, EOCR *OCRFont, CString strFontPatch, BOOL bUseAdaptiveThreshold = FALSE);
 
-	BOOL CreateLabelData( std::vector<READ_DATA_Label> &LabelData);	
+	BOOL CreateLabelData( std::vector<READ_DATA_LABEL> &LabelData);	
 
 	BOOL MaskingArea_Black(EROIBW8 eRoiImage, CRect rcRect, int nGv );
 	BOOL MaskingArea( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, CRect rcRect );

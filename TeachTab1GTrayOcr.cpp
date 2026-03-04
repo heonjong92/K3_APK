@@ -937,8 +937,8 @@ void CTeachTab1GTrayOcr::OnBnClickedBtnRoiTrayocr()
 
 		m_btnROI.EnableWindow(TRUE);
 
-		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("OCR 검사 영역을 지정하세요."), MB_ICONERROR);
-		else												AfxMessageBox(_T("Please specify the OCR inspection area."), MB_ICONERROR);
+		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("OCR 검사 영역을 지정하세요."));
+		else												AfxMessageBox(_T("Please specify the OCR inspection area."));
 
 		m_pMainView->SetTrackerMode(TRUE, IDX_AREA1, _OnConfirmTracker, this);
 	}

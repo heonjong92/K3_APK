@@ -265,7 +265,6 @@ void CAddNewRecipeDlg::OnBnClickedOk()
 
 #elif RELEASE_3G
 			if (strKind == DESICCANT_KIND)				pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_DESICCANT_MATERIAL);
-			if (strKind == SUBMATERIAL_KIND)			pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY); // Ãß°¡
 
 #elif RELEASE_4G
 			if (strKind == LABEL_KIND)					pInspectionVision->Save(m_strNewRecipeName, TEACH_TAB_IDX_LABEL);

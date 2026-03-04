@@ -841,10 +841,10 @@ void CTeachTab3GDesiccantCutting::OnConfirmTracker(CRect& rcTrackRegion, UINT nV
 
 	Cleanup();
 
+	UpdateData(FALSE);
+
 	if (bRet)
 		Save();
-
-	UpdateData(FALSE);
 }
 
 void CTeachTab3GDesiccantCutting::OnBnClickedBtnRoiDesiccantCuttingLeft()

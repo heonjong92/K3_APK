@@ -2850,50 +2850,99 @@ BOOL CModelInfo::Save_JobNumber(eTeachTabIndex TabIndex)
 	switch (TabIndex)
 	{
 #ifdef RELEASE_1G
-	case TEACH_TAB_IDX_TRAYOCR:						strJobNumber = GetRecipeRootPath() + _T("1G_TrayOcr\\");						break;
-	case TEACH_TAB_IDX_3DCHIPCNT:					strJobNumber = GetRecipeRootPath() + _T("1G_3DChipCnt\\");						break;
-	case TEACH_TAB_IDX_CHIPOCR:						strJobNumber = GetRecipeRootPath() + _T("1G_ChipOcr\\");						break;
-	case TEACH_TAB_IDX_CHIP:						strJobNumber = GetRecipeRootPath() + _T("1G_Chip\\");							break;
-	case TEACH_TAB_IDX_MIXING:						strJobNumber = GetRecipeRootPath() + _T("1G_Mixing\\");							break;
-	case TEACH_TAB_IDX_LIFTINFO:					strJobNumber = GetRecipeRootPath() + _T("1G_Lift\\");							break;
+	case TEACH_TAB_IDX_TRAYOCR:                     strJobNumber = GetRecipeRootPath() + _T("1G_TrayOcr\\");                       break;
+	case TEACH_TAB_IDX_3DCHIPCNT:                   strJobNumber = GetRecipeRootPath() + _T("1G_3DChipCnt\\");                     break;
+	case TEACH_TAB_IDX_CHIPOCR:                     strJobNumber = GetRecipeRootPath() + _T("1G_ChipOcr\\");                       break;
+	case TEACH_TAB_IDX_CHIP:                        strJobNumber = GetRecipeRootPath() + _T("1G_Chip\\");                          break;
+	case TEACH_TAB_IDX_MIXING:                      strJobNumber = GetRecipeRootPath() + _T("1G_Mixing\\");                        break;
+	case TEACH_TAB_IDX_LIFTINFO:                    strJobNumber = GetRecipeRootPath() + _T("1G_Lift\\");                          break;
 
 #elif RELEASE_SG
-	case TEACH_TAB_IDX_STACKER_OCR:					strJobNumber = GetRecipeRootPath() + _T("SG_StackerOcr\\");						break;
+	case TEACH_TAB_IDX_STACKER_OCR:                 strJobNumber = GetRecipeRootPath() + _T("SG_StackerOcr\\");                     break;
 
 #elif RELEASE_2G
-	case TEACH_TAB_IDX_BANDING:						strJobNumber = GetRecipeRootPath() + _T("2G_Banding\\");						break;
-	case TEACH_TAB_IDX_HIC:							strJobNumber = GetRecipeRootPath() + _T("2G_HIC\\");							break;
+	case TEACH_TAB_IDX_BANDING:                     strJobNumber = GetRecipeRootPath() + _T("2G_Banding\\");                        break;
+	case TEACH_TAB_IDX_HIC:                         strJobNumber = GetRecipeRootPath() + _T("2G_HIC\\");                            break;
 
 #elif RELEASE_3G
-	case TEACH_TAB_IDX_DESICCANT_CUTTING:			strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Cutting\\");				break;
-	case TEACH_TAB_IDX_DESICCANT_MATERIAL:			strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material\\");				break;
-	case TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY: 	strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material_Tray\\");		break;
+	case TEACH_TAB_IDX_DESICCANT_CUTTING:           strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Cutting\\");              break;
+	case TEACH_TAB_IDX_DESICCANT_MATERIAL:          strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material\\");             break;
+	case TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY:     strJobNumber = GetRecipeRootPath() + _T("3G_Desiccant_Material_Tray\\");        break;
 
 #elif RELEASE_4G
-	case TEACH_TAB_IDX_MBB:							strJobNumber = GetRecipeRootPath() + _T("4G_MBB\\");							break;
-	case TEACH_TAB_IDX_LABEL:						strJobNumber = GetRecipeRootPath() + _T("Label\\");								break;
+	case TEACH_TAB_IDX_MBB:                         strJobNumber = GetRecipeRootPath() + _T("4G_MBB\\");                            break;
+	case TEACH_TAB_IDX_LABEL:                       strJobNumber = GetRecipeRootPath() + _T("Label\\");                             break;
 
 #elif RELEASE_5G
-	case TEACH_TAB_IDX_BOX:							strJobNumber = GetRecipeRootPath() + _T("5G_Box\\");							break;
-	case TEACH_TAB_IDX_SEALING:						strJobNumber = GetRecipeRootPath() + _T("5G_Sealing\\");						break;
+	case TEACH_TAB_IDX_BOX:                         strJobNumber = GetRecipeRootPath() + _T("5G_Box\\");                            break;
+	case TEACH_TAB_IDX_SEALING:                     strJobNumber = GetRecipeRootPath() + _T("5G_Sealing\\");                        break;
 
 #elif RELEASE_6G
-	case TEACH_TAB_IDX_LABEL:						strJobNumber = GetRecipeRootPath() + _T("Label\\");								break;
-	case TEACH_TAB_IDX_TAPE:						strJobNumber = GetRecipeRootPath() + _T("6G_Tape\\");							break;
+	case TEACH_TAB_IDX_LABEL:                       strJobNumber = GetRecipeRootPath() + _T("Label\\");                             break;
+	case TEACH_TAB_IDX_TAPE:                        strJobNumber = GetRecipeRootPath() + _T("6G_Tape\\");                           break;
 #endif
-
 	default:
 		break;
 	}
 
-	if (strJobNumber != _T(""))
+	if (strJobNumber.IsEmpty())
+		return FALSE;
+
+	CString strBatPath = strJobNumber + _T("_Make_JobNumber.bat");
+
+	// bat 파일 존재 확인
+	if (GetFileAttributes(strBatPath) == INVALID_FILE_ATTRIBUTES)
 	{
-		CString strName = strJobNumber + _T("_Make_JobNumber.bat");
-		ShellExecute(NULL, _T("open"), strName, NULL, NULL, SW_SHOW);
+		WRITE_LOG(WL_ERROR, _T("Save_JobNumber: bat not found (%s)"), strBatPath);
+		return FALSE;
 	}
+
+	// ====== 여기서부터 핵심: cmd /c로 실행 + 끝날때까지 대기 ======
+	CString strCmdLine;
+	// 공백 경로 대응 위해 따옴표 2중
+	strCmdLine.Format(_T("cmd.exe /c \"\"%s\"\""), strBatPath);
+
+	STARTUPINFO si;
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	si.dwFlags = STARTF_USESHOWWINDOW;
+	si.wShowWindow = SW_HIDE; // 콘솔창 숨김 (원하면 SW_SHOW)
+
+	PROCESS_INFORMATION pi;
+	ZeroMemory(&pi, sizeof(pi));
+
+	// CreateProcess는 수정 가능한 버퍼 필요
+	TCHAR szCmd[2048] = { 0 };
+	_tcsncpy_s(szCmd, (LPCTSTR)strCmdLine, _TRUNCATE);
+
+	BOOL bOK = CreateProcess( NULL, szCmd, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+
+	if (!bOK)
+	{
+		DWORD dwErr = GetLastError();
+		WRITE_LOG(WL_ERROR, _T("Save_JobNumber: CreateProcess failed (%lu), cmd=%s"), dwErr, strCmdLine);
+		return FALSE;
+	}
+
+	// bat 종료까지 대기
+	WaitForSingleObject(pi.hProcess, INFINITE);
+
+	DWORD dwExitCode = 0;
+	GetExitCodeProcess(pi.hProcess, &dwExitCode);
+
+	CloseHandle(pi.hThread);
+	CloseHandle(pi.hProcess);
+
+	if (dwExitCode != 0)
+	{
+		WRITE_LOG(WL_ERROR, _T("Save_JobNumber: bat exit code=%lu"), dwExitCode);
+		// 필요하면 FALSE 반환해도 됨
+	}
+	// ============================================================
 
 	return TRUE;
 }
+
 void CModelInfo::Delete( LPCTSTR lpszModelName )
 {
 	CString strRecipePath = GetRecipePath(m_strModelName);

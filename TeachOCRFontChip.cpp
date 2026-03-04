@@ -370,7 +370,7 @@ void TeachOCRFontChip::OCRSegmentReading(BOOL bSave /*=FALSE*/)
 
 	m_ChipData.clear();
 	m_ChipData = CVisionSystem::Instance()->GetChipOCRData();
-	std::vector<READ_DATA_Label> MasterData;
+	std::vector<READ_DATA_LABEL> MasterData;
 	MasterData.clear();
 
 	CxGraphicObject& pGO = m_ImageViewForOcr.GetGraphicObject();
@@ -570,7 +570,7 @@ void TeachOCRFontChip::OnBnClickedFontteachBtnFontsave()
 	BW8Buff.SetSize(BW8SegmentImg.GetWidth(), BW8SegmentImg.GetHeight());
 	EasyImage::Oper(EArithmeticLogicOperation_Copy, &BW8SegmentImg, &BW8Buff);
 
-	std::vector<READ_DATA_Label> MasterData; MasterData.clear();
+	std::vector<READ_DATA_LABEL> MasterData; MasterData.clear();
 	VisionProcess::SegmentReadingOption stReadingOption; stReadingOption.clear();
 	//SetReadingOption(stReadingOption, TRUE);
 

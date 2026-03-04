@@ -303,6 +303,9 @@
     <ClInclude Include="TeachThresholdPreview.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MariaDbClient.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="APK.cpp">
@@ -561,6 +564,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TeachThresholdPreview.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MariaDbClient.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

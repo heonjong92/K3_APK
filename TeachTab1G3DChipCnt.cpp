@@ -721,7 +721,7 @@ void CTeachTab1G3DChipCnt::OnBnClickedBtnRoi3dchipcntFirst()
 		strDescription = _T("Please select the area of the chip in the upper left of the tray.");
 
 	if(m_bIsTeachFirst)	
-		AfxMessageBox(strDescription, MB_ICONINFORMATION);
+		AfxMessageBox(strDescription);
 
 	m_pMainView->ResetGraphic(CamTypeAreaScan, IDX_AREA3);
 

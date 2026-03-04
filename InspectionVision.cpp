@@ -1544,6 +1544,8 @@ BOOL CInspectionVision::StackerOcr_ImageCut(CxImageObject* pSrcImgObj)
 BOOL CInspectionVision::_Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pSrcImgObj, int nViewIndex, InspectType inspecttype, BOOL bManual)
 {
 	WRITE_LOG(WL_MSG, _T("In - _Insp_TrayOcr()"));
+
+	m_strStackerOcrReading = _T("");
 	
 	if( pSrcImgObj->GetWidth() != CSystemConfig::Instance()->GetImageCut() )
 		StackerOcr_ImageCut(pSrcImgObj);
@@ -1578,6 +1580,7 @@ BOOL CInspectionVision::_Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pS
 	CFileFind ff;
 	BOOL bFind = ff.FindFile(strFilter);
 	CVisionSystem::Instance()->SetTraySID(_T(""));
+	CVisionSystem::Instance()->SetTrayOcrData(_T(""));
 
 	BOOL bRotate = FALSE;
 	// Recipe 순회
@@ -1618,6 +1621,8 @@ BOOL CInspectionVision::_Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pS
 			if (EVisionOCR_StackerOCR(pGO, pSrcImgObj, nViewIndex, stTrayData, stStacker)) // OCR 결과 OK이면 break
 			{
 				CVisionSystem::Instance()->SetTraySID(strRecipeName);
+				CVisionSystem::Instance()->SetTrayOcrData(m_strStackerOcrReading);
+				
 				bOcrResult = TRUE;
 				break;
 			}
@@ -1637,6 +1642,7 @@ BOOL CInspectionVision::_Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pS
 	{
 		bFind = ff.FindFile(strFilter);
 		CVisionSystem::Instance()->SetTraySID(_T(""));
+		CVisionSystem::Instance()->SetTrayOcrData(_T(""));
 		while (bFind)
 		{
 			bFind = ff.FindNextFile();
@@ -1664,6 +1670,8 @@ BOOL CInspectionVision::_Insp_StackerOcr(CxGraphicObject* pGO, CxImageObject* pS
 				if (EVisionOCR_StackerOCR(pGO, pSrcImgObj, nViewIndex, stTrayData, stStacker)) // OCR 결과 OK이면 break
 				{
 					CVisionSystem::Instance()->SetTraySID(strRecipeName);
+					CVisionSystem::Instance()->SetTrayOcrData(m_strStackerOcrReading);
+
 					bOcrResult = TRUE;
 					break;
 				}
@@ -2416,7 +2424,7 @@ BOOL CInspectionVision::_Insp_Label( CxGraphicObject* pGO, CxImageObject* pSrcIm
 	if( CVisionSystem::Instance()->GetRunStatus() == RunStatusStop && stLabelInfo.bLabelManualInsp ) bManualInsp_UseZPLData = TRUE;
 
 	// ----- Inspection Data Check -----
-	std::vector<READ_DATA_Label> LabelReciveData;
+	std::vector<READ_DATA_LABEL> LabelReciveData;
 	LabelReciveData.clear();		
 	if(CVisionSystem::Instance()->GetRunStatus() == RunStatusAutoRun)	LabelReciveData = CVisionSystem::Instance()->GetLabelData();
 	else if(bManualInsp_UseZPLData)										LabelReciveData = CVisionSystem::Instance()->GetLabelData_Manual();
@@ -2718,14 +2726,14 @@ BOOL CInspectionVision::LabelInspect( CxGraphicObject* pGO, CxImageObject& pMask
 		clrBox.CreateObject( PDC_LIGHTGREEN, reBuff, PS_SOLID, 1 );
 		pGO->AddDrawBox( clrBox );
 
-//		strErrorCode = _T("Label Print Edge Line : NG");
-//		if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
-//		{
-//			clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
-//			pGO->AddDrawBox( clrBox );
-//		
-//			throw strErrorCode;
-//		}
+		strErrorCode = _T("Label Print Edge Line : NG");
+		if( !BuildUsingEasyObject_ForLabelEdge( pGO, &LabelAreaImgObj, reBuff, OBJ_BLACK, nLabel_EdgeThreshold ) ) 
+		{
+			clrBox.CreateObject( PDC_LIGHTRED, reAreaBuff, PS_DASH, 3 );
+			pGO->AddDrawBox( clrBox );
+		
+			throw strErrorCode;
+		}
 	}
 	catch ( CString strErrorCode )
 	{
@@ -3635,7 +3643,11 @@ BOOL CInspectionVision::MergeImage(CString strPath, BOOL bXMerge)
 	CModelInfo::stChip& stChip = CModelInfo::Instance()->GetChip();
 
 	int nGrabCntX = stChip.nMatrix_X / stChip.nChipFovCnt_X;
+	if (stChip.nMatrix_X % stChip.nChipFovCnt_X != 0) nGrabCntX += 1;
+
 	int nGrabCntY = stChip.nMatrix_Y / stChip.nChipFovCnt_Y;
+	if (stChip.nMatrix_Y % stChip.nChipFovCnt_Y != 0) nGrabCntY += 1;
+
 	int nTotalCount = nGrabCntX * nGrabCntY;
 
 	int nImgW = 4000;
@@ -4561,6 +4573,9 @@ BOOL CInspectionVision::EVisionOCR_StackerOCR(CxGraphicObject* pGO, CxImageObjec
 			if (strResult == strOcrInfo)
 				bResult = TRUE;
 		}
+
+		if (bResult)
+			m_strStackerOcrReading = strResult;
 
 		pImgObj2.Destroy();
 		return bResult;
@@ -6520,10 +6535,13 @@ BOOL CInspectionVision::MatchModel_Mixing(CxGraphicObject* pGO, CxImageObject *p
 	BOOL bArrMixing[nMATCH_MAX];
 	std::fill(bArrMixing, bArrMixing + nMATCH_MAX, TRUE);
 
+	CxImageObject pClone;
+	pClone.Clone(pImgObj);
+
 	try
 	{
 		EImageBW8 eImageX;
-		eImageX.SetImagePtr(nPageSizeX, nPageSizeY, pImgObj->GetImageBuffer(), pImgObj->GetWidthBytes() * 8);
+		eImageX.SetImagePtr(nPageSizeX, nPageSizeY, pClone.GetImageBuffer(), pClone.GetWidthBytes() * 8);
 
 		if (&eImageX == NULL) return FALSE;
 
@@ -6754,6 +6772,8 @@ BOOL CInspectionVision::MatchModel_Mixing(CxGraphicObject* pGO, CxImageObject *p
 					clrText.SetText(_T("[%.2f]"), eMatchPos.Score * 100.0);
 					clrText.CreateObject(PDC_GREEN, rcPattern.CenterPoint().x, rcPattern.top, 20, TRUE, CxGOText::TextAlignmentCenter);
 					pGO->AddDrawText(clrText);
+					
+					MaskingArea(pGO, pClone, rcPattern);
 				}
 			}
 
@@ -6761,14 +6781,20 @@ BOOL CInspectionVision::MatchModel_Mixing(CxGraphicObject* pGO, CxImageObject *p
 			pGO->AddDrawBox(clrBox);
 		}
 
+		pClone.Destroy();
+
 		return bResult;
 	}
 	catch (EException& e)
 	{
+		pClone.Destroy();
+
 		return DisplayEException(pGO, e);
 	}
 	catch (CString& e)
 	{
+		pClone.Destroy();
+
 		clrText.SetText(e);
 		clrText.CreateObject(PDC_RED, DEF_FONT_BASIC_POSI, nDrawTextPosY, nDrawTextSize * 2, TRUE);
 		pGO->AddDrawText(clrText);
@@ -8132,19 +8158,19 @@ BOOL CInspectionVision::MaskingArea( EImageBW8& pSrc, EImageBW8& pMaskingImgObj,
 	return TRUE;
 }
 
-BOOL CInspectionVision::CreateLabelData( std::vector<READ_DATA_Label> &LabelData )
+BOOL CInspectionVision::CreateLabelData( std::vector<READ_DATA_LABEL> &LabelData )
 {
 	if( LabelData.empty() ) return FALSE;
 
-	std::vector<READ_DATA_Label> DataBuff;
+	std::vector<READ_DATA_LABEL> DataBuff;
 	DataBuff.clear();
 
 	// ----- No Segment Data Clear -----
 	for( int nIndex = 0; nIndex < (int)LabelData.size(); nIndex++ )
 	{
-		if((LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::TEXT_SEGMENT			||
-			LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_SEGMENT		||
-			LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_TEXT_SEGMENT)&&
+		if((LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::TEXT_SEGMENT			||
+			LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_SEGMENT		||
+			LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_TEXT_SEGMENT)&&
 			LabelData.at(nIndex).strString != _T("")											)
 			DataBuff.push_back(LabelData.at(nIndex));
 	}
@@ -8175,10 +8201,10 @@ BOOL CInspectionVision::CreateLabelData( std::vector<READ_DATA_Label> &LabelData
 
 		if( 1 < (int)CodePosBuff.size() )
 		{		
-			READ_DATA_Label CreateCodeData;
+			READ_DATA_LABEL CreateCodeData;
 			CreateCodeData.clear();
 
-			CreateCodeData.DataType = READ_DATA_Label::TEXT_SEGMENT;
+			CreateCodeData.DataType = READ_DATA_LABEL::TEXT_SEGMENT;
 			for( int nCheck = 0; nCheck < (int)CodePosBuff.size(); nCheck++ )
 			{
 				CheckNumber.at(CodePosBuff.at(nCheck)) = -1;
@@ -8205,7 +8231,7 @@ BOOL CInspectionVision::CreateLabelData( std::vector<READ_DATA_Label> &LabelData
 	return TRUE;
 }
 
-BOOL CInspectionVision::InspeOCR( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, CRect rcLabelRect, std::vector<READ_DATA_Label> LabelData, BOOL bSegmentSave )
+BOOL CInspectionVision::InspeOCR( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, CRect rcLabelRect, std::vector<READ_DATA_LABEL> LabelData, BOOL bSegmentSave )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
 		return FALSE;
@@ -8272,7 +8298,7 @@ BOOL CInspectionVision::InspeOCR( CxGraphicObject* pGO, CxImageObject& pMaskingI
 	return TRUE;
 }
 
-BOOL CInspectionVision::ReadingSegment( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<CRect> reSegmentArea, std::vector<READ_DATA_Label> LabelData, CString strFontPatch, BOOL bSegmentSave )
+BOOL CInspectionVision::ReadingSegment( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<CRect> reSegmentArea, std::vector<READ_DATA_LABEL> LabelData, CString strFontPatch, BOOL bSegmentSave )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
 		return FALSE;
@@ -8281,12 +8307,12 @@ BOOL CInspectionVision::ReadingSegment( CxGraphicObject* pGO, CxImageObject& pMa
 	m_LabelOCRData.clear();
 
 	// ----- Check Segment Data -----
-	std::vector<READ_DATA_Label> MasterData;
+	std::vector<READ_DATA_LABEL> MasterData;
 	MasterData.clear();
 	for( int nIndex = 0; nIndex < (int)LabelData.size(); nIndex++ )
 	{
-		if((LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::TEXT_SEGMENT				||
-			LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_TEXT_SEGMENT		)&&
+		if((LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::TEXT_SEGMENT				||
+			LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_TEXT_SEGMENT		)&&
 			LabelData.at(nIndex).strString != _T("")												)
 			MasterData.push_back(LabelData.at(nIndex));	
 	}
@@ -8932,7 +8958,7 @@ BOOL CInspectionVision::CuttingSegment( CxGraphicObject* pGO, EROIBW8& BW8Cuttin
 	return TRUE;
 }
 
-BOOL CInspectionVision::EVisionOCRRead( EImageBW8 SegmentImage, LabelOCRData& LabelData, std::vector<READ_DATA_Label> &MasterData, CString strFontPatch, SegmentReadingOption stReadingOption )
+BOOL CInspectionVision::EVisionOCRRead( EImageBW8 SegmentImage, LabelOCRData& LabelData, std::vector<READ_DATA_LABEL> &MasterData, CString strFontPatch, SegmentReadingOption stReadingOption )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
 		return FALSE;
@@ -9500,7 +9526,7 @@ BOOL CInspectionVision::LargeCharacterFont( LabelOCRData &stTargetData, CString 
 	return TRUE;
 }
 
-BOOL CInspectionVision::ReadCode( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<READ_DATA_Label> LabelData, BOOL& bReadingRet, BOOL& bCheckLotID, InspectType inspecttype  )
+BOOL CInspectionVision::ReadCode( CxGraphicObject* pGO, CxImageObject& pMaskingImgObj, std::vector<READ_DATA_LABEL> LabelData, BOOL& bReadingRet, BOOL& bCheckLotID, InspectType inspecttype  )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
 		return FALSE;
@@ -9515,8 +9541,8 @@ BOOL CInspectionVision::ReadCode( CxGraphicObject* pGO, CxImageObject& pMaskingI
 	int nQRDataCnt = 0;
 	for( int nIndex = 0; nIndex < (int)LabelData.size(); nIndex++ )
 	{
-		if( LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_SEGMENT		||
-			LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_TEXT_SEGMENT	)
+		if( LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_SEGMENT		||
+			LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_TEXT_SEGMENT	)
 		{
 			CString strQA = _T("QA");
 
@@ -9811,7 +9837,7 @@ void CInspectionVision::BlobBarcodeLine(EImageBW8* pImageX, CRect rcBarcode, CxD
 	eRoi.Detach();
 }
 
-BOOL CInspectionVision::CheckCode( CxGraphicObject* pGO, CxImageObject& pImgObj, std::vector<READ_DATA_Label> LabelData, LabelCodeData& CodeData, InspectType inspecttype )
+BOOL CInspectionVision::CheckCode( CxGraphicObject* pGO, CxImageObject& pImgObj, std::vector<READ_DATA_LABEL> LabelData, LabelCodeData& CodeData, InspectType inspecttype )
 {
 	if( CVisionSystem::Instance()->GetValidEvisionDongle() != TRUE )
 		return FALSE;
@@ -9820,12 +9846,12 @@ BOOL CInspectionVision::CheckCode( CxGraphicObject* pGO, CxImageObject& pImgObj,
 	COLORTEXT clrText;
 
 	// ----- Check BarCode Data -----
-	std::vector<READ_DATA_Label> MasterCode;
+	std::vector<READ_DATA_LABEL> MasterCode;
 	MasterCode.clear();
 	for( int nIndex = 0; nIndex < (int)LabelData.size(); nIndex++ )
 	{
-		if( LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_SEGMENT		||
-			LabelData.at(nIndex).DataType == READ_DATA_Label::SegmentType::BARCODE_TEXT_SEGMENT	)
+		if( LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_SEGMENT		||
+			LabelData.at(nIndex).DataType == READ_DATA_LABEL::SegmentType::BARCODE_TEXT_SEGMENT	)
 		{
 			CString strBuff = LabelData.at(nIndex).strCode;
 			if(strBuff.Find(_T("^B7")) == -1) //PDF417

@@ -806,7 +806,7 @@ void CTeachTab1GChipOcr::OnBnClickedBtnRoiChipocrOcrarea()
 	if (m_ChipOcr.rcInspInside.IsRectEmpty())
 	{
 		if (CLanguageInfo::Instance()->m_nLangType == 0)	AfxMessageBox(_T("Chip Inside Align 모델 티칭을 먼저 진행해주세요."), MB_ICONERROR);
-		else												AfxMessageBox(_T("Please perform the teaching of the Chip Inside Align model first."));
+		else												AfxMessageBox(_T("Please perform the teaching of the Chip Inside Align model first."), MB_ICONERROR);
 		
 		m_bIsOcrROI = FALSE;
 		m_btnOcrROI.SetCheck(BST_UNCHECKED);

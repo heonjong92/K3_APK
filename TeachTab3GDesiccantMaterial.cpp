@@ -254,6 +254,8 @@ BOOL CTeachTab3GDesiccantMaterial::OnInitDialog()
 	m_toolTip.Activate(TRUE);
 	
 	UpdateRecipeList();
+	UpdateTrayRecipeList();
+
 	UpdateUI();
 	UpdateLanguage();
 
@@ -454,11 +456,14 @@ void CTeachTab3GDesiccantMaterial::CheckData()
 void CTeachTab3GDesiccantMaterial::Refresh()
 {
 	UpdateRecipeList();
+	UpdateTrayRecipeList();
+
 	CString strMaterialModelName = CModelInfo::Instance()->GetModelNameDesiccantMaterial();
+	CString strMaterialModelNameTray = CModelInfo::Instance()->GetModelNameDesiccantMaterialTray();
 
 	VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
 	pInspectionVision->Load(strMaterialModelName, SUBMATERIAL_KIND);
-	pInspectionVision->Load(CModelInfo::Instance()->GetModelNameDesiccantMaterialTray(), SUBMATERIALTRAY_KIND);
+	pInspectionVision->Load(strMaterialModelNameTray, SUBMATERIALTRAY_KIND);
 
 	CModelInfo::stDesiccantMaterialInfo& DesiccantMaterialInfo = CModelInfo::Instance()->GetDesiccantMaterialInfo();
 	m_DesiccantMaterialInfo = DesiccantMaterialInfo;
@@ -659,13 +664,12 @@ void CTeachTab3GDesiccantMaterial::OnConfirmTracker( CRect& rcTrackRegion, UINT 
 	}
 
 	Cleanup();
-
-	if( bRet )
-		Save();
 	
 	UpdateUI();
 	UpdateData(FALSE);
 
+	if (bRet)
+		Save();
 #endif
 }
 
@@ -890,7 +894,7 @@ void CTeachTab3GDesiccantMaterial::OnCbnSelchangeComboRecipeMaterialTray()
 	{
 		CAddNewRecipeDlg NewRecipeDlg;
 		NewRecipeDlg.SetRecipeKind(SUBMATERIALTRAY_KIND);
-		NewRecipeDlg.SetTeachTab(TEACH_TAB_IDX_DESICCANT_MATERIAL);
+		NewRecipeDlg.SetTeachTab(TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY);
 
 		if (NewRecipeDlg.DoModal() == IDOK)
 		{
@@ -1053,17 +1057,14 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnSave()
 	}
 
 	// Tray Info
-	strModelName = CModelInfo::Instance()->GetModelNameDesiccantMaterialTray();
-	m_wndSelectTrayRecipe.GetLBText(m_nSelectTrayRecipeIndex, strSelectModelName);
+	CString strModelNameTray = CModelInfo::Instance()->GetModelNameDesiccantMaterialTray();
+	CString strSelectModelNameTray;
+	m_wndSelectTrayRecipe.GetLBText(m_nSelectTrayRecipeIndex, strSelectModelNameTray);
 
-	if (strSelectModelName != strModelName)
+	if (strSelectModelNameTray != strModelNameTray)
 	{
 		m_btnSave.SetWindowText(_T("Save"));
-		if (CModelInfo::Instance()->Load(strSelectModelName, SUBMATERIALTRAY_KIND))
-		{
-			VisionProcess::CInspectionVision* pInspectionVision = CVisionSystem::Instance()->GetInspectVisionModule();
-			pInspectionVision->Load(strSelectModelName, SUBMATERIALTRAY_KIND);
-		}
+		CModelInfo::Instance()->Load(strSelectModelNameTray, SUBMATERIALTRAY_KIND);
 
 		Refresh();
 		DisableWnd(TRUE);
@@ -1137,7 +1138,7 @@ void CTeachTab3GDesiccantMaterial::OnBnClickedBtnMaterialRecipeNoTray()
 	}
 
 	CEditJobNumberDlg EditJobNumberDlg(this);
-	EditJobNumberDlg.SetRecipeKind(SUBMATERIALTRAY_KIND, TEACH_TAB_IDX_DESICCANT_MATERIAL);
+	EditJobNumberDlg.SetRecipeKind(SUBMATERIALTRAY_KIND, TEACH_TAB_IDX_DESICCANT_MATERIAL_TRAY);
 	EditJobNumberDlg.SetTitleName(_T("Recipe No : 3G DESICCANT MATERIAL TRAY"));
 
 	if (EditJobNumberDlg.DoModal() == IDOK)

@@ -1169,7 +1169,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1184,8 +1184,8 @@
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1201,7 +1201,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_SG|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1216,8 +1216,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1233,7 +1233,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_6G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1248,8 +1248,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1265,7 +1265,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_5G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1281,8 +1281,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1298,7 +1298,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_4G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1313,8 +1313,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1330,7 +1330,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_3G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1345,8 +1345,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1362,7 +1362,7 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_2G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
@@ -1377,8 +1377,8 @@ copy ..\thirdparty\Mil\Bin\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Debug;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilud.lib;XGraphicud.lib;XImageud.lib;XImageViewud.lib;MechEyeApid.lib;opencv_world455d.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1429,7 +1429,7 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1442,14 +1442,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_SG|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1462,14 +1462,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_6G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1482,14 +1482,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_5G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1502,14 +1502,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_4G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1522,14 +1522,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_3G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1542,14 +1542,14 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/CrashRpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_2G|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Libraries/Include;../thirdparty/CrashRpt2/Include;../thirdparty/OpenEvision2_11/Include;../thirdparty/OMRON_SENTECH/Include/StApi;../thirdparty/OMRON_SENTECH/Include/GenICam;../thirdparty/Mech_Eye_2_4_0/Include;../thirdparty/OpenCV_4_5_5/Include;../thirdparty/PanSight/Include;../thirdparty/CodeDecoder/Include;../thirdparty/MariaDB/include/mysql</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1562,8 +1562,8 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/crashrpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libraries/Lib/vc15/x64;../thirdparty/crashrpt2/Lib;../thirdparty/OMRON_SENTECH/lib/x64;../thirdparty/Mech_Eye_2_4_0/lib;../thirdparty/OpenCV_4_5_5/lib;../thirdparty/PanSight/lib/Release;../thirdparty/CodeDecoder/Lib/x64;../thirdparty/MariaDB/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XUtilu.lib;XGraphicu.lib;XImageu.lib;XImageViewu.lib;CrashRpt1500.lib;MechEyeApi.lib;opencv_world455.lib;SgCamWrapper.lib;libmariadb.lib</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
     <PostBuildEvent>
@@ -1629,6 +1629,7 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
     <ClInclude Include="LanguageInfo.h" />
     <ClInclude Include="LightInfo.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MariaDbClient.h" />
     <ClInclude Include="MenuBar.h" />
     <ClInclude Include="ModelInfo.h" />
     <ClInclude Include="Resource.h" />
@@ -1723,6 +1724,7 @@ copy ..\thirdparty\Multicam\Bin\x64\*.* ..\Bin\x64\</Command>
     <ClCompile Include="LanguageInfo.cpp" />
     <ClCompile Include="LightInfo.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MariaDbClient.cpp" />
     <ClCompile Include="MenuBar.cpp" />
     <ClCompile Include="ModelInfo.cpp" />
     <ClCompile Include="ShowErrorDlg.cpp" />

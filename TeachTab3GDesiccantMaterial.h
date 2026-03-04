@@ -118,10 +118,10 @@ public:
 	afx_msg void OnBnClickedBtnSubmaterialTechModel();
 	afx_msg void OnBnClickedBtnTestSubmaterial();
 	afx_msg void OnCbnSelchangeComboRecipe();
+	afx_msg void OnCbnSelchangeComboRecipeMaterialTray();
 	afx_msg void OnBnClickedBtnSave();
 	afx_msg void OnBnClickedBtnMaterialRecipeNo();
 	afx_msg void OnBnClickedBtnSubmaterialTeachTraymodel();
-	afx_msg void OnCbnSelchangeComboRecipeMaterialTray();
 	afx_msg void OnBnClickedBtnMaterialRecipeNoTray();
 	afx_msg void OnBnClickedRadioTeachingSubmaterialTray();
 	afx_msg void OnBnClickedBtnTestSubmaterialTray();
