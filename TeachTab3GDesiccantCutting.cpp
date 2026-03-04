@@ -1165,7 +1165,7 @@ void CTeachTab3GDesiccantCutting::OnLButtonDblClk(UINT nFlags, CPoint point)
 			if (point.x < nLeftAreaEndX) // Left
 			{
 				CString strPdfPath;
-				strPdfPath.Format(_T("%s\\Manual\\HA-1154 Manual_260205.pdf"), GetExecuteDirectory());
+				strPdfPath.Format(_T("%s\\Manual\\HA-1154 Manual_260304.pdf"), GetExecuteDirectory());
 
 				// 1. 역슬래시(\)를 슬래시(/)로 변환 (브라우저 인식용)
 				strPdfPath.Replace(_T('\\'), _T('/'));
